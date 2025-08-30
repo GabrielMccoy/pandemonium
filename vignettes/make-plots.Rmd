@@ -1,0 +1,84 @@
+---
+title: "How to use make plots"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to use make plots}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(pandemoniumedits)
+```
+
+# Overview
+This vignette describes the usage of the `makePlots()` function.
+
+`makePlots` is a function to generate the plots from within the package outside so they can be saved and shared. Plots that have random or non deterministic outcomes have a seed set so they can be reproduced.
+
+`makePlots` has got the same inputs as pandemonium (see "Data input for pandemonium") with the exception for settings. This replaces the GUI in the app with one named list to define all settings. Two other small differences in the input to the function are as follows. `CovInv` is specified for each space. Coordinate functions cannot be passed as a named list instead the functions themselves are passed as `getCoordsSpace1` and `getCoordsSpace2`.
+
+# settings
+
+The named list `settings` has some values that must be specified for every call to `makePlots` others are optional or only required for some plots. The required values for every call are as follows:
+
+| Settings | Description |
+|--------|---------------------------------|
+| `k=` | Numeric, number of clusters |
+| `linkage=` | Linkage used by `stats::hclust` |
+| `metric=` | Metric used by `getDists` |
+| `plotType` | Plot to create. Each type and their required settings are described below.|
+
+> `linkage` can be one of the following: "complete", "single", "average", "median", "centroid", "mcquitty", "ward.D", "ward.D2"
+>
+> `metric` can be one of the following: "euclidean", "maximum", "manhattan", "canberra","binary", "minkowski","user"
+
+## Plot specific settings
+
+Each `plotType` has got its own required settings. for each plot type these are described as follows:
+
+| Plot | Description | Required settings | 
+|--------|--------------|---------------------------------|
+| "PC" | Parallel coordinate plot | `filt=` subset of 1:k (number of clusters) to show in the Plot |
+| "WC" | Plot of clustering on axis from space 2 | `x=`,`y=` column names of space 2 to be axis <br>`showalpha=` TRUE or FALSE to show alpha hulls <br>`WCa=` alpha value for alpha hulls|
+| "chi2" | Plot of score on axis from space 2 | `x=`,`y=` column names of space 2 to be axis <br>*note a function that returns values must be passed in `getScores`*|
+| "sigBins" | Plot of bins on axis from space 2 | `x=`,`y=` column names of space 2 to be axis <br>*note a function that returns bins must be passed in `getScores`*|
+| "heatmap" | Ordered dendrogram plot of clustering | no additional parameters |
+| cluster stats | Plot of cluster stat vs number of clusters | One of the following is what is given as `plotType`: "within.cluster.ss", "wb.ratio","pearsongamma", "dunn", "ch", "rmax", "dmax" "dmin", "dchi2rand"|
+| "Obs" | Plot space 1 variable on axis from space 2 | `Obs=` name of variable from space 1 <br>``x=`,`y=` column names of space 2 to be axis |
+
+The following plotTypes are for high dimension views:
+
+#### "tour"
+A `detourr` tour of the high dimensional space.
+
+
+| Settings | Description |
+|--------|---------------------------------|
+| `tourspace=` | One of "space1" or "space2" to show data of in tour |
+| `colouring=` | How to colour points in the plot. One of "clustering", "user", "bins", "score"|
+| `user_group=` | User defined grouping for each point used if "user" is passed for `colouring` |
+| `out_dim=` | Dimension of output display. Numeric 2 or 3 |
+| `tour_path=` | Tour path and type to use, one of "grand","cmass","holes","lda","pda","dcor","origin","spline","radial","mahalanobis","anomaly" |
+|`display=` | Display type, one of "scatter","slice" |
+| `radial_start=` | Projection to use as start of radial tour, one of "random","cmass","holes","lda","pda","dcor","origin","spline","mahalanobis" |
+| `radial_var=` |  Variable to remove by radial tour |
+| `slice_width=` | Numeric Relative slice volume |
+
+#### "dimRed"
+A dimension reduction view of the high dimensional space.
+
+| Settings | Description |
+|--------|---------------------------------|
+| `dimspace=` | One of "space1" or "space2" to show data of in tour |
+| `colouring=` | How to colour points in the plot. One of "clustering", "user", "bins", "score"|
+| `user_group=` | User defined grouping for each point used if "user" is passed for `colouring` |
+| `algorithm=` | Name of algorithm used for dimension reduction |
+| `dimReduction` | Function for calculating dimension reduction see "using dimension reduction" for more details |

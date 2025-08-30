@@ -1,0 +1,102 @@
+---
+title: "Usage of getScore"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Usage of getScore}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Overview
+This vignette describes the usage of the `getScore` parameter in the `pandemonium` app.
+
+This is an input for a function that calculates scores and bins which will be plotted in the input panel and can be used as colouring in dimension reduction and tour views.
+
+The `pandemonium` package provides two functions for scores or one can be created and passed.
+The two functions provided are:
+
+* `chi2score` This will calculate chi-squared values from the `exp` reference point in space1. The scores returned are chi-squared values, the bins are sigma bins from the reference point and the interesting points are 'bf' the best fit and 'sm' the closet point to the origin.
+* `outsidescore` this function takes a set of scores for each point and a name for the score from data outside the app. it is passed when loading the app. the scores returned are the scores passed to it, the bins are quartile bins of that score and no interesting points are returned.
+
+
+# Writing a getScore function
+## Input
+The app will pass the following objects to getScore that may be used in calculations:
+
+| Input | Description |
+|------|-------------------------------------|
+| `space1` | Data frame of space 1 values |
+| `cov` | Covariance matrix of space 1 |
+| `covinv` | Inverse covariance matrix of space 1 |
+| `exp` | reference point in space 1 | 
+| `space2` | Data frame of space 2 values |
+| `space2.cov` | Covariance matrix of space 2 |
+| `space2.exp` | reference point in space 2 | 
+| `k` | number of clusters being made can be used to set number of bins |
+
+## Output
+The function should return a named list with some of the following entries to be used byt the app.
+
+| Output | Description |
+|------|-------------------------------------|
+| `score` | This should be a vector of length = rows of space 1, the values should be numeric |
+| `scoreName` | A name for the title of the score plot |
+| `bins` | This should be a factor with length = rows of space 1 |
+| `binName` | A name for the title of the bin plot |
+| `interest` | A vector of names of interesting points to display in hover of `htmlwidgets` plots |
+| `is.interest` | A logical vector of interesting points to display in `ggplot` plots |
+
+## Example
+a simple template for what a `getScore` function should look like is as follows:
+
+```{r,eval=FALSE}
+myScore <- function(space1=rv$space1, cov=rv$cov1, covinv=rv$covInv1,
+         exp=rv$exp, space2=rv$space2, space2.cov=rv$cov2, 
+         space2.exp=rv$space2.exp, k=rv$kC){
+  
+  ## Calculations
+  n      <- nrow(space1)
+  scores <- #function to calculate scores
+  bins   <- #function to calculate scores
+  
+  ## Return
+  ret <- list()
+  ret$score       <- scores
+  ret$scoreName   <- "scores"
+  ret$bins        <- bins
+  ret$binName     <- "bins"
+  ret$interest    <- rep("",n)
+  ret$is.interest <- which(ret$interest!="")
+  ret
+}
+
+pandemonium(df, getScore = myScore)
+```
+
+For the function to take values from outside the app it is best to write it as a closure and pass these values when calling the app as has been done for `outsidescore`
+
+```{r,echo=TRUE,eval=FALSE}
+outsidescore <- function(scores,scoreName = NULL){
+  function(space1, ...){
+    ret <- list()
+    n<- nrow(space1)
+    ret$score <- scores
+    ret$bins <- cut(scores, stats::quantile(scores,c(0,0.25,0.75,1))-c(1,0,0,0), labels=c("lower","inner","upper"))
+    ret$interest <- rep("",n)
+    ret$is.interest <- which(ret$interest!="")
+    ret$scoreName <- as.character(scoreName)
+    ret$binName   <- "quartile"
+    ret
+  }
+}
+
+pandemonium(df = Bikes$space1, space2 = Bikes$space2, 
+                getScore = outsidescore(Bikes$other$res,"Residual"))
+```

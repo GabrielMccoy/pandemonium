@@ -1,0 +1,53 @@
+---
+title: "Data input for pandemonium"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data input for pandemonium}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+)
+```
+
+To use the app, the user needs to provide an array of observations of variables. Variables are sorted into the clustering space (space1) and the linked space (space2) once loaded into the app in the data screen.
+
+```{r,echo=FALSE}
+knitr::include_graphics("Images/data_Input_page.png")
+```
+
+Alternatively they can be passed to as two separate arrays with the clustering variables in `df = space1` and the linked variables in `space2 = space2`. This will select them in space 1 and 2 in the data screen when loading the app. This can be done like this:
+```{r,eval=FALSE}
+newPandemonium(df = Bikes$space1, space2 = Bikes$space2)
+```
+
+Once data has been selected press load data button to begin analysis using the app. See "Data Analysis" for more information in this.
+
+
+## Optional inputs
+When loading the app additional inputs can be provided and are described below:
+
+### Data Inputs
+| Input      | Type       | Applies to | Default | Purpose     |
+|------------|------------|------------|---------|-------------|
+| `label`            | vector, length = n  | points     | row index | Shown in tours/dim. reduction hover text |
+| `group`            | vector / data.frame | points     | none    | Define user-specified groups; categorical or numeric |
+| `cov`,`space2.cov`*| matrix              | group/space | computed via `stats::cov` | Used in `getScores`, `getCoords`, anomaly tour |
+| `exp`,`space2.exp` | data frame with column `value` length of number of variables in space| variables | mean vector | Reference point in space used in getCoords |
+| `user_dists`       | matrix              | space1     | ignored | Advanced: overrides `getDists` output |
+
+\* `cov` can also be the inverse covariance matrix by setting `is.Inv=TRUE`
+
+### Function inputs
+
+| Input  | Type |  Use |
+|---|--------|---------|
+|`getCoords`| named list of coordinate functions | computes coordinates for distance calculations|
+|`getScores`| Function that rurns a named list   | computes scores and/or bins for use in plotting|
+
+See "Usage of getScores" and "usage of getCoords" for more information on these inputs.

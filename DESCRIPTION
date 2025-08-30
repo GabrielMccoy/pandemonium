@@ -1,0 +1,53 @@
+Package: pandemonium
+Title: High Dimensional Analysis In Linked Spaces
+Version: 0.1.0.9000
+Authors@R: c(
+    person("Gabriel", "Mcccoy",  role = c("aut", "cre"),
+           email = "gmcc0022@student.monash.edu"),
+    person("Ursula", "Laa", role = "aut",
+           comment = c(ORCID = "https://orcid.org/0000-0002-0249-6439")),
+    person("German", "Valencia", role = "aut",
+           comment = c(ORCID = "https://orcid.org/0000-0001-6600-1290"))
+  )
+Description: A shiny GUI that performs high dimensional cluster analysis. 
+  This tool performs data preparation, clustering and visualisation within a dynamic GUI. 
+  With interactive methods allowing the user to change settings all without having to to leave the GUI.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: 
+    R (>= 3.5)
+Imports:
+    tourr,
+    stats,
+    tibble,
+    ggplot2,
+    RColorBrewer,
+    dplyr,
+    dendextend,
+    fpc,
+    shiny,
+    shinythemes,
+    DT,
+    tidyr,
+    tidyselect,
+    magrittr,
+    detourr (>= 0.2.0),
+    crosstalk,
+    Rtsne,
+    plotly,
+    alphahull,
+    uwot,
+    shinyFeedback,
+    ggpcp,
+    rlang,
+    viridis
+LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    VIM
+VignetteBuilder: knitr
+Config/testthat/edition: 3

@@ -1,0 +1,84 @@
+---
+title: "usage of getCoords"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{usage of getCoords}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Overview
+This vignette describes the usage of the `getCoords` parameter in the `pandemonium` app.
+
+This is an input for a named list of functions that can be used to calculate coordinates. The names of the list will be used as options for the coordinates selector in the GUI. 
+
+coordinates are a way to put each variable on equal footing for distance calculations. One simple coordinate function is normalising each variable by subtracting the mean and dividing by the standard deviation. Other forms are also possible and so we allow for the user to select what functions to pass to the app and which to use in the app.
+
+# Provided coordinate functions
+
+### `normcoords`
+
+This uses `scale` to center and scale the data.
+
+### `pullCoords`
+
+Chi-Squared Loss Function Coordinates
+
+### `pullCoordsNoCov`
+
+Generic Loss Function Coordinates
+
+### `rawCoords`
+
+Returns the data frame passed to it. This should only be used where data is already passed as coordinates or coordinate calculations are otherwise impossible.
+
+## `userCoords`
+
+This is a closure of a coordinate function that returns the user defined coordinate matrix passed to the closure when called in the pandemonium call with `pandemonium(df, getCoords=list(user=userCoords(coordMatrix)))`. This cannot be used with variables removed from a space.
+
+# Writing `getCoords` functions
+
+## Inputs
+
+| Input | Description |
+|------|-------------------------------------|
+| `df` | Data frame of raw values |
+| `cov` | Covariance matrix of data frame |
+| `covinv` | Inverse covariance matrix of data frame |
+| `exp` | reference point | 
+
+## Ouput
+
+The function should return a single array the same size of the input df and with the same column names as df.
+
+## Example
+
+```{r,eval=FALSE}
+pullCoordsNoCov <- function(df, cov, exp, ...){
+
+  n <- nrow(df)
+  df <- as.matrix(df)
+  nc <- ncol(df)
+  coord_mat <- matrix(nrow = n, ncol = nc)
+
+  for (i in 1:n){
+    for (j in 1:nc){
+      coord_mat[i, j] <- as.numeric((df[i, j] - exp$value[j]) / sqrt(cov[j, j]))
+    }
+  }
+  colnames(coord_mat) <- colnames(df)
+  return(coord_mat)
+}
+
+pandemonium(df,getCoords = list(pull = pullCoordsNoCov, normal = normCoords))
+
+```
+
+
