@@ -3,7 +3,7 @@ Title: High Dimensional Analysis In Linked Spaces
 Version: 0.1.0.9000
 Authors@R: c(
     person("Gabriel", "Mcccoy",  role = c("aut", "cre"),
-           email = "gmcc0022@student.monash.edu"),
+           email = "gabe.mccoy02@gmail.com"),
     person("Ursula", "Laa", role = "aut",
            comment = c(ORCID = "https://orcid.org/0000-0002-0249-6439")),
     person("German", "Valencia", role = "aut",
