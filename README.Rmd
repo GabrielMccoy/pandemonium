@@ -6,7 +6,7 @@ output: github_document
 # pandemonium
 
 <!-- badges: start -->
-<img src="vignettes/Images/logo.png" height="300px" align="right"/>
+<img src="vignettes/Images/pandemonium.png" height="300px" align="right"/>
 <!-- badges: end -->
 
 pandemonium is a package that performs high dimensional cluster analysis within a shiny GUI. pandemonium performs data preparation, clustering and visualisation within a dynamic GUI. With interactive methods allowing the user to change settings all without having to to leave the GUI.

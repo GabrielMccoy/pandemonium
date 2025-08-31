@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
 
-<img src="vignettes/Images/logo.png" height="300px" align="right"/>
+<img src="vignettes/Images/pandemonium.png" height="300px" align="right"/>
 <!-- badges: end -->
 
 pandemonium is a package that performs high dimensional cluster analysis
