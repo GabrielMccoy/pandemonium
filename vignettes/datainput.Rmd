@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+## Inputs
 To use the app, the user needs to provide an array of observations of variables. Variables are sorted into the clustering space (space1) and the linked space (space2) once loaded into the app in the data screen.
 
 ```{r,echo=FALSE}
@@ -29,10 +30,16 @@ newPandemonium(df = Bikes$space1, space2 = Bikes$space2)
 Once data has been selected press load data button to begin analysis using the app. See "Data Analysis" for more information in this.
 
 
-## Optional inputs
-When loading the app additional inputs can be provided and are described below:
+### Optional inputs
 
-### Data Inputs
+A complete input for `pandemonium` includes optional data and function inputs. The all inputs are shown in the following call.
+```{r,eval=FALSE}
+pandemonium(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NULL, space2.cov = NULL, 
+            space2.exp = NULL, group = NULL, label = NULL, user_dist = NULL, 
+            dimReduction = list(tSNE = tSNE, umap = umap), getCoords = list(normal = normCoords), getScore = NULL)
+```
+
+#### Data Inputs
 | Input      | Type       | Applies to | Default | Purpose     |
 |------------|------------|------------|---------|-------------|
 | `label`            | vector, length = n  | points     | row index | Shown in tours/dim. reduction hover text |
@@ -43,11 +50,11 @@ When loading the app additional inputs can be provided and are described below:
 
 \* `cov` can also be the inverse covariance matrix by setting `is.Inv=TRUE`
 
-### Function inputs
+#### Function inputs
 
 | Input  | Type |  Use |
 |---|--------|---------|
 |`getCoords`| named list of coordinate functions | computes coordinates for distance calculations|
 |`getScores`| Function that rurns a named list   | computes scores and/or bins for use in plotting|
 
-See "Usage of getScores" and "usage of getCoords" for more information on these inputs.
+> See `vignette("getScores")` and `vignette("getCoords")` for more information on these inputs.

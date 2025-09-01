@@ -12,5 +12,5 @@ outsidescore(scores, scoreName = NULL)
 \item{scoreName}{name for scores}
 }
 \description{
-used as getScores in newPandemonium to calculate scores not based on any data within pandemonium
+used as getScores in pandemonium to calculate scores not based on any data within pandemonium
 }

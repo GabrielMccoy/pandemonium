@@ -1,5 +1,5 @@
 ---
-title: "usage of getCoords"
+title: "getCoords"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{usage of getCoords}

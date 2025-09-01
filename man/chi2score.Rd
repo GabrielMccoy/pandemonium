@@ -16,5 +16,5 @@ chi2score(space1, covinv, exp, space2, ...)
 \item{...}{other expected values of getScore}
 }
 \description{
-used as getScores in newPandemonium
+used as getScores in pandemonium
 }

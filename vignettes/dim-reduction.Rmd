@@ -1,5 +1,5 @@
 ---
-title: "using dimension reduction"
+title: "dimReduction"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{using dimension reduction}
