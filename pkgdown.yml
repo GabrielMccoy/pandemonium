@@ -1,0 +1,14 @@
+pandoc: 3.1.11
+pkgdown: 2.1.3
+pkgdown_sha: ~
+articles:
+  analysis-pages: analysis-pages.html
+  datainput: datainput.html
+  dim-reduction: dim-reduction.html
+  get-coords: get-coords.html
+  get-scores: get-scores.html
+  make-plots: make-plots.html
+last_built: 2025-09-01T23:20Z
+urls:
+  reference: https://gabrielmccoy.github.io/pandemonium/reference
+  article: https://gabrielmccoy.github.io/pandemonium/articles
