@@ -5,3 +5,5 @@
 ^.github
 ^LICENSE\.md$
 ^GSOC_diff$
+^doc$
+^Meta$
