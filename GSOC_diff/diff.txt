@@ -1,0 +1,175 @@
+diff GabrielMccoy/pandemonium/.Rbuildignore uschiLaa/pandemonium/.Rbuildignore
+4,6d3
+< ^README\.Rmd$
+< ^.github
+< ^LICENSE\.md$
+Common subdirectories: GabrielMccoy/pandemonium/.git and uschiLaa/pandemonium/.git
+Only in GabrielMccoy/pandemonium: .gitattributes
+diff GabrielMccoy/pandemonium/.gitignore uschiLaa/pandemonium/.gitignore
+5d4
+< .DS_Store
+diff GabrielMccoy/pandemonium/DESCRIPTION uschiLaa/pandemonium/DESCRIPTION
+2,3c2,4
+< Title: High Dimensional Analysis In Linked Spaces
+< Version: 0.1.0.9000
+---
+> Type: Package
+> Title: Interactive clustering application
+> Version: 0.1.0
+5,15c6,13
+<     person("Gabriel", "Mcccoy",  role = c("aut", "cre"),
+<            email = "gabe.mccoy02@gmail.com"),
+<     person("Ursula", "Laa", role = "aut",
+<            comment = c(ORCID = "https://orcid.org/0000-0002-0249-6439")),
+<     person("German", "Valencia", role = "aut",
+<            comment = c(ORCID = "https://orcid.org/0000-0001-6600-1290"))
+<   )
+< Description: A shiny GUI that performs high dimensional cluster analysis.
+<   This tool performs data preparation, clustering and visualisation within a dynamic GUI.
+<   With interactive methods allowing the user to change settings all without having to to leave the GUI.
+< License: MIT + file LICENSE
+---
+>     person("Ursula", "Laa",
+>            email = "ursula.laa@boku.ac.at",
+>            role = c("aut", "cre"),
+>            comment = c(ORCID = "https://orcid.org/0000-0002-0249-6439")))
+> Description: Shiny app to interactively explore clustering in observable space
+>     of physics problems in both parameter and observable space, using a range
+>     of visual diagnostics.
+> License: GPL-3
+17,20c15,16
+< Roxygen: list(markdown = TRUE)
+< RoxygenNote: 7.3.2
+< Depends:
+<     R (>= 3.5)
+---
+> LazyData: true
+> Depends: R (>= 4.0.0)
+24a21
+>     GGally,
+32a30
+>     ochRe,
+35,37c33
+<     magrittr,
+<     detourr (>= 0.2.0),
+<     crosstalk,
+---
+>     gridExtra,
+39,40d34
+<     plotly,
+<     alphahull,
+42,46c36,38
+<     shinyFeedback,
+<     ggpcp,
+<     rlang,
+<     viridis
+< LazyData: true
+---
+>     lle,
+>     magrittr
+> RoxygenNote: 7.1.1
+49,51c41
+<     rmarkdown,
+<     testthat (>= 3.0.0),
+<     VIM
+---
+>     rmarkdown
+53d42
+< Config/testthat/edition: 3
+Only in GabrielMccoy/pandemonium: LICENSE
+Only in GabrielMccoy/pandemonium: LICENSE.md
+diff GabrielMccoy/pandemonium/NAMESPACE uschiLaa/pandemonium/NAMESPACE
+5d4
+< export(chi2score)
+10a10
+> export(getCoords)
+13,14d12
+< export(normCoords)
+< export(outsidescore)
+18d15
+< export(plotDimRed)
+24,31c21
+< export(pullCoords)
+< export(pullCoordsNoCov)
+< export(rawCoords)
+< export(tSNE)
+< export(tourMaker)
+< export(umap)
+< export(userCoords)
+< export(writeResults)
+---
+> export(tourGif)
+33d22
+< importFrom(rlang,.data)
+Common subdirectories: GabrielMccoy/pandemonium/R and uschiLaa/pandemonium/R
+Only in GabrielMccoy/pandemonium: README.Rmd
+diff GabrielMccoy/pandemonium/README.md uschiLaa/pandemonium/README.md
+5,6d4
+<
+< <img src="vignettes/Images/pandemonium.png" height="300px" align="right"/>
+9,13c7,8
+< pandemonium is a package that performs high dimensional cluster analysis
+< within a shiny GUI. pandemonium performs data preparation, clustering
+< and visualisation within a dynamic GUI. With interactive methods
+< allowing the user to change settings all without having to to leave the
+< GUI.
+---
+> The goal of pandemonium is to interactively explore clustering solutions
+> of physics problems in both observable and parameter space in a Shiny app.
+17,18c12
+< You can install the development version of pandemoniumedits from
+< [GitHub](https://github.com/GabrielMccoy/pandemonium) with:
+---
+> You can install the package from GitHub using devtools:
+21,22c15,16
+< # install.packages("pak")
+< pak::pak("GabrielMccoy/pandemonium")
+---
+> # install.packages("devtools")
+> devtools::install_github("uschiLaa/pandemonium")
+25c19
+< ## Getting Started
+---
+> ## Example
+27,28c21,24
+< A good example of how to use the app can be shown in he `Bikes` data
+< example. To load the app with this data the following can be used.
+---
+> The package comes with an example data set `b_anomaly` which contains the three
+> necessary inputs to the app: theory predictions and experimentally observed
+> values for all observables (pred and exp), full inverse covariance matrix
+> (covInv) and parameter values (wc).
+29a26,27
+> Using the example data the app is launched as:
+>
+32,33c30
+< pandemonium(df = Bikes$space1, space2 = Bikes$space2,
+<                 getScore = outsidescore(Bikes$other$res,"Residual"))
+---
+> pandemonium(b_anomaly$pred, b_anomaly$covInv, b_anomaly$wc, b_anomaly$exp)
+35,41d31
+<
+< By loading the app with the clustering space in df and the linked space
+< in space2 the data is automatically selected in the data page. From here
+< pressing load app will load into the analysis tab.
+<
+< Within the analysis tab you can explore different visuals and their
+< options in each of the enclosed tabs.
+Common subdirectories: GabrielMccoy/pandemonium/data and uschiLaa/pandemonium/data
+Common subdirectories: GabrielMccoy/pandemonium/data-raw and uschiLaa/pandemonium/data-raw
+Only in uschiLaa/pandemonium: dataCL
+Only in uschiLaa/pandemonium: docs
+Common subdirectories: GabrielMccoy/pandemonium/man and uschiLaa/pandemonium/man
+diff GabrielMccoy/pandemonium/pandemonium.Rproj uschiLaa/pandemonium/pandemonium.Rproj
+3,4c3,4
+< RestoreWorkspace: No
+< SaveWorkspace: No
+---
+> RestoreWorkspace: Default
+> SaveWorkspace: Default
+17d16
+< LineEndingConversion: Posix
+22d20
+< PackageRoxygenize: rd,collate,namespace
+Only in GabrielMccoy/pandemonium: tests
+Common subdirectories: GabrielMccoy/pandemonium/vignettes and uschiLaa/pandemonium/vignettes
