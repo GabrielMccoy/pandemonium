@@ -18,7 +18,7 @@ settings without having to to leave the GUI.
 
 ## Installation
 
-You can install the development version of pandemoniumedits from
+You can install the development version of pandemonium from
 [GitHub](https://github.com/GabrielMccoy/pandemonium) with:
 
 ``` r

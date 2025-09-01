@@ -16,7 +16,7 @@ Within the dynamic GUI pandemonium performs data preparation, clustering and vis
 
 ## Installation
 
-You can install the development version of pandemoniumedits from [GitHub](https://github.com/GabrielMccoy/pandemonium) with:
+You can install the development version of pandemonium from [GitHub](https://github.com/GabrielMccoy/pandemonium) with:
 
 ``` r
 # install.packages("pak")
