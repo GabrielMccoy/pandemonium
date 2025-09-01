@@ -52,7 +52,7 @@ computeChi2 <- function(pred, covInv, exp){
 
 #' chi squared scores for the banomalies example
 #'
-#' used as getScores in newPandemonium
+#' used as getScores in pandemonium
 #'
 #' @param space1 dataframe with variables in space1
 #' @param covinv inverse covariance matrix from space1
@@ -81,7 +81,7 @@ chi2score <- function(space1, covinv, exp, space2, ...){
 
 #' outside score values
 #'
-#' used as getScores in newPandemonium to calculate scores not based on any data within pandemonium
+#' used as getScores in pandemonium to calculate scores not based on any data within pandemonium
 #'
 #' @param scores external scores to be passed to the app.
 #' @param scoreName name for scores
