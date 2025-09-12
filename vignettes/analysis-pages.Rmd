@@ -21,7 +21,7 @@ This vignette describes the Analysis page of the pandemonium app and each of the
 
 # Tabs
 
-Once the app has been run and data loaded in the data page the app will open into the analysis page. This consists of tabs that contain different visuals and their options.
+Once the data is loaded in the data page, the app will open into the analysis page. This consists of tabs that contain different visuals and their options.
 
 ## Input
 
@@ -48,7 +48,7 @@ On the right side of the tab 2-4 plots will be shown depending on the result of 
 | | |
 |------------------------------------|------------------------------------|
 | **Heatmap plot** | **Clustering plot** |
-|this is an ordered dendrogram plot of the clustering| This is a plot of the clustering assignment with axis as selected in the side bar. Alpha hulls for each cluster will aslo be shown in selected|
+|this is an ordered dendrogram plot of the clustering| This is a plot of the clustering assignment with axis as selected in the side bar. Alpha hulls for each cluster will also be shown if selected|
 | **Score values** | **Score Bins** |
 | If `getScores` returns scores for each point these will be shown here on the axis as selected in the side bar | If `getScores` returns bins for each point these will be shown here on the axis as selected in the side bar 
 
@@ -59,7 +59,7 @@ On the right side of the tab 2-4 plots will be shown depending on the result of 
 knitr::include_graphics("Images/benchmark_tab_bike.png")
 ```
 
-This tab will show benchmark information for clusters and user assigned groupings if supplied. The first collumns of the table will be the linked space values of the benchmark points, then the cluster radius and diameter will be given, finally the score value of the benchmark point will be given if getScores returns a score.
+This tab will show benchmark information for clusters and user assigned groupings if supplied. The benchmark point of a cluster is defined as the point which has the smallest average squared distance from all other points within the cluster. The first columns of the table will be the linked space values of the benchmark points, then the cluster radius (maximum distance of any point in the cluster from its benchmark) and diameter (maximum distance between any two points within the cluster) will be given. Finally the score value of the benchmark point will be given if getScores returns a score.
 
 ## Distance breakdown
 
@@ -67,7 +67,7 @@ This tab will show benchmark information for clusters and user assigned grouping
 knitr::include_graphics("Images/distancebreak_tab_bike.png")
 ```
 
-This tab is used to compare within and between cluster distances. Two histogram plots are shown for each cluster. The right plot is the within cluster distances (the distances between each point within the cluster) and the left plot is the outside cluster distances (the distances between any point within the cluster and any point outside the cluster). A shadow is shown in the background of the overall distribution of distances in the data set. Both histograms on the plot are normalised such that the area under is 1.
+This tab is used to compare within and between cluster distances. Two histogram plots are shown for each cluster. The right plot is the within cluster distances (the distances between each pair of points within the cluster) and the left plot is the outside cluster distances (the distances between any point within the cluster and any point outside the cluster). A shadow is shown in the background of the overall distribution of distances in the data set. Both histograms on the plot are normalised such that the area below is 1.
 
 
 ## Coordinates
@@ -77,9 +77,9 @@ knitr::include_graphics("Images/coordinates_tab_bike.png")
 ```
 
 This tab is used to compare the coordinates of the clustering space.
-The top output is a colour scaled scatter plot of each variable in the cluster space shown on the x-y axis from the selection on the input page. Here the colour gradient shows high to low values for each variable in space 1.
+The top output is a colour scaled scatter plot of each variable in the cluster space shown on the x-y axis from the selection on the input page. Here the colour gradient shows high (yellow) to low (blue) values for each variable in space 1.
 Below this is a parallel coordinate plot of the variables in space 1. The points are coloured by clustering with benchmark points plotted opaque and all other points slightly transparent. Note that `ggpcp` will break ties on points with the same value for a clearer plot.
-Below this plot is 3 settings:
+Below this plot are 3 settings:
 
  - Center: centres the coordintes by their mean.
  - Scale: sclaes the coordinates by their variation
@@ -99,7 +99,7 @@ This tab is used to show dimension reduced plots of both the cluster and linked 
 | Data | Data used in plot | Choice of either space 1 or space 2 |
 | Colour | Clouring of points in the plot | Clustering or scores, bins if calculted by `getScores` or user defined grouping if given in data page|
 
-The dimension reduction plots use `plotly` for their displays this allows for zooming, panning aswell as hovering over points. This hover will display the points coordintes in dimension reduced form aswell as the value used for colouring and the point label if provided in the data page.
+The dimension reduction plots use `plotly` for their displays this allows for zooming, panning as well as hovering over points. This hover will display the points coordinates in dimension reduced form as well as the value used for colouring and the point label if provided in the data page.
 
 > The dimension reduction plots and tour displays are linked via crosstalk for linked brushing between them.
 > See the section on linked brushing at the bottom of this page for more information on this.
@@ -114,12 +114,12 @@ This tab is used to explore the cluster and linked space through tour displays. 
 
 | Option | Description | Note |
 |--------|---------------------------------|----------------|
-| Colour | Clouring of points in the plot | Clustering or scores, bins if calculted by `getScores` or user defined grouping if given in data page|
-| Data | Data used in plot | Choice of either space 1 or space 2 or up to 5 principle componants from the PCA of each space |
+| Colour | Colouring of points in the plot | Clustering or scores, bins if calculated by `getScores` or user defined grouping if given in data page|
+| Data | Data used in plot | Choice of either space 1 or space 2 or up to 5 principal components from the PCA of each space |
 | Tour type | Used to define the tour path | Grand and Radial will define their respective tours, the other choices are projection pursuit indices.\n Radial, Spline and Anomaly tours are not defined for 3d views. |
-| Use slice | Selection to turn view srom a regular scatter to slice view | slice width can be chosen if selected |
-| Display type | selection of 2D or 3D projection | Some choices will be removed for 3D view |
-| Radial variable | Choice of variable from data projected to remove from view | only shown if radial tour type is selected |
+| Use slice | Selection to turn view from a regular scatter to slice view | Slice width can be chosen if selected |
+| Display type | Selection of 2D or 3D projection | Some choices will be removed for 3D view |
+| Radial variable | Choice of variable from data projected to remove from view | Only shown if radial tour type is selected |
 | Radial start | Projection to start radial tour from | Random or a projection pursuit index which will be used first |
 | Slice width | Relative volume of slice | Only shown if use slice is selected |
 | ellc | Ellipse scale for anomaly tour | Only shown if anomaly tour is selected |
@@ -147,11 +147,10 @@ The following options can be selected for clustering `a` and `b` for comparison.
 | show alpha hulls | a check box to show alpha hulls in the clustering plot in this tab|
 | alpha value | a numerical value for the alpha used by alpha hulls|
 
-a check box is also
 
 #### Outputs
 
-The same options as the input tab are shown here with two separate choices for each. A check box is also given to select the same options as used in the input tab. if user defined grouping are given in the data page these can also be selected for comparison although the heatmap plot will not update for this choice. a heatmap plot and cluster assignment plot are shown for each on the right of the page. Below the settings a contingency table is shown for the two cluster assingments.
+The same options as the input tab are shown here with two separate choices for each. A check box is also given to select the same options as used in the input tab. If user defined grouping are given in the data page, these can also be selected for comparison, although the heatmap plot will not update for this choice. A heatmap plot and cluster assignment plot are shown for each on the right of the page. Below the settings a contingency table is shown to compare the two cluster assignments.
 
 ## Statistics
 
@@ -159,7 +158,7 @@ The same options as the input tab are shown here with two separate choices for e
 knitr::include_graphics("Images/statistics_tab_bike.png")
 ```
 
-This tab is used to evaluate the number of clusters that should be used. The Following cluster statistics are evaluated between two and eight clusters:
+This tab is used to evaluate the number of clusters that should be used. The following cluster statistics are evaluated for solutions with two to eight clusters:
 
 - WB ratio
 - Normalized gamma
@@ -173,4 +172,4 @@ This tab is used to evaluate the number of clusters that should be used. The Fol
 
 # A note on linked brushing
 
-Linked brushing is enabled between the tour displays and dimension reduction displays to use this select the box or lasso tools in the plotly dimension reduction plots or the box selector tool in the detourr tour display plot. Using these tools make a selection on the plot and this selection should show between all other plots. If any plot is updated the selection on this plot will be undone. This will not break the linking and the selection can be reset by double clicking on any of the plots with a selection tool selected, by pressing the reset button or by making a new selection on a plot. For more information on the other tools available in these plots see detourr and plotly respectively.
+Linked brushing is enabled between the tour displays and dimension reduction displays. To use this select the box or lasso tools in the plotly dimension reduction plots or the box selector tool in the detourr tour display plot. Using these tools, make a selection on the plot and this selection should show between all other plots. If any plot is updated, the selection on this plot will be undone. This will not break the linking and the selection can be reset by double clicking on any of the plots with a selection tool, by pressing the reset button or by making a new selection on a plot. For more information on the other tools available in these plots see detourr and plotly respectively.
