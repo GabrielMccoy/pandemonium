@@ -71,13 +71,17 @@
 <div class="section level2">
 <h2 id="inputs">Inputs<a class="anchor" aria-label="anchor" href="#inputs"></a>
 </h2>
-<p>To use the app, the user needs to provide an array of observations of
-variables. Variables are sorted into the clustering space (space1) and
-the linked space (space2) once loaded into the app in the data
-screen.</p>
+<p>To launch the app, the user needs to provide a data frame with the
+observations.</p>
+<p>Here show code of how you would launch the app with just one
+input.</p>
+<p>Variables can be sorted into the clustering space (space1) and the
+linked space (space2) once loaded into the app in the data screen. After
+removing a variable from one of the spaces it can be added to the other
+space or as a flag or grouping variable.</p>
 <p><img src="Images/data_Input_page.png" width="100%"></p>
-<p>Alternatively they can be passed to as two separate arrays with the
-clustering variables in <code>df = space1</code> and the linked
+<p>Alternatively, the data can be passed in as two separate arrays with
+the clustering variables in <code>df = space1</code> and the linked
 variables in <code>space2 = space2</code>. This will select them in
 space 1 and 2 in the data screen when loading the app. This can be done
 like this:</p>
@@ -181,7 +185,7 @@ setting <code>is.Inv=TRUE</code></p>
 </tr>
 <tr class="even">
 <td><code>getScores</code></td>
-<td>Function that rurns a named list</td>
+<td>Function that returns a named list</td>
 <td>computes scores and/or bins for use in plotting</td>
 </tr>
 </tbody>
