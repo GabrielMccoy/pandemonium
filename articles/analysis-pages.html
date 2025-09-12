@@ -79,9 +79,9 @@ contain.</p>
 <div class="section level2">
 <h2 id="tabs">Tabs<a class="anchor" aria-label="anchor" href="#tabs"></a>
 </h2>
-<p>Once the app has been run and data loaded in the data page the app
-will open into the analysis page. This consists of tabs that contain
-different visuals and their options.</p>
+<p>Once the data is loaded in the data page, the app will open into the
+analysis page. This consists of tabs that contain different visuals and
+their options.</p>
 <div class="section level3">
 <h3 id="input">Input<a class="anchor" aria-label="anchor" href="#input"></a>
 </h3>
@@ -148,7 +148,7 @@ result of getScores.</p>
 <tr class="even">
 <td>this is an ordered dendrogram plot of the clustering</td>
 <td>This is a plot of the clustering assignment with axis as selected in
-the side bar. Alpha hulls for each cluster will aslo be shown in
+the side bar. Alpha hulls for each cluster will also be shown if
 selected</td>
 </tr>
 <tr class="odd">
@@ -171,9 +171,13 @@ shown here on the axis as selected in the side bar</td>
 </h3>
 <p><img src="Images/benchmark_tab_bike.png" width="100%"></p>
 <p>This tab will show benchmark information for clusters and user
-assigned groupings if supplied. The first collumns of the table will be
-the linked space values of the benchmark points, then the cluster radius
-and diameter will be given, finally the score value of the benchmark
+assigned groupings if supplied. The benchmark point of a cluster is
+defined as the point which has the smallest average squared distance
+from all other points within the cluster. The first columns of the table
+will be the linked space values of the benchmark points, then the
+cluster radius (maximum distance of any point in the cluster from its
+benchmark) and diameter (maximum distance between any two points within
+the cluster) will be given. Finally the score value of the benchmark
 point will be given if getScores returns a score.</p>
 </div>
 <div class="section level3">
@@ -182,12 +186,12 @@ point will be given if getScores returns a score.</p>
 <p><img src="Images/distancebreak_tab_bike.png" width="100%"></p>
 <p>This tab is used to compare within and between cluster distances. Two
 histogram plots are shown for each cluster. The right plot is the within
-cluster distances (the distances between each point within the cluster)
-and the left plot is the outside cluster distances (the distances
-between any point within the cluster and any point outside the cluster).
-A shadow is shown in the background of the overall distribution of
-distances in the data set. Both histograms on the plot are normalised
-such that the area under is 1.</p>
+cluster distances (the distances between each pair of points within the
+cluster) and the left plot is the outside cluster distances (the
+distances between any point within the cluster and any point outside the
+cluster). A shadow is shown in the background of the overall
+distribution of distances in the data set. Both histograms on the plot
+are normalised such that the area below is 1.</p>
 </div>
 <div class="section level3">
 <h3 id="coordinates">Coordinates<a class="anchor" aria-label="anchor" href="#coordinates"></a>
@@ -196,12 +200,12 @@ such that the area under is 1.</p>
 <p>This tab is used to compare the coordinates of the clustering space.
 The top output is a colour scaled scatter plot of each variable in the
 cluster space shown on the x-y axis from the selection on the input
-page. Here the colour gradient shows high to low values for each
-variable in space 1. Below this is a parallel coordinate plot of the
-variables in space 1. The points are coloured by clustering with
+page. Here the colour gradient shows high (yellow) to low (blue) values
+for each variable in space 1. Below this is a parallel coordinate plot
+of the variables in space 1. The points are coloured by clustering with
 benchmark points plotted opaque and all other points slightly
 transparent. Note that <code>ggpcp</code> will break ties on points with
-the same value for a clearer plot. Below this plot is 3 settings:</p>
+the same value for a clearer plot. Below this plot are 3 settings:</p>
 <ul>
 <li>Center: centres the coordintes by their mean.</li>
 <li>Scale: sclaes the coordinates by their variation</li>
@@ -246,9 +250,9 @@ user defined grouping if given in data page</td>
 </tbody>
 </table>
 <p>The dimension reduction plots use <code>plotly</code> for their
-displays this allows for zooming, panning aswell as hovering over
-points. This hover will display the points coordintes in dimension
-reduced form aswell as the value used for colouring and the point label
+displays this allows for zooming, panning as well as hovering over
+points. This hover will display the points coordinates in dimension
+reduced form as well as the value used for colouring and the point label
 if provided in the data page.</p>
 <blockquote>
 <p>The dimension reduction plots and tour displays are linked via
@@ -277,14 +281,14 @@ selected below.</p>
 <tbody>
 <tr class="odd">
 <td>Colour</td>
-<td>Clouring of points in the plot</td>
-<td>Clustering or scores, bins if calculted by <code>getScores</code> or
-user defined grouping if given in data page</td>
+<td>Colouring of points in the plot</td>
+<td>Clustering or scores, bins if calculated by <code>getScores</code>
+or user defined grouping if given in data page</td>
 </tr>
 <tr class="even">
 <td>Data</td>
 <td>Data used in plot</td>
-<td>Choice of either space 1 or space 2 or up to 5 principle componants
+<td>Choice of either space 1 or space 2 or up to 5 principal components
 from the PCA of each space</td>
 </tr>
 <tr class="odd">
@@ -296,18 +300,18 @@ are not defined for 3d views.</td>
 </tr>
 <tr class="even">
 <td>Use slice</td>
-<td>Selection to turn view srom a regular scatter to slice view</td>
-<td>slice width can be chosen if selected</td>
+<td>Selection to turn view from a regular scatter to slice view</td>
+<td>Slice width can be chosen if selected</td>
 </tr>
 <tr class="odd">
 <td>Display type</td>
-<td>selection of 2D or 3D projection</td>
+<td>Selection of 2D or 3D projection</td>
 <td>Some choices will be removed for 3D view</td>
 </tr>
 <tr class="even">
 <td>Radial variable</td>
 <td>Choice of variable from data projected to remove from view</td>
-<td>only shown if radial tour type is selected</td>
+<td>Only shown if radial tour type is selected</td>
 </tr>
 <tr class="odd">
 <td>Radial start</td>
@@ -382,18 +386,18 @@ tab</td>
 </tr>
 </tbody>
 </table>
-<p>a check box is also</p>
 </div>
 <div class="section level5">
 <h5 id="outputs-1">Outputs<a class="anchor" aria-label="anchor" href="#outputs-1"></a>
 </h5>
 <p>The same options as the input tab are shown here with two separate
 choices for each. A check box is also given to select the same options
-as used in the input tab. if user defined grouping are given in the data
-page these can also be selected for comparison although the heatmap plot
-will not update for this choice. a heatmap plot and cluster assignment
-plot are shown for each on the right of the page. Below the settings a
-contingency table is shown for the two cluster assingments.</p>
+as used in the input tab. If user defined grouping are given in the data
+page, these can also be selected for comparison, although the heatmap
+plot will not update for this choice. A heatmap plot and cluster
+assignment plot are shown for each on the right of the page. Below the
+settings a contingency table is shown to compare the two cluster
+assignments.</p>
 </div>
 </div>
 <div class="section level3">
@@ -401,8 +405,8 @@ contingency table is shown for the two cluster assingments.</p>
 </h3>
 <p><img src="Images/statistics_tab_bike.png" width="100%"></p>
 <p>This tab is used to evaluate the number of clusters that should be
-used. The Following cluster statistics are evaluated between two and
-eight clusters:</p>
+used. The following cluster statistics are evaluated for solutions with
+two to eight clusters:</p>
 <ul>
 <li>WB ratio</li>
 <li>Normalized gamma</li>
@@ -420,16 +424,15 @@ eight clusters:</p>
 <h2 id="a-note-on-linked-brushing">A note on linked brushing<a class="anchor" aria-label="anchor" href="#a-note-on-linked-brushing"></a>
 </h2>
 <p>Linked brushing is enabled between the tour displays and dimension
-reduction displays to use this select the box or lasso tools in the
+reduction displays. To use this select the box or lasso tools in the
 plotly dimension reduction plots or the box selector tool in the detourr
-tour display plot. Using these tools make a selection on the plot and
+tour display plot. Using these tools, make a selection on the plot and
 this selection should show between all other plots. If any plot is
-updated the selection on this plot will be undone. This will not break
+updated, the selection on this plot will be undone. This will not break
 the linking and the selection can be reset by double clicking on any of
-the plots with a selection tool selected, by pressing the reset button
-or by making a new selection on a plot. For more information on the
-other tools available in these plots see detourr and plotly
-respectively.</p>
+the plots with a selection tool, by pressing the reset button or by
+making a new selection on a plot. For more information on the other
+tools available in these plots see detourr and plotly respectively.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
