@@ -16,7 +16,19 @@ knitr::opts_chunk$set(
 ```
 
 ## Inputs
-The input for pandemonium is designed for an array of data. Variables are sorted into the clustering space (df) and the linked space (space2). They should be passed to as two separate arrays with the clustering variables in `df = clusteringData` and the linked variables in `space2 = linkedData`. This will select them in space 1 and 2 in the data screen when loading the app. This can be done like this:
+
+To launch the app, the user needs to provide a data frame with the observations. 
+
+Here show code of how you would launch the app with just one input.
+
+Variables can be sorted into the clustering space (space1) and the linked space (space2) once loaded into the app in the data screen. After removing a variable from one of the spaces it can be added to the other space or as a flag or grouping variable.
+
+```{r,echo=FALSE}
+knitr::include_graphics("Images/data_Input_page.png")
+```
+
+Alternatively, the data can be passed in as two separate arrays with the clustering variables in `df = space1` and the linked variables in `space2 = space2`. This will select them in space 1 and 2 in the data screen when loading the app. This can be done like this:
+
 ```{r,eval=FALSE}
 newPandemonium(df = Bikes$space1, space2 = Bikes$space2)
 ```
@@ -46,7 +58,7 @@ pandemonium(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NULL, space2.co
 | Input  | Type |  Use |
 |---|--------|---------|
 |`getCoords`| named list of coordinate functions | computes coordinates for distance calculations|
-|`getScores`| Function that rurns a named list   | computes scores and/or bins for use in plotting|
+|`getScores`| Function that returns a named list   | computes scores and/or bins for use in plotting|
 
 > See `vignette("getScores")` and `vignette("getCoords")` for more information on these inputs.
 
