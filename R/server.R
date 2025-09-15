@@ -466,7 +466,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
       }
     },priority = 1)
 
-    shiny::observeEvent(c(input$radial_start_par, rv$space1_tour, input$slice_par,input$tour_type_param,rv$tour2data,rv$tour2,rv$tour1),{
+    shiny::observeEvent(c(input$radial_start_par, rv$space1_tour, input$slice_par,input$tour_type_param,rv$tour2data,rv$tour2),{
       if (input$tour_type_param == "radial"){
         if (input$radial_start_par == "random") {
           rv$radial_view_par <- tourr::basis_random(length(rv$tour2projection))
@@ -487,7 +487,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         }
       }
     },priority = 1)
-    shiny::observeEvent(c(input$radial_start_obs, rv$space1_tour, input$slice_obs,input$tour_type_obs,rv$tour1data,rv$tour1,rv$tour2),{
+    shiny::observeEvent(c(input$radial_start_obs, rv$space1_tour, input$slice_obs,input$tour_type_obs,rv$tour1data,rv$tour1),{
       if (input$tour_type_obs=="radial"){
         if (input$radial_start_obs == "random") {
           rv$radial_view_obs <- tourr::basis_random(length(rv$tour1projection))
@@ -508,7 +508,10 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         }
       }
     },priority = 1)
-    shiny::observeEvent(c(input$tour_type_param, input$select_radial_par,input$ellc_param,rv$radial_view_par,rv$tour2projection,rv$tour.dim2), {
+    shiny::observeEvent(c(input$tour_type_param, input$select_radial_par,input$ellc_param,
+                          rv$radial_view_par,rv$tour2projection,rv$tour.dim2
+                          ,rv$coord1,rv$coord2,rv$pca1,rv$pca2,
+                          rv$coord_red1$Y,rv$coord_red2$Y,rv$tour1,rv$tour2), {
       if (is.null(input$select_radial_par)){
         rad.var<-1
         shinyFeedback::feedbackWarning("select_radial_par", T, text = "Warning: a radial variable must be selected", session = session)
@@ -531,7 +534,10 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
       rv$detour2.angles <- if (input$tour_type_param == "radial") 1 / 2 else 1
       rv$tour_bases1 <- if(input$tour_type_param %in% c("cmass","holes","lda","pda","dcor","spline","anomaly")) 1000 else 20
     },priority = 1)
-    shiny::observeEvent(c(input$tour_type_obs,input$select_radial_obs,input$ellc_obs,rv$radial_view_obs,rv$tour1projection,rv$tour.dim1),{
+    shiny::observeEvent(c(input$tour_type_obs,input$select_radial_obs,input$ellc_obs,
+                          rv$radial_view_obs,rv$tour1projection,rv$tour.dim1,
+                          rv$coord1,rv$coord2,rv$pca1,rv$pca2,
+                          rv$coord_red1$Y,rv$coord_red2$Y,rv$tour1,rv$tour2),{
       if (is.null(input$select_radial_obs)){
         rad.var<-1
         shinyFeedback::feedbackWarning("select_radial_obs", T, text = "Warning: a radial variable must be selected", session = session)
@@ -636,6 +642,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
       data$label2 <- rv$tour2$label
       data
     })
+
 
 
     shared.data <- crosstalk::SharedData$new(tour.data)

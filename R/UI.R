@@ -182,11 +182,11 @@ UI <- function () {
                                                    c("space1","space2","space1 PCA", "space2 PCA"),
                                                  selected = "space1"),
                               shiny::selectInput("tour_type_obs","tour type",choices =
-                                                   c("grand","cmass","holes","lda","pda","dcor","origin","spline","radial","mahalanobis","anomaly"), selected = "grand"),
+                                                   c("grand","cmass","holes","lda","pda","dcor","spline","radial","anomaly"), selected = "grand"),
                               #radial variable selection only shown if radial selected
                               shiny::conditionalPanel("input.tour_type_obs == 'radial'",
                                                       shiny::selectInput("select_radial_obs","radial variable",c(), multiple = T),
-                                                      shiny::selectInput("radial_start_obs","radial start ppi",c("random","cmass","holes","lda","pda","dcor","origin","spline","mahalanobis"),selected = "random")),
+                                                      shiny::selectInput("radial_start_obs","radial start ppi",c("random","cmass","holes","lda","pda","dcor","spline"),selected = "random")),
                               #ellipse scaling only shown if anomaly selected. larger value means only further points
                               shiny::conditionalPanel("input.tour_type_obs == 'anomaly'",
                                                       shiny::selectInput("ellc_obs","ellc",1:30,selected = 1)),
@@ -205,11 +205,11 @@ UI <- function () {
                                                    c("space1","space2","space1 PCA", "space2 PCA"),
                                                  selected = "space2"),
                               shiny::selectInput("tour_type_param","tour type",choices =
-                                                   c("grand","cmass","holes","lda","pda","dcor","origin","spline","radial","mahalanobis","anomaly"), selected = "grand"),
+                                                   c("grand","cmass","holes","lda","pda","dcor","spline","radial","anomaly"), selected = "grand"),
                               #radial variable selection only shown if radial selected
                               shiny::conditionalPanel("input.tour_type_param == 'radial'",
                                                       shiny::selectInput("select_radial_par","radial variable", c(), multiple = T),
-                                                      shiny::selectInput("radial_start_par","radial start ppi",c("random","cmass","holes","lda","pda","dcor","origin","spline","mahalanobis"),selected = "random")),
+                                                      shiny::selectInput("radial_start_par","radial start ppi",c("random","cmass","holes","lda","pda","dcor","spline"),selected = "random")),
                               #ellipse scaling only shown if anomaly selected
                               shiny::conditionalPanel("input.tour_type_param == 'anomaly'",
                                                       shiny::selectInput("ellc_param","ellc",1:30,selected = 1)),

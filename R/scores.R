@@ -57,6 +57,7 @@ computeChi2 <- function(pred, covInv, exp){
 #' @param space1 dataframe with variables in space1
 #' @param covinv inverse covariance matrix from space1
 #' @param exp reference point from space 1
+#' @param space2 dataframe with variables in space2
 #' @param ... other expected values of getScore
 #'
 #' @export

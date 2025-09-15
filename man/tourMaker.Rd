@@ -37,11 +37,11 @@ tourMaker(
 
 \item{out_dim}{dimension of output tour}
 
-\item{tour_path}{tour path and type to use, one of ("grand","cmass","holes","lda","pda","dcor","origin","spline","radial","mahalanobis","anomaly")}
+\item{tour_path}{tour path and type to use, one of ("grand","cmass","holes","lda","pda","dcor","spline","radial","anomaly")}
 
 \item{display}{display type, one of ("scatter","slice")}
 
-\item{radial_start}{projection to use as start of radial tour, one of ("random","cmass","holes","lda","pda","dcor","origin","spline","mahalanobis")}
+\item{radial_start}{projection to use as start of radial tour, one of ("random","cmass","holes","lda","pda","dcor","spline")}
 
 \item{radial_var}{variable to remove by radial tour}
 

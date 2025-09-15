@@ -88,7 +88,7 @@ rawCoords <- function(df, ...){
 #' @export
 #'
 userCoords <- function(user_coords){
-  function(...){
+  function(df,...){
     coord<- user_coords
     colnames(coord) <- colnames(df)
     return(user_coords)

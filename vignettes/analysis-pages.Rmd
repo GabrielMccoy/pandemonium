@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 ```
 
 # Overview
-This vignette describes the Analysis page of the pandemonium app and each of the tabs that are in the page. This is to serve as a reference for understanding these pages and the controls and outputs each of them contain.
+This vignette describes the Analysis page of the pandemonium app and each of the tabs that are on the page. This is to serve as a reference for understanding these pages and the controls and outputs each of them contains.
 
 
 # Tabs
@@ -59,7 +59,7 @@ On the right side of the tab 2-4 plots will be shown depending on the result of 
 knitr::include_graphics("Images/benchmark_tab_bike.png")
 ```
 
-This tab will show benchmark information for clusters and user assigned groupings if supplied. The first collumns of the table will be the linked space values of the benchmark points, then the cluster radius and diameter will be given, finally the score value of the benchmark point will be given if getScores returns a score.
+This tab will show benchmark information for clusters and user assigned groupings if supplied. The first columns of the table will be the linked space values of the benchmark points, then the cluster radius and diameter will be given, finally the score value of the benchmark point will be given if getScores returns a score.
 
 ## Distance breakdown
 
@@ -81,8 +81,8 @@ The top output is a colour scaled scatter plot of each variable in the cluster s
 Below this is a parallel coordinate plot of the variables in space 1. The points are coloured by clustering with benchmark points plotted opaque and all other points slightly transparent. Note that `ggpcp` will break ties on points with the same value for a clearer plot.
 Below this plot is 3 settings:
 
- - Center: centres the coordintes by their mean.
- - Scale: sclaes the coordinates by their variation
+ - Center: centres the coordinates by their mean.
+ - Scale: scales the coordinates by their variation
  - Filter: filters which clusters to display
 
 ## Dimension Reduction
@@ -97,9 +97,9 @@ This tab is used to show dimension reduced plots of both the cluster and linked 
 |--------|---------------------------------|----------------|
 | Algorithm | Method used for dimension reduction | Names of dimReduction list, default: tSNE or UMAP|
 | Data | Data used in plot | Choice of either space 1 or space 2 |
-| Colour | Clouring of points in the plot | Clustering or scores, bins if calculted by `getScores` or user defined grouping if given in data page|
+| Colour | Colouring of points in the plot | Clustering or scores, bins if calculated by `getScores` or user defined grouping if given in data page|
 
-The dimension reduction plots use `plotly` for their displays this allows for zooming, panning aswell as hovering over points. This hover will display the points coordintes in dimension reduced form aswell as the value used for colouring and the point label if provided in the data page.
+The dimension reduction plots use `plotly` for their displays this allows for zooming, panning as well as hovering over points. This hover will display the points' coordinates in dimension reduced form as well as the value used for colouring and the point label if provided in the data page.
 
 > The dimension reduction plots and tour displays are linked via crosstalk for linked brushing between them.
 > See the section on linked brushing at the bottom of this page for more information on this.
@@ -151,7 +151,7 @@ a check box is also
 
 #### Outputs
 
-The same options as the input tab are shown here with two separate choices for each. A check box is also given to select the same options as used in the input tab. if user defined grouping are given in the data page these can also be selected for comparison although the heatmap plot will not update for this choice. a heatmap plot and cluster assignment plot are shown for each on the right of the page. Below the settings a contingency table is shown for the two cluster assingments.
+The same options as the input tab are shown here with two separate choices for each. A check box is also given to select the same options as used in the input tab. If user defined groupings are given in the data page these can also be selected for comparison, although the heatmap plot will not update for this choice. A heatmap plot and cluster assignment plot are shown for each on the right of the page. Below the settings a contingency table is shown for the two cluster assingments.
 
 ## Statistics
 

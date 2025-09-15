@@ -8,8 +8,8 @@
 #' @param tourspace space to show tour of
 #' @param colouring colouring to use in plot
 #' @param out_dim dimension of output tour
-#' @param tour_path tour path and type to use, one of ("grand","cmass","holes","lda","pda","dcor","origin","spline","radial","mahalanobis","anomaly")
-#' @param radial_start projection to use as start of radial tour, one of ("random","cmass","holes","lda","pda","dcor","origin","spline","mahalanobis")
+#' @param tour_path tour path and type to use, one of ("grand","cmass","holes","lda","pda","dcor","spline","radial","anomaly")
+#' @param radial_start projection to use as start of radial tour, one of ("random","cmass","holes","lda","pda","dcor","spline")
 #' @param radial_var variable to remove by radial tour
 #' @param display display type, one of ("scatter","slice")
 #' @param slice_width width of slice
@@ -49,8 +49,6 @@ tourMaker<- function(coord1, coord2, group, score, user_group,
                                 "pda"    = tourr::guided_tour(tourr::pda_pp(colour)),
                                 "dcor"   = tourr::guided_tour(tourr::dcor2d()),
                                 "spline" = tourr::guided_tour(tourr::splines2d()),
-                                "origin" = tourr::guided_tour(origin_dist()),
-                                "mahalanobis" = tourr::guided_tour(origin_dist_mahalanobis()),
       )
       hist <- tourr::save_history(data, tour_path = radial_tour, max_bases = 1000)
       view <- drop(hist[,,dim(hist)[3]])
@@ -70,13 +68,11 @@ tourMaker<- function(coord1, coord2, group, score, user_group,
                          "pda"    = tourr::guided_tour(tourr::pda_pp(colour),out_dim),
                          "dcor"   = tourr::guided_tour(tourr::dcor2d(),out_dim),
                          "spline" = tourr::guided_tour(tourr::splines2d(),out_dim),
-                         "origin" = tourr::guided_tour(origin_dist(),out_dim),
                          "radial" = tourr::radial_tour(radial_view, radial_var),
-                         "mahalanobis" = tourr::guided_tour(origin_dist_mahalanobis(),out_dim),
                          "anomaly"= tourr::guided_anomaly_tour(tourr::anomaly_index())
   )
   angles <- if (tour_path == "radial") 1 / 2 else 1
-  tour_bases <- if(tour_path %in% c("cmass","holes","lda","pda","dcor","origin","spline","mahalanobis","anomaly")) 1000 else 20
+  tour_bases <- if(tour_path %in% c("cmass","holes","lda","pda","dcor","spline","anomaly")) 1000 else 20
 
   if (display=="slice"){
     d <- detourr::detour(data, detourr::tour_aes(projection = tidyselect::all_of(projection), colour = "colour")) %>%

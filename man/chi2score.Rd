@@ -13,6 +13,8 @@ chi2score(space1, covinv, exp, space2, ...)
 
 \item{exp}{reference point from space 1}
 
+\item{space2}{dataframe with variables in space2}
+
 \item{...}{other expected values of getScore}
 }
 \description{

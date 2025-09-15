@@ -2,19 +2,22 @@
 % Please edit documentation in R/output.R
 \name{writeResults}
 \alias{writeResults}
-\title{Write space2, coordinates and cluter assingment to a CSV file}
+\title{Write coordinates and cluster assignment to a CSV file}
 \usage{
 writeResults(
   space1,
-  cov,
-  covInv,
+  cov = NULL,
+  covInv = NULL,
+  exp = NULL,
   space2,
-  exp,
+  space2.cov = NULL,
+  space2.covInv = NULL,
+  space2.exp = NULL,
   settings,
   filename,
-  user_coord = NULL,
   user_dist = NULL,
-  getCoords = normCoords
+  getCoords.space1 = normCoords,
+  getCoords.space2 = rawCoords
 )
 }
 \arguments{
@@ -24,20 +27,34 @@ writeResults(
 
 \item{covInv}{inverse covariance matrix}
 
+\item{exp}{observable reference value (e.g. experimental measurement)}
+
 \item{space2}{space2 matrix}
 
-\item{exp}{observable reference value (e.g. experimental measurement)}
+\item{space2.cov}{covariance matrix}
+
+\item{space2.covInv}{inverse covariance matrix}
+
+\item{space2.exp}{observable reference value (e.g. experimental measurement)}
 
 \item{settings}{list specifying parameters usually selected in the app}
 
 \item{filename}{path to write the results file to}
 
-\item{user_coord}{input coordinate matrix (optional)}
-
 \item{user_dist}{input distance matrix (optional)}
 
-\item{getCoords}{function to calculate coordinates}
+\item{getCoords.space1}{function to calculate coordinates on clustering space}
+
+\item{getCoords.space2}{function to calculate coordinates on linked space}
 }
 \description{
-Settings include: metric, linkage, k, plotType
+Settings used: metric, linkage, k
+}
+\examples{
+file<-tempfile()
+writeResults(space1 = Bikes$space1, space2 = Bikes$space2,
+settings = list(metric="euclidean",linkage="ward.D2",k=4), filename = file)
+file.remove(file)
+
+
 }

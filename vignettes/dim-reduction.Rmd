@@ -29,7 +29,7 @@ dist = n x n distance matrix.
 
 # How to write new functions
 The standard way to write a new function to be passed to `dimReduction` is as a wrapper for a common dimension reduction algorithm.
-THe defined function must be able to take `mat` and `dist` as parameters. If only one of them is used it is best to write the function with space for additional parameters with `...` as seen in the following example.
+The defined function must be able to take `mat` and `dist` as parameters. If only one of them is used it is best to write the function with space for additional parameters with `...` as seen in the following example.
 ```{r,echo=TRUE,eval=FALSE}
 tSNE_mat <- function(mat,...) {
   coord_red = list()
@@ -46,7 +46,7 @@ tSNE_dist <- function(dist,...) {
 newPandemonium(df, dim_reduction = list(tSNE_mat = tSNE_mat, tSNE_dist = tSNE_dist))
 ```
 
-Some algorithms may take a distances object instead of a distance matrix. This can be done by converting the distance matrix using `stats::as.dist()`. As done with umap. 
+Some algorithms may take a dist object instead of a distance matrix. This can be done by converting the distance matrix using `stats::as.dist()`. As done with `umap`. 
 
 ```{r,echo=TRUE,eval=FALSE}
 umap <- function(dist,...) {
