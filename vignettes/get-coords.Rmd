@@ -2,7 +2,7 @@
 title: "getCoords"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{usage of getCoords}
+  %\VignetteIndexEntry{getCoords}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

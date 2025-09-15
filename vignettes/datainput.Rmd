@@ -19,7 +19,9 @@ knitr::opts_chunk$set(
 
 To launch the app, the user needs to provide a data frame with the observations. 
 
-Here show code of how you would launch the app with just one input.
+```{r,eval=FALSE}
+newPandemonium(df = Bikes$df)
+```
 
 Variables can be sorted into the clustering space (space1) and the linked space (space2) once loaded into the app in the data screen. After removing a variable from one of the spaces it can be added to the other space or as a flag or grouping variable.
 

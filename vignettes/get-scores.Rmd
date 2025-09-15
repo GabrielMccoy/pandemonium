@@ -2,7 +2,7 @@
 title: "getScore"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Usage of getScore}
+  %\VignetteIndexEntry{getScore}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

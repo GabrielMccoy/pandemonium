@@ -18,20 +18,21 @@ knitr::opts_chunk$set(
 
 This vignette outlines the use of the `writeResults()` function.
 
-`writeResults` is a function to calculate coordinates and clustering results and write them to a csv file.
+`writeResults` is a function to calculate coordinates and clustering results and write them to a CSV file.
 
 
 ## Input
 
-The input parameters can be described by 3 necessary types: Data frames, settings and file name. There are also optional inputs that can be described by two types: space properties and coordinate functions.
+There are 5 main types of inputs to the function. Of these the first 3 are necessary inputs: Data frames, settings and file name. There are also optional inputs that can be described by two types: space properties and coordinate functions.
 
 #### Data frames
 
 `space1` and `space2` are necessary inputs of the cluster space and linked space variables respectively.
+These should be two data frames with the same number of rows in each.
 
 #### Settings
 
-Settings are options that would normally be selected within the app. Settings passed as a named list in the form: `settings=list(k= , linkage= , metric= )`
+Settings are options that would normally be selected within the app. Settings are passed as a named list in the form: `settings=list(k= , linkage= , metric= )`
 
 | Settings | Description |
 |--------|---------------------------------|
@@ -54,8 +55,8 @@ Each space can have a covariance matrix, inverse covariance matrix or reference 
 ## Output
 
 `writeResults` will write a CSV file to the provided file name.
-The first columns of the CSV will be linked space coordinates, then the clustering space coordinates. the final two columns will be cluster assignment and Benchmarks.
-clstr will be a number `1:settings$k` giving the clustering of each point.
+The first columns of the CSV will be linked space coordinates, then the clustering space coordinates. 
+clstr will be a number `1:settings$k` giving the clustering assignment of each point.
 BM will be the benchmarks of each cluster. A 0 will be here if the point is not a benchmark and a 1 if the point is a benchmark.
 
 The typical output of is as follows for the bikes data:

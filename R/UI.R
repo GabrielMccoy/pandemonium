@@ -216,7 +216,7 @@ UI <- function () {
                               #slice display selection width only shown if slice selected
                               shiny::checkboxInput("slice_par","Use Slice"),
                               shiny::conditionalPanel("input.slice_par == true",
-                                                      shiny::sliderInput("slw_par","slice width",min=0,max=1,value=0.2,step = .01)),
+                                                      shiny::numericInput("slw_par","slice width",value=0.2,min=0,max=1)),
                               shiny::selectInput("render2","Display type",
                                                  choices = c("2D","3D"), selected = "2D")
                               )

@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
 
-<img src="vignettes/Images/pandemonium.png" height="300px" align="right"/>
+<img src="man/figures/pandemonium.png" height="300px" align="right"/>
 <!-- badges: end -->
 
 pandemonium performs hierarchical cluster analysis within a Shiny GUI.

@@ -2,7 +2,7 @@
 title: "dimReduction"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{using dimension reduction}
+  %\VignetteIndexEntry{dimReduction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

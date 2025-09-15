@@ -6,7 +6,7 @@ output: github_document
 # pandemonium
 
 <!-- badges: start -->
-<img src="./vignettes/Images/pandemonium.png" height="300px" align="right"/>
+<img src="man/figures/pandemonium.png" height="300px" align="right"/>
 <!-- badges: end -->
 
 pandemonium performs hierarchical cluster analysis within a Shiny GUI. The data space should be split into two parts, for example input variables and latent variables for a statistical model. Clustering is performed using the subset of variables in the *clustering space*, and cluster assignments are also visualised in the *linked space*.
