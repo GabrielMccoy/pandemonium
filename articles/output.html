@@ -33,8 +33,8 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/analysis-pages.html">Data Analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/datainput.html">Data input for pandemonium</a></li>
+<li><a class="dropdown-item" href="../articles/datainput.html">Data input for pandemonium</a></li>
+    <li><a class="dropdown-item" href="../articles/analysis-pages.html">Data Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/dim-reduction.html">dimReduction</a></li>
     <li><a class="dropdown-item" href="../articles/get-coords.html">getCoords</a></li>
     <li><a class="dropdown-item" href="../articles/get-scores.html">getScore</a></li>
@@ -75,26 +75,27 @@
 <p>This vignette outlines the use of the <code><a href="../reference/writeResults.html">writeResults()</a></code>
 function.</p>
 <p><code>writeResults</code> is a function to calculate coordinates and
-clustering results and write them to a csv file.</p>
+clustering results and write them to a CSV file.</p>
 </div>
 <div class="section level2">
 <h2 id="input">Input<a class="anchor" aria-label="anchor" href="#input"></a>
 </h2>
-<p>The input parameters can be described by 3 necessary types: Data
-frames, settings and file name. There are also optional inputs that can
-be described by two types: space properties and coordinate
-functions.</p>
+<p>There are 5 main types of inputs to the function. Of these the first
+3 are necessary inputs: Data frames, settings and file name. There are
+also optional inputs that can be described by two types: space
+properties and coordinate functions.</p>
 <div class="section level4">
 <h4 id="data-frames">Data frames<a class="anchor" aria-label="anchor" href="#data-frames"></a>
 </h4>
 <p><code>space1</code> and <code>space2</code> are necessary inputs of
-the cluster space and linked space variables respectively.</p>
+the cluster space and linked space variables respectively. These should
+be two data frames with the same number of rows in each.</p>
 </div>
 <div class="section level4">
 <h4 id="settings">Settings<a class="anchor" aria-label="anchor" href="#settings"></a>
 </h4>
 <p>Settings are options that would normally be selected within the app.
-Settings passed as a named list in the form:
+Settings are passed as a named list in the form:
 <code>settings=list(k= , linkage= , metric= )</code></p>
 <table class="table">
 <thead><tr class="header">
@@ -149,11 +150,10 @@ will need to be provided if used.</p>
 </h2>
 <p><code>writeResults</code> will write a CSV file to the provided file
 name. The first columns of the CSV will be linked space coordinates,
-then the clustering space coordinates. the final two columns will be
-cluster assignment and Benchmarks. clstr will be a number
-<code>1:settings$k</code> giving the clustering of each point. BM will
-be the benchmarks of each cluster. A 0 will be here if the point is not
-a benchmark and a 1 if the point is a benchmark.</p>
+then the clustering space coordinates. clstr will be a number
+<code>1:settings$k</code> giving the clustering assignment of each
+point. BM will be the benchmarks of each cluster. A 0 will be here if
+the point is not a benchmark and a 1 if the point is a benchmark.</p>
 <p>The typical output of is as follows for the bikes data:</p>
 <pre><code>A1,A2,A3,A4,A5,A6,A7,A8,yr,temp,weathersit,atemp,hum,windspeed,clstr,BM
 0.953,1.200,1.649,0.473,-0.593,-0.891,-0.910,1.887,0,0.344,2,0.363,0.805,0.160,1,0
