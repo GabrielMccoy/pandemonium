@@ -39,6 +39,7 @@
     <li><a class="dropdown-item" href="../articles/get-coords.html">getCoords</a></li>
     <li><a class="dropdown-item" href="../articles/get-scores.html">getScore</a></li>
     <li><a class="dropdown-item" href="../articles/make-plots.html">How to use make plots</a></li>
+    <li><a class="dropdown-item" href="../articles/output.html">writeResults</a></li>
   </ul>
 </li>
       </ul>
@@ -72,9 +73,9 @@
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>This vignette describes the Analysis page of the pandemonium app and
-each of the tabs that are in the page. This is to serve as a reference
+each of the tabs that are on the page. This is to serve as a reference
 for understanding these pages and the controls and outputs each of them
-contain.</p>
+contains.</p>
 </div>
 <div class="section level2">
 <h2 id="tabs">Tabs<a class="anchor" aria-label="anchor" href="#tabs"></a>
@@ -207,8 +208,8 @@ benchmark points plotted opaque and all other points slightly
 transparent. Note that <code>ggpcp</code> will break ties on points with
 the same value for a clearer plot. Below this plot are 3 settings:</p>
 <ul>
-<li>Center: centres the coordintes by their mean.</li>
-<li>Scale: sclaes the coordinates by their variation</li>
+<li>Center: centres the coordinates by their mean.</li>
+<li>Scale: scales the coordinates by their variation</li>
 <li>Filter: filters which clusters to display</li>
 </ul>
 </div>
@@ -243,15 +244,15 @@ two plots are shown, each with options below it for user selection.</p>
 </tr>
 <tr class="odd">
 <td>Colour</td>
-<td>Clouring of points in the plot</td>
-<td>Clustering or scores, bins if calculted by <code>getScores</code> or
-user defined grouping if given in data page</td>
+<td>Colouring of points in the plot</td>
+<td>Clustering or scores, bins if calculated by <code>getScores</code>
+or user defined grouping if given in data page</td>
 </tr>
 </tbody>
 </table>
 <p>The dimension reduction plots use <code>plotly</code> for their
 displays this allows for zooming, panning as well as hovering over
-points. This hover will display the points coordinates in dimension
+points. This hover will display the points’ coordinates in dimension
 reduced form as well as the value used for colouring and the point label
 if provided in the data page.</p>
 <blockquote>

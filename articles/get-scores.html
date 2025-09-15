@@ -39,6 +39,7 @@
     <li><a class="dropdown-item" href="../articles/get-coords.html">getCoords</a></li>
     <li><a class="dropdown-item" href="../articles/get-scores.html">getScore</a></li>
     <li><a class="dropdown-item" href="../articles/make-plots.html">How to use make plots</a></li>
+    <li><a class="dropdown-item" href="../articles/output.html">writeResults</a></li>
   </ul>
 </li>
       </ul>
@@ -84,11 +85,11 @@ are:</p>
 <code>chi2score</code> This will calculate chi-squared values from
 the <code>exp</code> reference point in space1. The scores returned are
 chi-squared values, the bins are sigma bins from the reference point and
-the interesting points are ‘bf’ the best fit and ‘sm’ the closet point
+the interesting points are ‘bf’, the best fit and ‘sm’, the closet point
 to the origin.</li>
 <li>
-<code>outsidescore</code> this function takes a set of scores for
-each point and a name for the score from data outside the app. it is
+<code>outsidescore</code> This function takes a set of scores for
+each point and a name for the score from data outside the app. It is
 passed when loading the app. the scores returned are the scores passed
 to it, the bins are quartile bins of that score and no interesting
 points are returned.</li>
@@ -181,7 +182,7 @@ should be numeric</td>
 </tr>
 <tr class="odd">
 <td><code>interest</code></td>
-<td>A vector of names of interesting points to display in hover of
+<td>A vector of names of interesting points to display in the hover of
 <code>htmlwidgets</code> plots</td>
 </tr>
 <tr class="even">
@@ -219,9 +220,9 @@ look like is as follows:</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/pandemonium.html">pandemonium</a></span><span class="op">(</span><span class="va">df</span>, getScore <span class="op">=</span> <span class="va">myScore</span><span class="op">)</span></span></code></pre></div>
-<p>For the function to take values from outside the app it is best to
-write it as a closure and pass these values when calling the app as has
-been done for <code>outsidescore</code></p>
+<p>For the function to take values from outside the app, it is best to
+write it as a closure and pass these values when calling the app. This
+has been done for <code>outsidescore</code> as seen below:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">outsidescore</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">scores</span>,<span class="va">scoreName</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="kw">function</span><span class="op">(</span><span class="va">space1</span>, <span class="va">...</span><span class="op">)</span><span class="op">{</span></span>

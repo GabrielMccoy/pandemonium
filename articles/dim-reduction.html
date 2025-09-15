@@ -39,6 +39,7 @@
     <li><a class="dropdown-item" href="../articles/get-coords.html">getCoords</a></li>
     <li><a class="dropdown-item" href="../articles/get-scores.html">getScore</a></li>
     <li><a class="dropdown-item" href="../articles/make-plots.html">How to use make plots</a></li>
+    <li><a class="dropdown-item" href="../articles/output.html">writeResults</a></li>
   </ul>
 </li>
       </ul>
@@ -92,7 +93,7 @@ data frame with dimension reduced coordinates</p>
 </h2>
 <p>The standard way to write a new function to be passed to
 <code>dimReduction</code> is as a wrapper for a common dimension
-reduction algorithm. THe defined function must be able to take
+reduction algorithm. The defined function must be able to take
 <code>mat</code> and <code>dist</code> as parameters. If only one of
 them is used it is best to write the function with space for additional
 parameters with <code>...</code> as seen in the following example.</p>
@@ -110,9 +111,9 @@ parameters with <code>...</code> as seen in the following example.</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">newPandemonium</span><span class="op">(</span><span class="va">df</span>, dim_reduction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>tSNE_mat <span class="op">=</span> <span class="va">tSNE_mat</span>, tSNE_dist <span class="op">=</span> <span class="va">tSNE_dist</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Some algorithms may take a distances object instead of a distance
-matrix. This can be done by converting the distance matrix using
-<code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">stats::as.dist()</a></code>. As done with umap.</p>
+<p>Some algorithms may take a dist object instead of a distance matrix.
+This can be done by converting the distance matrix using
+<code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">stats::as.dist()</a></code>. As done with <code>umap</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">umap</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dist</span>,<span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>

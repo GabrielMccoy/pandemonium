@@ -39,6 +39,7 @@
     <li><a class="dropdown-item" href="../articles/get-coords.html">getCoords</a></li>
     <li><a class="dropdown-item" href="../articles/get-scores.html">getScore</a></li>
     <li><a class="dropdown-item" href="../articles/make-plots.html">How to use make plots</a></li>
+    <li><a class="dropdown-item" href="../articles/output.html">writeResults</a></li>
   </ul>
 </li>
       </ul>
@@ -87,8 +88,6 @@ space 1 and 2 in the data screen when loading the app. This can be done
 like this:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">newPandemonium</span><span class="op">(</span>df <span class="op">=</span> <span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span>, space2 <span class="op">=</span> <span class="va">Bikes</span><span class="op">$</span><span class="va">space2</span><span class="op">)</span></span></code></pre></div>
-<p>Once data has been selected press load data button to begin analysis
-using the app. See “Data Analysis” for more information in this.</p>
 <div class="section level3">
 <h3 id="optional-inputs">Optional inputs<a class="anchor" aria-label="anchor" href="#optional-inputs"></a>
 </h3>
@@ -196,6 +195,36 @@ setting <code>is.Inv=TRUE</code></p>
 inputs.</p>
 </blockquote>
 </div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="the-data-page">The data page<a class="anchor" aria-label="anchor" href="#the-data-page"></a>
+</h2>
+<p>Once a call to <code><a href="../reference/pandemonium.html">pandemonium()</a></code> is made the app will load
+into the data page which looks like below.
+<img src="Images/data_Input_page.png" width="100%"></p>
+<p>On this page, variables can be removed from either space or even
+moved between them. A Coordinate function can be selected from the input
+functions. There are also two additional inputs for groupings or flags
+as well as a label.</p>
+<div class="section level4">
+<h4 id="groupings">Groupings<a class="anchor" aria-label="anchor" href="#groupings"></a>
+</h4>
+<p>In this input you can select and variables passed to pandemonium in
+the <code>group=</code> input, as well as any variables removed from df
+or space 2 by deleting them in their inputs or variables that were
+automatically removed for being non-numeric. This is designed for
+categorical data so that it can be compared to clustering results. The
+selected variable(s) will be converted into a single factor with
+<code><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction()</a></code>.</p>
+</div>
+<div class="section level4">
+<h4 id="label">Label<a class="anchor" aria-label="anchor" href="#label"></a>
+</h4>
+<p>In this input you can select the label passed to pandemonium in the
+<code>label=</code> input, as well as the same removed variables from
+above. This input is designed to give a unique label for each point so
+row numbers or unique IDs are recommended.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
