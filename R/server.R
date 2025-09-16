@@ -95,15 +95,15 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
   server <- function(input, output, session) {
 
     if (!is.null(user_dist)) {
-      shiny::updateSelectInput(session, "metric", choices = c("euclidean",
-                                                              "maximum", "manhattan", "canberra", "binary",
-                                                              "minkowski", "user"))
-      shiny::updateSelectInput(session, "metricA", choices = c("euclidean",
-                                                               "maximum", "manhattan", "canberra", "binary",
-                                                               "minkowski", "user"))
-      shiny::updateSelectInput(session, "metricB", choices = c("euclidean",
-                                                               "maximum", "manhattan", "canberra", "binary",
-                                                               "minkowski", "user"))
+      shiny::updateSelectInput(session, "metric",
+                               choices = c("euclidean", "maximum", "manhattan",
+                                           "canberra", "binary", "user"))
+      shiny::updateSelectInput(session, "metricA",
+                               choices = c("euclidean", "maximum", "manhattan",
+                                           "canberra", "binary", "user"))
+      shiny::updateSelectInput(session, "metricB",
+                               choices = c("euclidean","maximum", "manhattan",
+                                           "canberra", "binary", "user"))
     }
     if(!is.null(space2)){
       shiny::updateSelectizeInput(session,"space1",choices = numeric.colnames, selected = df.colnames)
@@ -299,8 +299,6 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
       rv$pal <- RColorBrewer::brewer.pal(rv$kC, "Dark2")
       rv$col <- rv$pal[rv$groups]
       rv$benchmarks <- getBenchmarkInformation(rv$d_mat, rv$groups)
-      a <- round(max(c(rv$benchmarks$r,0.1)),1)
-      shiny::updateSliderInput(session,"alpha", max = a, value = a/2, step = a/100)
       rv$bpDists <- getClusterDists(rv$d_mat, rv$groups, rv$benchmarks)
       rv$pointcol <- rv$col
       rv$pointcol[rv$value$is.interest] <- "black"
@@ -348,6 +346,15 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         ggplot2::ggtitle("Centered coordinate values for all observables") +
         ggplot2::theme(aspect.ratio = 1)
     })
+    shiny::observeEvent(c(input$px, input$py, rv$benchmarks),{
+      shiny::req(rv$load.app,input$px,input$py)
+      x <- range(rv$space2[input$px])
+      y <- range(rv$space2[input$py])
+      range <- round(max((x[2]-x[1]),(y[2]-y[1])))
+      r <- round(max(c(rv$benchmarks$r,0.1)),1)
+      min <- min(r,range/10)
+      shiny::updateSliderInput(session,"alpha", max = range, min = min, value = (range-min/2), step = (range-min)/40)
+    },ignoreInit = T)
     output$pc <- shiny::renderPlot({
       shiny::req(rv$load.app)
       plotPC(rv$coord1, rv$groups, rv$benchmarks$id, input$pc.filt, input$pc.centre, input$pc.scale, a=0.2, rv$pal)

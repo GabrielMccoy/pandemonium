@@ -301,9 +301,7 @@ makePlots <- function(space1, settings, cov = NULL, covInv = NULL, exp = NULL, s
   pch <- rep(20, n)
   pch[value$is.interest] <- 2
   #make plots
-  if(settings$plotType == "PC"){ return( plotPC(coord, groups, benchmarks$id, settings$filt, c=T, s=T))}
-  else if(settings$plotType == "PCunscaled"){ return(plotPC(coord, groups, benchmarks$id, settings$filt, c=T, s=F))}
-  else if(settings$plotType == "PCnotcentered"){ return(plotPC(coord, groups, benchmarks$id, settings$filt, c=F, s=F))}
+  if(settings$plotType == "PC"){ return( plotPC(coord, groups, benchmarks$id, settings$filt, c=settings$centre, s=settings$scale))}
   else if(settings$plotType == "WC") {return(plotWC(space2, x, y, value$is.interest, benchmarks$id, col, groups = groups, pal = pal, a = settings$WCa, showalpha = settings$showalpha))}
   else if(settings$plotType == "chi2") {return(plotChi2(space2, value$score, x, y, value$scoreName, cond))}
   else if(settings$plotType == "sigBins"){return(plotSigBin(space2, value$is.interest, benchmarks$id, value$bins,

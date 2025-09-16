@@ -42,7 +42,7 @@ Each `plotType` has got its own required settings. for each plot type these are 
 
 | Plot | Description | Required settings | 
 |--------|--------------|---------------------------------|
-| "PC" | Parallel coordinate plot | `filt=` subset of 1:k (number of clusters) to show in the Plot |
+| "PC" | Parallel coordinate plot | `filt=` subset of 1:k (number of clusters) to show in the Plot. `centre=` `TRUE` or `FALSE` should centred coordinates be plotted. `scale=` `TRUE` or `FALSE` should scaled coordinates be plotted.|
 | "WC" | Plot of clustering on axis from space 2 | `x=`,`y=` column names of space 2 to be axis <br>`showalpha=` TRUE or FALSE to show alpha hulls <br>`WCa=` alpha value for alpha hulls|
 | "chi2" | Plot of score on axis from space 2 | `x=`,`y=` column names of space 2 to be axis <br>*note a function that returns values must be passed in `getScores`*|
 | "sigBins" | Plot of bins on axis from space 2 | `x=`,`y=` column names of space 2 to be axis <br>*note a function that returns bins must be passed in `getScores`*|
