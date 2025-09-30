@@ -18,7 +18,8 @@ Used where coordinates have already been computed. Only used where variables are
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-pandemonium(df = Bikes$space1, space2 = Bikes$space2, coords = list(normalised = normCoords, space2 = userCoords(Bikes$space2)))
+pandemonium(df = Bikes$space1, space2 = Bikes$space2,
+              coords = list(normalised = normCoords, space2 = userCoords(Bikes$space2)))
 
 \dontshow{\}) # examplesIf}
 }

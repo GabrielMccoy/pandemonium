@@ -21,6 +21,6 @@ Compute distances between all points
 }
 \examples{
 getDists(Bikes$space1,"euclidean")
-getDIsts(Bikes$space1,"maximum")
+getDists(Bikes$space1,"maximum")
 
 }

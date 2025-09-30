@@ -46,7 +46,7 @@ plotWC <- function (wc, x, y, interest, bmID, col, cond = NULL, groups = NULL, p
   p + ggplot2::geom_point(color = col[cond]) +
     ggplot2::geom_point(data = wc[interest,], shape = 1, size = 3) +
     ggplot2::geom_point(data = wc[bmID,], shape = 5, size = 3) +
-    ggplot2::theme_bw() + ggplot2::ggtitle("Cluster assignment in parameter space") +
+    ggplot2::theme_bw() + ggplot2::labs(title="Cluster assignment in parameter space") +
     ggplot2::theme(aspect.ratio = 1, legend.position = "none")
 }
 
@@ -70,8 +70,7 @@ plotObs <- function (coord, x, y, wc, obs, cond = NULL) {
     ggplot2::ggplot(ggplot2::aes(.data[[x]], .data[[y]], color = .data[[obs]])) +
     ggplot2::geom_point() + ggplot2::guides(color = "none") +
     ggplot2::scale_color_viridis_c() + ggplot2::theme_bw() +
-    ggplot2::ggtitle(paste0("Centered coordinate values for ",
-                            obs)) + ggplot2::theme(aspect.ratio = 1)
+    ggplot2::labs(title= paste0("Centered coordinate values for ",obs)) + ggplot2::theme(aspect.ratio = 1)
 }
 
 #' Plot sigma bins in parameter space
@@ -97,7 +96,7 @@ plotSigBin <- function (wc, interest, bmID, sigmabins, x, y, binName, cond = NUL
     ggplot2::geom_point(color = colSig[cond]) +
     ggplot2::geom_point(data = wc[interest,], shape = 1, size = 3) +
     ggplot2::geom_point(data = wc[bmID,], shape = 5, size = 3) +
-    ggplot2::theme_bw() + ggplot2::ggtitle(paste(binName,"bins in parameter space")) +
+    ggplot2::theme_bw() + ggplot2::labs(title=paste(binName,"bins in parameter space")) +
     ggplot2::theme(aspect.ratio = 1, legend.position = "none")
 }
 
@@ -118,7 +117,7 @@ plotChi2 <- function (wc, chi2, x, y, scoreName = NULL, cond = NULL) {
   dplyr::mutate(wc[cond, ], chi2 = chi2[cond]) %>% ggplot2::ggplot(ggplot2::aes(.data[[x]], .data[[y]], color = .data[["chi2"]])) +
     ggplot2::geom_point() + ggplot2::guides(color = "none") +
     ggplot2::scale_color_viridis_c() + ggplot2::theme_bw() +
-    ggplot2::ggtitle(paste(scoreName, "values")) + ggplot2::theme(aspect.ratio = 1)
+    ggplot2::labs(title=paste(scoreName, "values")) + ggplot2::theme(aspect.ratio = 1)
 }
 
 #' Make parallel coordinate plot
@@ -148,7 +147,7 @@ plotPC <- function(coord, groups, benchmarkIds, filt, c=T, s=T, a=0.2, pal = NUL
     ggpcp::geom_pcp_axes() +
     ggpcp::geom_pcp(ggplot2::aes(colour = .data$gr, alpha = .data$alphalvl)) +
     ggplot2::scale_color_manual(values = pal[sort(as.numeric(filt))]) +
-    ggplot2::ggtitle("Parallel coordinate plot")+
+    ggplot2::labs(title="Parallel coordinate plot")+
     ggplot2::theme_bw() +
     ggplot2::theme(axis.title.y=ggplot2::element_blank(),
                    axis.title.x=ggplot2::element_blank(),
@@ -187,8 +186,7 @@ plotCstat <- function(dist, fit, chivals, stat, kmax=8){
   cstats <- getClusterStats(dist, fit, chivals, kmax)
   ggplot2::ggplot(cstats, ggplot2::aes({{"k"}}, {{stat}})) +
     ggplot2::geom_line() +
-    ggplot2::xlab("# clusters") +
-    ggplot2::ylab(cstat_names[[stat]]) +
+    ggplot2::labs(x="# clusters",y=cstat_names[[stat]]) +
     ggplot2::theme_bw()
 }
 

@@ -17,7 +17,8 @@ Returns scores values as the score and and lower,inter and upper quartiles as th
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-pandemonium(df = Bikes$space1, space2 = Bikes$space2, getScore = outsidescore(Bikes$other$res,"Residual"))
+pandemonium(df = Bikes$space1, space2 = Bikes$space2,
+              getScore = outsidescore(Bikes$other$res,"Residual"))
 
 \dontshow{\}) # examplesIf}
 }

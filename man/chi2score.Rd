@@ -14,14 +14,13 @@ chi2score(space1, covinv, exp, ...)
 \item{exp}{reference point from space 1}
 
 \item{...}{other expected values of getScore}
-
-\item{space2}{dataframe with variables in space2}
 }
 \description{
 Used as getScores in pandemonium. Returns chi-squared values as the score and sigma bins as the bins.
 }
 \examples{
-chi2score(Bikes$space1,matlib::inv(cov(Bikes$space1)),data.frame(value = colMeans(Bikes$space1)))
+chi2score(Bikes$space1,matlib::inv(cov(Bikes$space1)),
+            data.frame(value = colMeans(Bikes$space1)))
 
 
 }

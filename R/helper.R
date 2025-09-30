@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' getDists(Bikes$space1,"euclidean")
-#' getDIsts(Bikes$space1,"maximum")
+#' getDists(Bikes$space1,"maximum")
 #'
 getDists <- function(coord, metric, user_dist=NULL){
   if(metric == "user") return(stats::as.dist(user_dist))

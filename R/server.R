@@ -325,7 +325,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
       rv$cstats %>% tidyr::pivot_longer(cols = .data$within.cluster.ss:.data$dmin,
                                         names_to = "stat") %>%
         ggplot2::ggplot() + ggplot2::geom_line(ggplot2::aes(x = .data$k, y = .data$value)) +
-        ggplot2::xlab("# clusters") + ggplot2::ylab("") +
+        ggplot2::labs(x="# clusters",y="") +
         ggplot2::facet_wrap(~stat, ncol = 3, scales = "free_y",
                             labeller = cstat_labeller()) + ggplot2::theme_bw()
     }, height = 600)
@@ -343,7 +343,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         ggplot2::facet_wrap(~observable, scales = "free",
                             ncol = 7) + ggplot2::guides(colour = "none") +
         ggplot2::scale_colour_viridis_c() + ggplot2::theme_bw() +
-        ggplot2::ggtitle("Centered coordinate values for all observables") +
+        ggplot2::labs(title="Centered coordinate values for all observables") +
         ggplot2::theme(aspect.ratio = 1)
     })
     shiny::observeEvent(c(input$px, input$py, rv$benchmarks),{
@@ -389,7 +389,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
                                 fill = NA, position = "identity") +
         ggplot2::scale_color_brewer(palette = "Dark2") +
         ggplot2::facet_grid(gr1 ~ match) + ggplot2::theme_bw() +
-        ggplot2::xlab("") + ggplot2::ylab("") + ggplot2::ggtitle("Distribution of distances within and between clusters") +
+        ggplot2::labs(x="",y="",title="Distribution of distances within and between clusters") +
         ggplot2::theme(legend.position = "none", strip.text.y = ggplot2::element_blank())
     })
     output$benchmarks = DT::renderDT({
@@ -763,7 +763,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
           ggplot2::geom_tile(ggplot2::aes(fill = .data$Freq)) +
           ggplot2::geom_text(ggplot2::aes(label = .data$Freq)) +
           ggplot2::scale_fill_distiller(palette = "RdGy") + ggplot2::theme_minimal() +
-          ggplot2::xlab("") + ggplot2::ylab("") + ggplot2::theme(legend.position = "none",
+          ggplot2::labs(x="",y="") + ggplot2::theme(legend.position = "none",
          axis.text.x = ggplot2::element_text(colour = palA,
              face = "bold", size = 15),
          axis.text.y = ggplot2::element_text(colour = palB,

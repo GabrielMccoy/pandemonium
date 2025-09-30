@@ -57,13 +57,13 @@ computeChi2 <- function(pred, covInv, exp){
 #' @param space1 dataframe with variables in space1
 #' @param covinv inverse covariance matrix from space1
 #' @param exp reference point from space 1
-#' @param space2 dataframe with variables in space2
 #' @param ... other expected values of getScore
 #'
 #' @export
 #'
 #' @examples
-#' chi2score(Bikes$space1,matlib::inv(cov(Bikes$space1)),data.frame(value = colMeans(Bikes$space1)))
+#' chi2score(Bikes$space1,matlib::inv(cov(Bikes$space1)),
+#'             data.frame(value = colMeans(Bikes$space1)))
 #'
 #'
 chi2score <- function(space1, covinv, exp, ...){
@@ -94,7 +94,8 @@ chi2score <- function(space1, covinv, exp, ...){
 #' @export
 #'
 #' @examplesIf interactive()
-#' pandemonium(df = Bikes$space1, space2 = Bikes$space2, getScore = outsidescore(Bikes$other$res,"Residual"))
+#' pandemonium(df = Bikes$space1, space2 = Bikes$space2,
+#'               getScore = outsidescore(Bikes$other$res,"Residual"))
 #'
 #'
 outsidescore <- function(scores,scoreName = NULL){
