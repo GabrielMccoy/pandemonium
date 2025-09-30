@@ -50,3 +50,4 @@ plotly plot
 \description{
 Plot dimension reduction plot
 }
+\keyword{internal}

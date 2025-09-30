@@ -5,10 +5,16 @@
 #' @param user_dist user distance returned with metric=user
 #' @return distances between all points
 #' @export
+#'
+#' @examples
+#' getDists(Bikes$space1,"euclidean")
+#' getDIsts(Bikes$space1,"maximum")
+#'
 getDists <- function(coord, metric, user_dist=NULL){
   if(metric == "user") return(stats::as.dist(user_dist))
   stats::dist(coord, method = metric)
 }
+
 
 #' Compute cluster information
 #'
@@ -19,6 +25,13 @@ getDists <- function(coord, metric, user_dist=NULL){
 #' @param groups groups resulting from clustering
 #' @return data frame with cluster information
 #' @export
+#'
+#' @examples
+#' dists <- getDists(Bikes$space1,"euclidean")
+#' fit <- stats::hclust(dists, "ward.D2")
+#' groups <- stats::cutree(fit, k = 4)
+#' getBenchmarkInformation(as.matrix(dists), groups)
+#'
 getBenchmarkInformation <- function(dmat, groups){
   k <- length(unique(groups))
   ret <- tibble::tibble(id = numeric(length = k),
@@ -51,6 +64,14 @@ getBenchmarkInformation <- function(dmat, groups){
 #' @return data frame with distance information
 #' @importFrom rlang .data
 #' @export
+#'
+#' @examples
+#' dists <- getDists(Bikes$space1,"euclidean")
+#' fit <- stats::hclust(dists, "ward.D2")
+#' groups <- stats::cutree(fit, k = 4)
+#' bm <- getBenchmarkInformation(as.matrix(dists), groups)
+#' getClusterDists(as.matrix(dists), groups, bm)
+#'
 getClusterDists <- function(dmat, groups, benchmarks){
   k <- length(unique(groups))
   n <- choose(k, 2)
@@ -92,7 +113,7 @@ getClusterDists <- function(dmat, groups, benchmarks){
 #' @param chivals vector with chi2 values
 #' @param kmax maximum number of clusters considered
 #' @return data frame with cluster statistics
-#' @export
+#' @keywords internal
 getClusterStats <- function(dist, fit, chivals, kmax=10){
   ret <- tibble::tibble(k = numeric(length = kmax-1),
                         within.cluster.ss = numeric(length = kmax-1),
@@ -134,6 +155,10 @@ cstat_names <- c(
   "dchi2rand" = "ARI with CI binning"
 )
 
+#' function for labeling cluster statistics on statistics page of pandemonium GUI
+#'
+#' @keywords internal
+#'
 cstat_labeller <- function(){
   return(ggplot2::labeller(stat = cstat_names))
 }

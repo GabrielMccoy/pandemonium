@@ -28,7 +28,7 @@ chi2bins <- function(chivals, ndf, k){
 #' @param chivals vector with chi2 values
 #' @param ndf number of parameters (degrees of freedom of the chi2 distribution)
 #' @return vector with sigma values
-#' @export
+#' @keywords internal
 computeSigma <- function(chivals, ndf){
   chimin <- min(chivals)
   # map chivals to sigmas, cutoff at 5
@@ -41,7 +41,7 @@ computeSigma <- function(chivals, ndf){
 #' @param covInv inverse covariance matrix
 #' @param exp experimentally observed values
 #' @return vector with chi2 values
-#' @export
+#' @keywords internal
 computeChi2 <- function(pred, covInv, exp){
   chi2 <- double(nrow(pred))
   for (i in 1:nrow(pred)){
@@ -50,9 +50,9 @@ computeChi2 <- function(pred, covInv, exp){
   return(chi2)
 }
 
-#' chi squared scores for the banomalies example
+#' Chi-squared scores function
 #'
-#' used as getScores in pandemonium
+#' Used as getScores in pandemonium. Returns chi-squared values as the score and sigma bins as the bins.
 #'
 #' @param space1 dataframe with variables in space1
 #' @param covinv inverse covariance matrix from space1
@@ -62,17 +62,20 @@ computeChi2 <- function(pred, covInv, exp){
 #'
 #' @export
 #'
-chi2score <- function(space1, covinv, exp, space2, ...){
+#' @examples
+#' chi2score(Bikes$space1,matlib::inv(cov(Bikes$space1)),data.frame(value = colMeans(Bikes$space1)))
+#'
+#'
+chi2score <- function(space1, covinv, exp, ...){
   ret <-list()
   n<- nrow(space1)
   ndf<-ncol(space1)
   ret$score<- computeChi2(space1, covinv, exp)
   sig <- floor(computeSigma(ret$score,ndf))+1
-  ret$bins <- factor(sig,labels = c("1","2","3","4","5","5+"))
+  ret$bins <- factor(sig,labels = c("1","2","3","4","5","5+")[sort(unique(sig))])
 
   ret$interest <- rep("",n)
   ret$interest[which.min(ret$bins)]<- "bf"
-  ret$interest[which.min(rowSums(abs(space2)))] <- "sm"
   ret$is.interest <- which(ret$interest!="")
   ret$scoreName <- "chi2"
   ret$binName   <- "sigma"
@@ -82,12 +85,17 @@ chi2score <- function(space1, covinv, exp, space2, ...){
 
 #' outside score values
 #'
-#' used as getScores in pandemonium to calculate scores not based on any data within pandemonium
+#' Used as getScores in pandemonium. Calculates scores not based on any data produced within pandemonium.
+#' Returns scores values as the score and and lower,inter and upper quartiles as the bins.
 #'
 #' @param scores external scores to be passed to the app.
 #' @param scoreName name for scores
 #'
 #' @export
+#'
+#' @examplesIf interactive()
+#' pandemonium(df = Bikes$space1, space2 = Bikes$space2, getScore = outsidescore(Bikes$other$res,"Residual"))
+#'
 #'
 outsidescore <- function(scores,scoreName = NULL){
   function(space1, ...){

@@ -17,3 +17,4 @@ vector with sigma values
 \description{
 Map chi2 to sigma, with cutoff (overflow) at 5 sigma
 }
+\keyword{internal}

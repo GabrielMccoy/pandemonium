@@ -23,3 +23,4 @@ ggplot
 \description{
 Plot selected cluster statistics
 }
+\keyword{internal}

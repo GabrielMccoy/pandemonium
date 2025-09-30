@@ -15,7 +15,7 @@
 #' @param slice_width width of slice
 #'
 #' @returns detour
-#' @export
+#' @keywords internal
 #'
 tourMaker<- function(coord1, coord2, group, score, user_group,
                      tourspace, colouring, out_dim, tour_path, display,

@@ -22,3 +22,4 @@ data frame with cluster statistics
 For number of clusters k between two and kmax, evaluate cluster
 statistics collected in output tibble.
 }
+\keyword{internal}

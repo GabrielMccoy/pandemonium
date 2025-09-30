@@ -16,3 +16,9 @@ function that returns the user defined coordinates user_coords
 Closure of a coordinate function that returns user defined coordinates.
 Used where coordinates have already been computed. Only used where variables are not moved out of spaces.
 }
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+pandemonium(df = Bikes$space1, space2 = Bikes$space2, coords = list(normalised = normCoords, space2 = userCoords(Bikes$space2)))
+
+\dontshow{\}) # examplesIf}
+}

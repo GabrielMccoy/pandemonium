@@ -17,3 +17,8 @@ list containing a 2 x n matrix of reduced dimension data
 \description{
 t-Distributed Stochastic Neighbor Embedding Through Rtsne
 }
+\examples{
+tSNE(getDists(Bikes$space1,"euclidean"))
+
+
+}

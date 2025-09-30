@@ -21,3 +21,4 @@ plot
 \description{
 Plot heatmap with dendrogram
 }
+\keyword{internal}

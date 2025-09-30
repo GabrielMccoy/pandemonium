@@ -54,3 +54,19 @@ ggplot, plotly or detourr plot depending on settings$plotType
 Used as interface to generate a specific graph seen when using the GUI.
 Settings include: metric, linkage, k, plotType
 }
+\examples{
+makePlots(space1 = Bikes$space1,
+  settings = list(
+      plotType = "WC", x="hum", y="temp", k=4, metric="euclidean",
+      linkage="ward.D2", WCa=0.5, showalpha=T),cov = cov(Bikes$space1),
+      space2 = Bikes$space2, getScore = outsidescore(Bikes$other$res,"Residual"))
+
+makePlots(space1 = Bikes$space1,
+  settings = list(
+      plotType = "tour", k=4, metric="euclidean", linkage="ward.D2",
+      tourspace="space1", colouring="clustering", out_dim=2, tour_path="grand",
+      display="scatter",radial_start=NULL, radial_var=NULL, slice_width=NULL),
+      cov = cov(Bikes$space1), space2 = Bikes$space2,
+      getScore = outsidescore(Bikes$other$res,"Residual"))
+
+}

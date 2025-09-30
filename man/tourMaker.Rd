@@ -53,3 +53,4 @@ detour
 \description{
 function to make tours
 }
+\keyword{internal}

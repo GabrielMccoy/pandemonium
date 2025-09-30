@@ -14,7 +14,7 @@
 #' @param showalpha boolean value to calculate and show alpha hulls
 #' @return ggplot
 #' @importFrom rlang .data
-#' @export
+#' @keywords internal
 plotWC <- function (wc, x, y, interest, bmID, col, cond = NULL, groups = NULL, pal = NULL, a = 0.2, showalpha = F) {
   if (is.null(cond)){cond <- 1:nrow(wc)}
 
@@ -62,7 +62,7 @@ plotWC <- function (wc, x, y, interest, bmID, col, cond = NULL, groups = NULL, p
 #' @return ggplot
 #'
 #' @importFrom rlang .data
-#' @export
+#' @keywords internal
 plotObs <- function (coord, x, y, wc, obs, cond = NULL) {
   if (is.null(cond)){cond <- 1:nrow(wc)}
   dat <- coord[cond, ]
@@ -88,7 +88,7 @@ plotObs <- function (coord, x, y, wc, obs, cond = NULL) {
 #' @param colourSet RColorBrewer set for colouring
 #' @importFrom rlang .data
 #' @return ggplot
-#' @export
+#' @keywords internal
 plotSigBin <- function (wc, interest, bmID, sigmabins, x, y, binName, cond = NULL, colourSet = "Set2") {
   if (is.null(cond)){cond <- 1:nrow(wc)}
   palSig <- RColorBrewer::brewer.pal(length(unique(sigmabins)), colourSet)
@@ -112,7 +112,7 @@ plotSigBin <- function (wc, interest, bmID, sigmabins, x, y, binName, cond = NUL
 #' @param cond row numbers of points used for conditioning
 #' @return ggplot
 #' @importFrom rlang .data
-#' @export
+#' @keywords internal
 plotChi2 <- function (wc, chi2, x, y, scoreName = NULL, cond = NULL) {
   if (is.null(cond)){cond <- 1:nrow(wc)}
   dplyr::mutate(wc[cond, ], chi2 = chi2[cond]) %>% ggplot2::ggplot(ggplot2::aes(.data[[x]], .data[[y]], color = .data[["chi2"]])) +
@@ -132,7 +132,7 @@ plotChi2 <- function (wc, chi2, x, y, scoreName = NULL, cond = NULL) {
 #' @param a alpha transarancy for drawing non-benchmark points (default=0.2)
 #' @param pal pallete for colour assignment
 #' @return ggplot
-#' @export
+#' @keywords internal
 plotPC <- function(coord, groups, benchmarkIds, filt, c=T, s=T, a=0.2, pal = NULL){
   alphalvl <- rep(a, nrow(coord))
   alphalvl[benchmarkIds] <- 1
@@ -163,7 +163,7 @@ plotPC <- function(coord, groups, benchmarkIds, filt, c=T, s=T, a=0.2, pal = NUL
 #' @param k number of clusters
 #' @param pal color palette
 #' @return plot
-#' @export
+#' @keywords internal
 plotHeatmap <- function(dat, fit, k, pal){
   dendo <- stats::as.dendrogram(fit) %>%
     dendextend::set("branches_lwd", 3) %>%
@@ -182,7 +182,7 @@ plotHeatmap <- function(dat, fit, k, pal){
 #' @param stat cluster statistic to draw
 #' @param kmax maximum number of clusters to appear in the plot
 #' @return ggplot
-#' @export
+#' @keywords internal
 plotCstat <- function(dist, fit, chivals, stat, kmax=8){
   cstats <- getClusterStats(dist, fit, chivals, kmax)
   ggplot2::ggplot(cstats, ggplot2::aes({{"k"}}, {{stat}})) +
@@ -208,7 +208,7 @@ plotCstat <- function(dist, fit, chivals, stat, kmax=8){
 #' @param pch factor with 2 levels 1 will be plotted as a circle 2 will be plotted as an o
 #'
 #' @returns plotly plot
-#' @export
+#' @keywords internal
 #'
 plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduction, algorithm, group, score, user_group, pch){
   set.seed(2025)
@@ -266,6 +266,20 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
 #'
 #' @returns ggplot, plotly or detourr plot depending on settings$plotType
 #' @export
+#' @examples
+#' makePlots(space1 = Bikes$space1,
+#'   settings = list(
+#'       plotType = "WC", x="hum", y="temp", k=4, metric="euclidean",
+#'       linkage="ward.D2", WCa=0.5, showalpha=T),cov = cov(Bikes$space1),
+#'       space2 = Bikes$space2, getScore = outsidescore(Bikes$other$res,"Residual"))
+#'
+#' makePlots(space1 = Bikes$space1,
+#'   settings = list(
+#'       plotType = "tour", k=4, metric="euclidean", linkage="ward.D2",
+#'       tourspace="space1", colouring="clustering", out_dim=2, tour_path="grand",
+#'       display="scatter",radial_start=NULL, radial_var=NULL, slice_width=NULL),
+#'       cov = cov(Bikes$space1), space2 = Bikes$space2,
+#'       getScore = outsidescore(Bikes$other$res,"Residual"))
 #'
 makePlots <- function(space1, settings, cov = NULL, covInv = NULL, exp = NULL, space2 = NULL,
                       space2.cov = NULL, space2.covInv, space2.exp = NULL, user_dist=NULL,

@@ -2,9 +2,9 @@
 % Please edit documentation in R/scores.R
 \name{chi2score}
 \alias{chi2score}
-\title{chi squared scores for the banomalies example}
+\title{Chi-squared scores function}
 \usage{
-chi2score(space1, covinv, exp, space2, ...)
+chi2score(space1, covinv, exp, ...)
 }
 \arguments{
 \item{space1}{dataframe with variables in space1}
@@ -13,10 +13,15 @@ chi2score(space1, covinv, exp, space2, ...)
 
 \item{exp}{reference point from space 1}
 
-\item{space2}{dataframe with variables in space2}
-
 \item{...}{other expected values of getScore}
+
+\item{space2}{dataframe with variables in space2}
 }
 \description{
-used as getScores in pandemonium
+Used as getScores in pandemonium. Returns chi-squared values as the score and sigma bins as the bins.
+}
+\examples{
+chi2score(Bikes$space1,matlib::inv(cov(Bikes$space1)),data.frame(value = colMeans(Bikes$space1)))
+
+
 }

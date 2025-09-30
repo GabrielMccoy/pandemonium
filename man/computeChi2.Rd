@@ -19,3 +19,4 @@ vector with chi2 values
 \description{
 Compute chi2 value for all points
 }
+\keyword{internal}

@@ -21,3 +21,11 @@ The returned tibble contains the id of the cluster pairs,
 with benchmark distance (d1), minimum (d2) and maximum (d3) distances
 between any points in the two clusters.
 }
+\examples{
+dists <- getDists(Bikes$space1,"euclidean")
+fit <- stats::hclust(dists, "ward.D2")
+groups <- stats::cutree(fit, k = 4)
+bm <- getBenchmarkInformation(as.matrix(dists), groups)
+getClusterDists(as.matrix(dists), groups, bm)
+
+}

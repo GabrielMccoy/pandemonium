@@ -21,3 +21,8 @@ matrix with coordinate representation of all points
 \description{
 Chi-Squared Loss Function Coordinates
 }
+\examples{
+pullCoords(Bikes$space2,cov(space2),mean(space2))
+
+
+}

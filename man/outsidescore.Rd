@@ -12,5 +12,12 @@ outsidescore(scores, scoreName = NULL)
 \item{scoreName}{name for scores}
 }
 \description{
-used as getScores in pandemonium to calculate scores not based on any data within pandemonium
+Used as getScores in pandemonium. Calculates scores not based on any data produced within pandemonium.
+Returns scores values as the score and and lower,inter and upper quartiles as the bins.
+}
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+pandemonium(df = Bikes$space1, space2 = Bikes$space2, getScore = outsidescore(Bikes$other$res,"Residual"))
+
+\dontshow{\}) # examplesIf}
 }

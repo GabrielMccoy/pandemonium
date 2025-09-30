@@ -2,7 +2,7 @@
 % Please edit documentation in R/coordinates.R
 \name{normCoords}
 \alias{normCoords}
-\title{Normalisation coordinates}
+\title{Normalised coordinates using scale}
 \usage{
 normCoords(df, ...)
 }
@@ -15,5 +15,10 @@ normCoords(df, ...)
 matrix with coordinate representation of all points
 }
 \description{
-Normalisation coordinates
+Normalised coordinates using scale
+}
+\examples{
+normCoords(Bikes$space2)
+
+
 }

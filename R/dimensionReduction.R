@@ -6,6 +6,10 @@
 #' @returns list containing a 2 x n matrix of reduced dimension data
 #' @export
 #'
+#' @examples
+#' tSNE(getDists(Bikes$space1,"euclidean"))
+#'
+#'
 tSNE <- function(dist,...) {
   Rtsne::Rtsne(dist, is_distance=TRUE)
 }
@@ -17,6 +21,10 @@ tSNE <- function(dist,...) {
 #'
 #' @returns list containing a 2 x n matrix of reduced dimension data
 #' @export
+#'
+#' @examples
+#' umap(getDists(Bikes$space1,"euclidean"))
+#'
 #'
 umap <- function(dist,...) {
   ret <- list()

@@ -7,6 +7,10 @@
 #' @returns matrix with coordinate representation of all points
 #' @export
 #'
+#'@examples
+#' pullCoords(Bikes$space2,cov(space2),mean(space2))
+#'
+#'
 pullCoords <- function(df, covInv, exp,...){
 
   n <- nrow(df)
@@ -25,6 +29,8 @@ pullCoords <- function(df, covInv, exp,...){
 
 #' Generic Loss Function Coordinates
 #'
+#' Uses the i,ith entry of the covariance matrix as the standard deviation of the ith variable.
+#'
 #' @param df data frame
 #' @param cov covariance matrix
 #' @param exp reference values
@@ -32,6 +38,10 @@ pullCoords <- function(df, covInv, exp,...){
 #'
 #' @returns matrix with coordinate representation of all points
 #' @export
+#'
+#' @examples
+#' pullCoordsNoCov(Bikes$space2,cov(space2),mean(space2))
+#'
 #'
 pullCoordsNoCov <- function(df, cov, exp, ...){
 
@@ -49,13 +59,17 @@ pullCoordsNoCov <- function(df, cov, exp, ...){
   return(coord_mat)
 }
 
-#' Normalisation coordinates
+#' Normalised coordinates using scale
 #'
 #' @param df data frame
 #' @param ... other expected values of getCoords
 #'
 #' @returns matrix with coordinate representation of all points
 #' @export
+#'
+#' @examples
+#' normCoords(Bikes$space2)
+#'
 #'
 normCoords <- function(df, ...){
   return(scale(df))
@@ -72,6 +86,10 @@ normCoords <- function(df, ...){
 #' @returns matrix with coordinate representation of all points
 #' @export
 #'
+#' @examples
+#' rawCoords(Bikes$space2)
+#'
+#'
 rawCoords <- function(df, ...){
   return(df)
 }
@@ -86,6 +104,10 @@ rawCoords <- function(df, ...){
 #'
 #' @returns function that returns the user defined coordinates user_coords
 #' @export
+#'
+#' @examplesIf interactive()
+#' pandemonium(df = Bikes$space1, space2 = Bikes$space2, coords = list(normalised = normCoords, space2 = userCoords(Bikes$space2)))
+#'
 #'
 userCoords <- function(user_coords){
   function(df,...){

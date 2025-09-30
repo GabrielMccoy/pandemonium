@@ -18,3 +18,8 @@ matrix with coordinate representation of all points
 returns df, used when other coordinates may fail.
 It is not recommended that these coordinates be used as distances may not be logical.
 }
+\examples{
+rawCoords(Bikes$space2)
+
+
+}

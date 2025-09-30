@@ -19,5 +19,10 @@ pullCoordsNoCov(df, cov, exp, ...)
 matrix with coordinate representation of all points
 }
 \description{
-Generic Loss Function Coordinates
+Uses the i,ith entry of the covariance matrix as the standard deviation of the ith variable.
+}
+\examples{
+pullCoordsNoCov(Bikes$space2,cov(space2),mean(space2))
+
+
 }

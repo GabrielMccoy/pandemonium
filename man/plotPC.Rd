@@ -29,3 +29,4 @@ ggplot
 \description{
 Make parallel coordinate plot
 }
+\keyword{internal}

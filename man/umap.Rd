@@ -17,3 +17,8 @@ list containing a 2 x n matrix of reduced dimension data
 \description{
 Uniform Manifold Approximation and Projection Embedding Through uwot
 }
+\examples{
+umap(getDists(Bikes$space1,"euclidean"))
+
+
+}
