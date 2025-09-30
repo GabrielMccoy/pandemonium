@@ -69,15 +69,12 @@
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>other expected values of getScore</p></dd>
 
-
-<dt id="arg-space-">space2<a class="anchor" aria-label="anchor" href="#arg-space-"></a></dt>
-<dd><p>dataframe with variables in space2</p></dd>
-
 </dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">chi2score</span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span>,<span class="fu">matlib</span><span class="fu">::</span><span class="fu">inv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span><span class="op">)</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">chi2score</span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span>,<span class="fu">matlib</span><span class="fu">::</span><span class="fu">inv</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘matlib’</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
