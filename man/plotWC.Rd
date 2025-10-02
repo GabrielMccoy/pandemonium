@@ -15,7 +15,7 @@ plotWC(
   groups = NULL,
   pal = NULL,
   a = 0.2,
-  showalpha = F
+  showalpha = TRUE
 )
 }
 \arguments{

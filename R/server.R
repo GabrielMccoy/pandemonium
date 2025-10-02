@@ -125,22 +125,22 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
       shiny::updateSelectizeInput(session,"space2",choices = numeric.colnames[!(numeric.colnames %in% c(input$space1,input$group,input$label))], selected = input$space2)
       shiny::updateSelectizeInput(session,"group",choices = c(choose="",group.choice[!(group.choice %in% c(input$space1,input$space2,input$label))]), selected = input$group)
       shiny::updateSelectizeInput(session,"label",choices = lab.choice[!(lab.choice %in% c(input$space1,input$space2,input$group))], selected = input$label)
-    }, ignoreInit = T, ignoreNULL = F)
+    }, ignoreInit = TRUE, ignoreNULL = FALSE)
     shiny::observeEvent(input$space2,{
       shiny::updateSelectizeInput(session,"space1",choices = numeric.colnames[!(numeric.colnames %in% c(input$space2,input$group,input$label))], selected = input$space1)
       shiny::updateSelectizeInput(session,"group",choices = c(choose="",group.choice[!(group.choice %in% c(input$space1,input$space2,input$label))]), selected = input$group)
       shiny::updateSelectizeInput(session,"label",choices = lab.choice[!(lab.choice %in% c(input$space1,input$space2,input$group))], selected = input$label)
-    }, ignoreInit = T, ignoreNULL = F)
+    }, ignoreInit = TRUE, ignoreNULL = FALSE)
     shiny::observeEvent(input$group,{
       shiny::updateSelectizeInput(session,"space1",choices = numeric.colnames[!(numeric.colnames %in% c(input$space2,input$group,input$label))], selected = input$space1)
       shiny::updateSelectizeInput(session,"space2",choices = numeric.colnames[!(numeric.colnames %in% c(input$space1,input$group,input$label))], selected = input$space2)
       shiny::updateSelectizeInput(session,"label",choices = lab.choice[!(lab.choice %in% c(input$space1,input$space2,input$group))], selected = input$label)
-    }, ignoreInit = T, ignoreNULL = F)
+    }, ignoreInit = TRUE, ignoreNULL = FALSE)
     shiny::observeEvent(input$label,{
       shiny::updateSelectizeInput(session,"space1",choices = numeric.colnames[!(numeric.colnames %in% c(input$space2,input$group,input$label))], selected = input$space1)
       shiny::updateSelectizeInput(session,"space2",choices = numeric.colnames[!(numeric.colnames %in% c(input$space1,input$group,input$label))], selected = input$space2)
       shiny::updateSelectizeInput(session,"group",choices = c(choose="",group.choice[!(group.choice %in% c(input$space1,input$space2,input$label))]), selected = input$group)
-    }, ignoreInit = T, ignoreNULL = F)
+    }, ignoreInit = TRUE, ignoreNULL = FALSE)
 
     shiny::observeEvent(input$group,{
       if (is.null(input$group)){
@@ -160,13 +160,13 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
 
         if (n.level>12){
           shinyFeedback::hideFeedback("group",session)
-          shinyFeedback::feedbackWarning("group", T, text = paste("number of groups made:",n.level,"WARNING max 12"), session = session)
+          shinyFeedback::feedbackWarning("group", TRUE, text = paste("number of groups made:",n.level,"WARNING max 12"), session = session)
         } else {
           shinyFeedback::hideFeedback("group",session)
-          shinyFeedback::feedbackSuccess("group", T, text = paste("number of groups made:",n.level), session = session)
+          shinyFeedback::feedbackSuccess("group", TRUE, text = paste("number of groups made:",n.level), session = session)
         }
       }
-    }, ignoreNULL = F)
+    }, ignoreNULL = FALSE)
 
     shiny::observeEvent(input$app.load,{
       rv$space1 <-
@@ -216,7 +216,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
 
       if (is.null(input$group)){
         rv$colour.choice <- intersect(rv$colour.choice,c("clustering","score","bins"))
-        shiny::updateCheckboxInput(session,"usegroupB", value = F)
+        shiny::updateCheckboxInput(session,"usegroupB", value = FALSE)
 
       } else{
         rv$colour.choice <- unique(c(rv$colour.choice,"user"))
@@ -280,12 +280,12 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         }
 
       dists1 <- tryCatch(getDists(rv$coord1, input$metric, user_dist), error = function(e){
-        warning("Distances have failed to calculate, coordinates may not have been calculated", call. = F)
+        warning("Distances have failed to calculate, coordinates may not have been calculated", call. = FALSE)
       })
       rv$d_mat <- as.matrix(dists1)
 
       dists2 <- tryCatch(getDists(rv$coord2, input$metric, NULL), error = function(e){
-        warning("Distances have failed to calculate, coordinates may not have been calculated", call. = F)
+        warning("Distances have failed to calculate, coordinates may not have been calculated", call. = FALSE)
       })
       rv$d_mat2 <- as.matrix(dists2)
 
@@ -304,7 +304,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
       rv$pointcol[rv$value$is.interest] <- "black"
       rv$pch <- rep(1, n)
       rv$pch[rv$value$is.interest] <- 2
-    }, priority = 80, ignoreInit = T)
+    }, priority = 80, ignoreInit = TRUE)
     shiny::observeEvent(rv$colour.choice,{
       shiny::updateSelectInput(session,"colouring1","Colouring", choices = rv$colour.choice)
       shiny::updateSelectInput(session,"colouring2","Colouring", choices = rv$colour.choice)
@@ -354,7 +354,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
       r <- round(max(c(rv$benchmarks$r,0.1)),1)
       min <- min(r,range/10)
       shiny::updateSliderInput(session,"alpha", max = range, min = min, value = (range-min/2), step = (range-min)/40)
-    },ignoreInit = T)
+    },ignoreInit = TRUE)
     output$pc <- shiny::renderPlot({
       shiny::req(rv$load.app)
       plotPC(rv$coord1, rv$groups, rv$benchmarks$id, input$pc.filt, input$pc.centre, input$pc.scale, a=0.2, rv$pal)
@@ -521,7 +521,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
                           rv$coord_red1$Y,rv$coord_red2$Y,rv$tour1,rv$tour2), {
       if (is.null(input$select_radial_par)){
         rad.var<-1
-        shinyFeedback::feedbackWarning("select_radial_par", T, text = "Warning: a radial variable must be selected", session = session)
+        shinyFeedback::feedbackWarning("select_radial_par", TRUE, text = "Warning: a radial variable must be selected", session = session)
         rv$radialWarn <- rv$radialWarn+1
       }else{
         rad.var <- which(rv$tour2projection %in% input$select_radial_par)
@@ -547,7 +547,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
                           rv$coord_red1$Y,rv$coord_red2$Y,rv$tour1,rv$tour2),{
       if (is.null(input$select_radial_obs)){
         rad.var<-1
-        shinyFeedback::feedbackWarning("select_radial_obs", T, text = "Warning: a radial variable must be selected", session = session)
+        shinyFeedback::feedbackWarning("select_radial_obs", TRUE, text = "Warning: a radial variable must be selected", session = session)
         rv$radialWarn <- rv$radialWarn+1
       }else{
         rad.var <- which(rv$tour1projection %in% input$select_radial_obs)
@@ -614,9 +614,9 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
       }
 
       tryCatch(colnames(rv$coord_red1$Y) <- c("dim1A","dim2A"), error = function(e){
-        warning("dimension reduction has not returned correctly formatted data", call. = F)
+        warning("dimension reduction has not returned correctly formatted data", call. = FALSE)
       })
-    },ignoreInit = T)
+    },ignoreInit = TRUE)
     shiny::observeEvent(c(rv$coord1,rv$coord2,input$algorithm2,input$red2.data),{
       shiny::req(rv$load.app)
       if ((input$algorithm1==input$algorithm2)&&(input$red1.data==input$red2.data)){
@@ -630,9 +630,9 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
       }
 
       tryCatch(colnames(rv$coord_red2$Y) <- c("dim1B","dim2B"), error = function(e){
-        warning("dimension reduction has not returned correctly formatted data", call. = F)
+        warning("dimension reduction has not returned correctly formatted data", call. = FALSE)
       })
-    },ignoreInit = T)
+    },ignoreInit = TRUE)
 
     shiny::observeEvent(c(rv$coord1,rv$coord2),{
       rv$pca1 <- stats::prcomp(rv$coord1)$x[, 1:min(5,ncol(rv$space1))]
@@ -776,7 +776,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
        output$heatmapB <- shiny::renderPlot({
          plotHeatmap(d_matB, fitB, kB, palB)
        }, height = 325)
-    }, ignoreInit = T)
+    }, ignoreInit = TRUE)
 
     output$wcA <- shiny::renderPlot({
       shiny::req(rv$load.app)

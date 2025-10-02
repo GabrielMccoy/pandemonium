@@ -4,7 +4,16 @@
 \alias{plotPC}
 \title{Make parallel coordinate plot}
 \usage{
-plotPC(coord, groups, benchmarkIds, filt, c = T, s = T, a = 0.2, pal = NULL)
+plotPC(
+  coord,
+  groups,
+  benchmarkIds,
+  filt,
+  c = TRUE,
+  s = TRUE,
+  a = 0.2,
+  pal = NULL
+)
 }
 \arguments{
 \item{coord}{coordinate representation of points}

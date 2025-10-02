@@ -62,7 +62,7 @@ computeChi2 <- function(pred, covInv, exp){
 #' @export
 #'
 #' @examples
-#' chi2score(Bikes$space1,matlib::inv(cov(Bikes$space1)),
+#' chi2score(Bikes$space1,solve(cov(Bikes$space1)),
 #'             data.frame(value = colMeans(Bikes$space1)))
 #'
 #'

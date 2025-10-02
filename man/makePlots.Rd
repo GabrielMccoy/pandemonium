@@ -58,7 +58,7 @@ Settings include: metric, linkage, k, plotType
 makePlots(space1 = Bikes$space1,
   settings = list(
       plotType = "WC", x="hum", y="temp", k=4, metric="euclidean",
-      linkage="ward.D2", WCa=0.5, showalpha=T),cov = cov(Bikes$space1),
+      linkage="ward.D2", WCa=0.5, showalpha=TRUE),cov = cov(Bikes$space1),
       space2 = Bikes$space2, getScore = outsidescore(Bikes$other$res,"Residual"))
 
 makePlots(space1 = Bikes$space1,

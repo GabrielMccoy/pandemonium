@@ -15,7 +15,7 @@
 #' @return ggplot
 #' @importFrom rlang .data
 #' @keywords internal
-plotWC <- function (wc, x, y, interest, bmID, col, cond = NULL, groups = NULL, pal = NULL, a = 0.2, showalpha = F) {
+plotWC <- function (wc, x, y, interest, bmID, col, cond = NULL, groups = NULL, pal = NULL, a = 0.2, showalpha = TRUE) {
   if (is.null(cond)){cond <- 1:nrow(wc)}
 
   p <- ggplot2::ggplot(wc[cond, ], ggplot2::aes(.data[[x]], .data[[y]]))
@@ -26,7 +26,7 @@ plotWC <- function (wc, x, y, interest, bmID, col, cond = NULL, groups = NULL, p
       data <- unique(wc[group_indices, c(x, y)])
       if (nrow(data) > 3) {
         hull <- tryCatch(alphahull::ahull(data, alpha = a), error = function(e) {
-          warning(paste("alphahull failed for group",group,"no hull will be plotted"),call. = F)
+          warning(paste("alphahull failed for group",group,"no hull will be plotted"),call. = )
           return(NULL)
         })
         if(is.null(hull)){next}
@@ -132,7 +132,7 @@ plotChi2 <- function (wc, chi2, x, y, scoreName = NULL, cond = NULL) {
 #' @param pal pallete for colour assignment
 #' @return ggplot
 #' @keywords internal
-plotPC <- function(coord, groups, benchmarkIds, filt, c=T, s=T, a=0.2, pal = NULL){
+plotPC <- function(coord, groups, benchmarkIds, filt, c=TRUE, s=TRUE, a=0.2, pal = NULL){
   alphalvl <- rep(a, nrow(coord))
   alphalvl[benchmarkIds] <- 1
   if (is.null(pal)) {pal <- RColorBrewer::brewer.pal(8,"Dark2")}
@@ -268,7 +268,7 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
 #' makePlots(space1 = Bikes$space1,
 #'   settings = list(
 #'       plotType = "WC", x="hum", y="temp", k=4, metric="euclidean",
-#'       linkage="ward.D2", WCa=0.5, showalpha=T),cov = cov(Bikes$space1),
+#'       linkage="ward.D2", WCa=0.5, showalpha=TRUE),cov = cov(Bikes$space1),
 #'       space2 = Bikes$space2, getScore = outsidescore(Bikes$other$res,"Residual"))
 #'
 #' makePlots(space1 = Bikes$space1,
