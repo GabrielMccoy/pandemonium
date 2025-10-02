@@ -22,7 +22,7 @@ matrix with coordinate representation of all points
 Chi-Squared Loss Function Coordinates
 }
 \examples{
-pullCoords(Bikes$space2,cov(space2),mean(space2))
+pullCoords(Bikes$space2,solve(cov(Bikes$space2)),mean(Bikes$space2))
 
 
 }

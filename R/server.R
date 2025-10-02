@@ -338,7 +338,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
                             names_to = "observable") %>%
         dplyr::mutate(observable = factor(.data$observable,
                                           levels = rv$space1names)) %>%
-        ggplot2::ggplot(ggplot2::aes_string(input$px,input$py, color = "value")) +
+        ggplot2::ggplot(ggplot2::aes(.data[[input$px]],.data[[input$py]], color = .data[["value"]])) +
         ggplot2::geom_point() +
         ggplot2::facet_wrap(~observable, scales = "free",
                             ncol = 7) + ggplot2::guides(colour = "none") +

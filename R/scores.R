@@ -7,7 +7,7 @@
 #' @param ndf number of parameters (degrees of freedom of the chi2 distribution)
 #' @param k number of bins
 #' @return bin assignment for each point
-#' @export
+#' @keywords internal
 chi2bins <- function(chivals, ndf, k){
   chimin <- min(chivals)
   # map chivals to sigmas

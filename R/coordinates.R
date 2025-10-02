@@ -8,7 +8,7 @@
 #' @export
 #'
 #'@examples
-#' pullCoords(Bikes$space2,cov(space2),mean(space2))
+#' pullCoords(Bikes$space2,solve(cov(Bikes$space2)),mean(Bikes$space2))
 #'
 #'
 pullCoords <- function(df, covInv, exp,...){
@@ -40,7 +40,7 @@ pullCoords <- function(df, covInv, exp,...){
 #' @export
 #'
 #' @examples
-#' pullCoordsNoCov(Bikes$space2,cov(space2),mean(space2))
+#' pullCoordsNoCov(Bikes$space2,cov(Bikes$space2),mean(Bikes$space2))
 #'
 #'
 pullCoordsNoCov <- function(df, cov, exp, ...){

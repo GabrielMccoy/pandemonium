@@ -19,3 +19,4 @@ bin assignment for each point
 \description{
 Map to values of sigma and compute equidistant binning in sigma.
 }
+\keyword{internal}
