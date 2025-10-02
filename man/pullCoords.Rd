@@ -22,7 +22,8 @@ matrix with coordinate representation of all points
 Chi-Squared Loss Function Coordinates
 }
 \examples{
-pullCoords(Bikes$space2,solve(cov(Bikes$space2)),mean(Bikes$space2))
+pullCoords(Bikes$space2,solve(cov(Bikes$space2)),
+            data.frame(value = colMeans(Bikes$space1)))
 
 
 }

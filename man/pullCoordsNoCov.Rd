@@ -22,7 +22,8 @@ matrix with coordinate representation of all points
 Uses the i,ith entry of the covariance matrix as the standard deviation of the ith variable.
 }
 \examples{
-pullCoordsNoCov(Bikes$space2,cov(Bikes$space2),mean(Bikes$space2))
+pullCoordsNoCov(Bikes$space2,cov(Bikes$space2),
+                data.frame(value = colMeans(Bikes$space1)))
 
 
 }
