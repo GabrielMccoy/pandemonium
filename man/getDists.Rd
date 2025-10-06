@@ -9,7 +9,7 @@ getDists(coord, metric, user_dist = NULL)
 \arguments{
 \item{coord}{matrix with coordinate representation of all points}
 
-\item{metric}{name of distance metric to be used}
+\item{metric}{name of distance metric to be used in stats::dist}
 
 \item{user_dist}{user distance returned with metric=user}
 }
@@ -20,7 +20,7 @@ distances between all points
 Compute distances between all points
 }
 \examples{
-getDists(Bikes$space1,"euclidean")
-getDists(Bikes$space1,"maximum")
+getDists(Bikes$space1[1:5,],"euclidean")
+getDists(Bikes$space1[1:5,],"maximum")
 
 }

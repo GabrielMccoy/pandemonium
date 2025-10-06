@@ -16,9 +16,9 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-This vignette outlines the use of the `writeResults()` function.
+This vignette outlines the use of the `writeResults()` function. 
 
-`writeResults` is a function to calculate coordinates and clustering results and write them to a CSV file.
+`writeResults()` is a function to calculate coordinates and clustering results and write them to a CSV file outside the GUI.
 
 
 ## Input
@@ -27,26 +27,25 @@ There are 5 main types of inputs to the function. Of these the first 3 are neces
 
 #### Data frames
 
-`space1` and `space2` are necessary inputs of the cluster space and linked space variables respectively.
-These should be two data frames with the same number of rows in each.
+`space1` is the clustering space and `space2` is the linked space. These should be two data frames with the same number of rows in each.
 
 #### Settings
 
-Settings are options that would normally be selected within the app. Settings are passed as a named list in the form: `settings=list(k= , linkage= , metric= )`
+Settings are options from the GUI. Settings are passed as a named list in the form: `settings=list(k= , linkage= , metric= )`
 
 | Settings | Description |
-|--------|---------------------------------|
-| `k=` | Numeric, number of clusters |
-| `linkage=` | Linkage used by `stats::hclust` |
-| `metric=` | Metric used by `getDists` |
+|:-----------|:---------------------------------------------|
+| `k=`       | Numeric, number of clusters                  |
+| `linkage=` | Linkage used by `stats::hclust`              |
+| `metric=`  | Metric used by `getDists`                    |
 
-#### file name
+#### File name
 
 `filename` specifies the file name or connection to write to.
 
 #### Coordinate functions
 
-`getCoordsSpace1` and `getCoordsSpace2` specify the coordinate functions for the clustering and linked space respectively. By default, `getCoordsSpace1` will be `normCoords()` and `getCoordsSpace2` will be `rawCoords`. These can be specified to be other coordinate functions; see `vignette("getCoords")` for more information on coordinate functions.
+`getCoords.space1` and `getCoords.space2` specify the coordinate functions for the clustering and linked space respectively. By default, `getCoords.space1` will be `normCoords()` and `getCoords.space2` will be `rawCoords()`. These can be specified to be other coordinate functions; see `vignette("get-coords")` for more information on coordinate functions.
 
 #### Space properties
 
@@ -54,10 +53,10 @@ Each space can have a covariance matrix, inverse covariance matrix or reference 
 
 ## Output
 
-`writeResults` will write a CSV file to the provided file name.
+`writeResults()` will write a CSV file to the provided file name.
 The first columns of the CSV will be linked space coordinates, then the clustering space coordinates. 
-clstr will be a number `1:settings$k` giving the clustering assignment of each point.
-BM will be the benchmarks of each cluster. A 0 will be here if the point is not a benchmark and a 1 if the point is a benchmark.
+**clstr** will be an integer giving the clustering assignment of each point.
+**BM** will be the benchmarks of each cluster. A 0 will be here if the point is not a benchmark and a 1 if the point is a benchmark.
 
 The typical output of is as follows for the bikes data:
 

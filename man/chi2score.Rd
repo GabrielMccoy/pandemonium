@@ -16,7 +16,8 @@ chi2score(space1, covinv, exp, ...)
 \item{...}{other expected values of getScore}
 }
 \description{
-Used as getScores in pandemonium. Returns chi-squared values as the score and sigma bins as the bins.
+Can be used as getScores input in pandemonium.
+Returns chi-squared values as the score and sigma bins as the bins.
 }
 \examples{
 chi2score(Bikes$space1,solve(cov(Bikes$space1)),

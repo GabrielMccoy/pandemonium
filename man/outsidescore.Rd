@@ -2,7 +2,7 @@
 % Please edit documentation in R/scores.R
 \name{outsidescore}
 \alias{outsidescore}
-\title{outside score values}
+\title{Using externally computed score values}
 \usage{
 outsidescore(scores, scoreName = NULL)
 }
@@ -12,8 +12,10 @@ outsidescore(scores, scoreName = NULL)
 \item{scoreName}{name for scores}
 }
 \description{
-Used as getScores in pandemonium. Calculates scores not based on any data produced within pandemonium.
-Returns scores values as the score and and lower,inter and upper quartiles as the bins.
+Can be used as getScores input in pandemonium, to use score values
+that are computed externally.
+Returns scores values as the score, and bins computed
+as below, between or above the first and third quartile.
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

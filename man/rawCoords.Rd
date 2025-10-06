@@ -15,11 +15,11 @@ rawCoords(df, ...)
 matrix with coordinate representation of all points
 }
 \description{
-returns df, used when other coordinates may fail.
-It is not recommended that these coordinates be used as distances may not be logical.
+Returns the input data frame. This is used when other coordinate computations fail.
+In general, scaling of the inputs is recommended before clustering.
 }
 \examples{
-rawCoords(Bikes$space2)
+head(rawCoords(Bikes$space2))
 
 
 }

@@ -13,8 +13,8 @@ userCoords(user_coords)
 function that returns the user defined coordinates user_coords
 }
 \description{
-Closure of a coordinate function that returns user defined coordinates.
-Used where coordinates have already been computed. Only used where variables are not moved out of spaces.
+Allows the use of externally calculated coordinates in the app.
+Can only be used when variables are not reassigned between the two spaces.
 }
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

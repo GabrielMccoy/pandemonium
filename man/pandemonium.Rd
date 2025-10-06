@@ -21,7 +21,7 @@ pandemonium(
 )
 }
 \arguments{
-\item{df}{data frame of data assumes space 1 but variables can be changed once loaded}
+\item{df}{data frame of data, assumes space 1 but variables can be re-assigned in the app}
 
 \item{cov}{covariance matrix (optional)}
 
@@ -29,7 +29,7 @@ pandemonium(
 
 \item{exp}{observable reference value (e.g. experimental measurement)}
 
-\item{space2}{dataframe assumed to be in space 2 but can be changed when loaded}
+\item{space2}{data frame assumed to be in space 2 but variables can be re-assigned in the app}
 
 \item{space2.cov}{covariance matrix (optional)}
 
@@ -41,14 +41,14 @@ pandemonium(
 
 \item{user_dist}{input distance matrix (optional)}
 
-\item{dimReduction}{named list functions used for dimension reduction.}
+\item{dimReduction}{named list of functions used for dimension reduction}
 
 \item{getCoords}{named list containing functions to calculate coordinates}
 
-\item{getScore}{named list contaiining functions to calculate scores to be plotted as bins and continuous value.}
+\item{getScore}{named list containing functions to calculate scores to be plotted as bins and continuous value.}
 }
 \description{
-Opening the GUI to cluster the data points based on the predictions.
+Opening the GUI to cluster the data points based on values in space2.
 Coordinates and distances are computed on the fly, or can be entered
-in the function call.(modified)
+in the function call.
 }

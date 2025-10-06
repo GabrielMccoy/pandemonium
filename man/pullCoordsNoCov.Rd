@@ -19,11 +19,13 @@ pullCoordsNoCov(df, cov, exp, ...)
 matrix with coordinate representation of all points
 }
 \description{
+Coordinates are computed as centered by the reference value and
+scaled with the standard deviation.
 Uses the i,ith entry of the covariance matrix as the standard deviation of the ith variable.
 }
 \examples{
-pullCoordsNoCov(Bikes$space2,cov(Bikes$space2),
-                data.frame(value = colMeans(Bikes$space1)))
+head(pullCoordsNoCov(Bikes$space2,cov(Bikes$space2),
+                data.frame(value = colMeans(Bikes$space2))))
 
 
 }

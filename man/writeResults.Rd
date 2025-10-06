@@ -48,6 +48,7 @@ writeResults(
 \item{getCoords.space2}{function to calculate coordinates on linked space}
 }
 \description{
+For working with the results outside the app.
 Settings used: metric, linkage, k
 }
 \examples{

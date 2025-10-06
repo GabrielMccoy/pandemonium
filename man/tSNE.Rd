@@ -2,7 +2,7 @@
 % Please edit documentation in R/dimensionReduction.R
 \name{tSNE}
 \alias{tSNE}
-\title{t-Distributed Stochastic Neighbor Embedding Through Rtsne}
+\title{t-Distributed Stochastic Neighbor Embedding}
 \usage{
 tSNE(dist, ...)
 }
@@ -12,13 +12,13 @@ tSNE(dist, ...)
 \item{...}{other parameters expected to be passed to dimReduction}
 }
 \value{
-list containing a 2 x n matrix of reduced dimension data
+list containing a n x 2 matrix of reduced dimension data in Y
 }
 \description{
-t-Distributed Stochastic Neighbor Embedding Through Rtsne
+Computes non-linear dimension reduction with Rtsne and default parameters.
 }
 \examples{
-tSNE(getDists(Bikes$space1,"euclidean"))
+head(tSNE(getDists(Bikes$space1,"euclidean"))$Y)
 
 
 }

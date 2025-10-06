@@ -19,11 +19,13 @@ pullCoords(df, covInv, exp, ...)
 matrix with coordinate representation of all points
 }
 \description{
-Chi-Squared Loss Function Coordinates
+Computes coordinate values by comparing observed values
+to the reference, using the covariance matrix as when
+computing the chi-squared loss.
 }
 \examples{
-pullCoords(Bikes$space2,solve(cov(Bikes$space2)),
-            data.frame(value = colMeans(Bikes$space1)))
+head(pullCoords(Bikes$space2,solve(cov(Bikes$space2)),
+            data.frame(value = colMeans(Bikes$space2))))
 
 
 }

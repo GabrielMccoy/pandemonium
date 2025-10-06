@@ -2,7 +2,7 @@
 % Please edit documentation in R/dimensionReduction.R
 \name{umap}
 \alias{umap}
-\title{Uniform Manifold Approximation and Projection Embedding Through uwot}
+\title{Uniform Manifold Approximation and Projection Embedding}
 \usage{
 umap(dist, ...)
 }
@@ -15,10 +15,10 @@ umap(dist, ...)
 list containing a 2 x n matrix of reduced dimension data
 }
 \description{
-Uniform Manifold Approximation and Projection Embedding Through uwot
+Computes non-linear dimension reduction with uwot and default parameters.
 }
 \examples{
-umap(getDists(Bikes$space1,"euclidean"))
+head(umap(getDists(Bikes$space1,"euclidean"))$Y)
 
 
 }

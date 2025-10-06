@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotting.R
 \name{makePlots}
 \alias{makePlots}
-\title{Make plot as specified in settings}
+\title{Generate a specified plot outside the GUI}
 \usage{
 makePlots(
   space1,
@@ -51,8 +51,9 @@ makePlots(
 ggplot, plotly or detourr plot depending on settings$plotType
 }
 \description{
-Used as interface to generate a specific graph seen when using the GUI.
-Settings include: metric, linkage, k, plotType
+An interface to generate a specific graph seen when using the GUI.
+Settings include: metric, linkage, k, plotType, for details
+see the vignette on using this function.
 }
 \examples{
 makePlots(space1 = Bikes$space1,

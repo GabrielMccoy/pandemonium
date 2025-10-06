@@ -27,19 +27,19 @@ coordinates are a way to put each variable on equal footing for distance calcula
 
 This uses `scale` to center and scale the data.
 
-### `pullCoords`
+### `pullCoords()`
 
 Chi-Squared Loss Function Coordinates
 
-### `pullCoordsNoCov`
+### `pullCoordsNoCov()`
 
 Generic Loss Function Coordinates
 
-### `rawCoords`
+### `rawCoords()`
 
 Returns the data frame passed to it. This should only be used where data is already passed as coordinates or coordinate calculations are otherwise impossible.
 
-## `userCoords`
+## `userCoords()`
 
 This is a closure of a coordinate function that returns the user defined coordinate matrix passed to the closure when called in the pandemonium call with `pandemonium(df, getCoords=list(user=userCoords(coordMatrix)))`. This cannot be used with variables removed from a space.
 
