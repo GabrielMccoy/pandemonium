@@ -1,5 +1,6 @@
 #' Write coordinates and cluster assignment to a CSV file
 #'
+#' For working with the results outside the app.
 #' Settings used: metric, linkage, k
 #'
 #' @param space1 cluster space matrix

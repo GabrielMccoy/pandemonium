@@ -52,7 +52,8 @@ computeChi2 <- function(pred, covInv, exp){
 
 #' Chi-squared scores function
 #'
-#' Used as getScores in pandemonium. Returns chi-squared values as the score and sigma bins as the bins.
+#' Can be used as getScores input in pandemonium.
+#' Returns chi-squared values as the score and sigma bins as the bins.
 #'
 #' @param space1 dataframe with variables in space1
 #' @param covinv inverse covariance matrix from space1
@@ -83,10 +84,12 @@ chi2score <- function(space1, covinv, exp, ...){
 }
 
 
-#' outside score values
+#' Using externally computed score values
 #'
-#' Used as getScores in pandemonium. Calculates scores not based on any data produced within pandemonium.
-#' Returns scores values as the score and and lower,inter and upper quartiles as the bins.
+#' Can be used as getScores input in pandemonium, to use score values
+#' that are computed externally.
+#' Returns scores values as the score, and bins computed
+#' as below, between or above the first and third quartile.
 #'
 #' @param scores external scores to be passed to the app.
 #' @param scoreName name for scores

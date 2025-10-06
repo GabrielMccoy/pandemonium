@@ -1,23 +1,23 @@
 
 #' Shiny app for exploring clustering solutions
 #'
-#' Opening the GUI to cluster the data points based on the predictions.
+#' Opening the GUI to cluster the data points based on values in space2.
 #' Coordinates and distances are computed on the fly, or can be entered
-#' in the function call.(modified)
+#' in the function call.
 #'
-#' @param df data frame of data assumes space 1 but variables can be changed once loaded
+#' @param df data frame of data, assumes space 1 but variables can be re-assigned in the app
 #' @param cov  covariance matrix (optional)
 #' @param is.inv is the covariance matrix an inverse default FALSE
 #' @param exp observable reference value (e.g. experimental measurement)
-#' @param space2 dataframe assumed to be in space 2 but can be changed when loaded
+#' @param space2 data frame assumed to be in space 2 but variables can be re-assigned in the app
 #' @param space2.cov  covariance matrix (optional)
 #' @param space2.exp observable reference value (e.g. experimental measurement)
 #' @param group grouping assignments
 #' @param label point labels
 #' @param user_dist input distance matrix (optional)
-#' @param dimReduction named list functions used for dimension reduction.
+#' @param dimReduction named list of functions used for dimension reduction
 #' @param getCoords named list containing functions to calculate coordinates
-#' @param getScore named list contaiining functions to calculate scores to be plotted as bins and continuous value.
+#' @param getScore named list containing functions to calculate scores to be plotted as bins and continuous value.
 #'
 #' @importFrom rlang .data
 #' @export

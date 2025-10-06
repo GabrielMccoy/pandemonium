@@ -1,5 +1,9 @@
 #' Chi-Squared Loss Function Coordinates
 #'
+#' Computes coordinate values by comparing observed values
+#' to the reference, using the covariance matrix as when
+#' computing the chi-squared loss.
+#'
 #' @param df data frame
 #' @param covInv inverse covariance matrix
 #' @param exp reference values
@@ -8,8 +12,8 @@
 #' @export
 #'
 #'@examples
-#' pullCoords(Bikes$space2,solve(cov(Bikes$space2)),
-#'             data.frame(value = colMeans(Bikes$space1)))
+#' head(pullCoords(Bikes$space2,solve(cov(Bikes$space2)),
+#'             data.frame(value = colMeans(Bikes$space1))))
 #'
 #'
 pullCoords <- function(df, covInv, exp,...){
@@ -30,6 +34,8 @@ pullCoords <- function(df, covInv, exp,...){
 
 #' Generic Loss Function Coordinates
 #'
+#' Coordinates are computed as centered by the reference value and
+#' scaled with the standard deviation.
 #' Uses the i,ith entry of the covariance matrix as the standard deviation of the ith variable.
 #'
 #' @param df data frame
@@ -41,8 +47,8 @@ pullCoords <- function(df, covInv, exp,...){
 #' @export
 #'
 #' @examples
-#' pullCoordsNoCov(Bikes$space2,cov(Bikes$space2),
-#'                 data.frame(value = colMeans(Bikes$space1)))
+#' head(pullCoordsNoCov(Bikes$space2,cov(Bikes$space2),
+#'                 data.frame(value = colMeans(Bikes$space1))))
 #'
 #'
 pullCoordsNoCov <- function(df, cov, exp, ...){
@@ -61,7 +67,9 @@ pullCoordsNoCov <- function(df, cov, exp, ...){
   return(coord_mat)
 }
 
-#' Normalised coordinates using scale
+#' Scaled coordinates
+#'
+#' Using scale to center and scale the coordinates.
 #'
 #' @param df data frame
 #' @param ... other expected values of getCoords
@@ -70,7 +78,7 @@ pullCoordsNoCov <- function(df, cov, exp, ...){
 #' @export
 #'
 #' @examples
-#' normCoords(Bikes$space2)
+#' head(normCoords(Bikes$space2))
 #'
 #'
 normCoords <- function(df, ...){
@@ -79,8 +87,8 @@ normCoords <- function(df, ...){
 
 #' Raw coordinates
 #'
-#' returns df, used when other coordinates may fail.
-#' It is not recommended that these coordinates be used as distances may not be logical.
+#' Returns the input data frame. This is used when other coordinate computations fail.
+#' In general, scaling of the inputs is recommended before clustering.
 #'
 #' @param df data frame
 #' @param ... other expected values of getCoords
@@ -89,7 +97,7 @@ normCoords <- function(df, ...){
 #' @export
 #'
 #' @examples
-#' rawCoords(Bikes$space2)
+#' head(rawCoords(Bikes$space2))
 #'
 #'
 rawCoords <- function(df, ...){
@@ -99,8 +107,8 @@ rawCoords <- function(df, ...){
 
 #' User defined coordinate function
 #'
-#' Closure of a coordinate function that returns user defined coordinates.
-#' Used where coordinates have already been computed. Only used where variables are not moved out of spaces.
+#' Allows the use of externally calculated coordinates in the app.
+#' Can only be used when variables are not reassigned between the two spaces.
 #'
 #' @param user_coords coordinate matrix the size of the space it will be used on
 #'

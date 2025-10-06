@@ -1,14 +1,14 @@
 #' Compute distances between all points
 #'
 #' @param coord matrix with coordinate representation of all points
-#' @param metric name of distance metric to be used
+#' @param metric name of distance metric to be used in stats::dist
 #' @param user_dist user distance returned with metric=user
 #' @return distances between all points
 #' @export
 #'
 #' @examples
-#' getDists(Bikes$space1,"euclidean")
-#' getDists(Bikes$space1,"maximum")
+#' getDists(Bikes$space1[1:5,],"euclidean")
+#' getDists(Bikes$space1[1:5,],"maximum")
 #'
 getDists <- function(coord, metric, user_dist=NULL){
   if(metric == "user") return(stats::as.dist(user_dist))

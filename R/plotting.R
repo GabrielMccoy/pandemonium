@@ -243,10 +243,11 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
 }
 
 
-#' Make plot as specified in settings
+#' Generate a specified plot outside the GUI
 #'
-#' Used as interface to generate a specific graph seen when using the GUI.
-#' Settings include: metric, linkage, k, plotType
+#' An interface to generate a specific graph seen when using the GUI.
+#' Settings include: metric, linkage, k, plotType, for details
+#' see the vignette on using this function.
 #'
 #' @param space1 dataframe of variables in cluster space
 #' @param cov covariance matrix for space 1

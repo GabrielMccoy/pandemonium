@@ -41,5 +41,5 @@ By loading the app with the clustering space in `df` and the linked
 space in `space2` the data is automatically selected in the data page.
 From here pressing load app will launch the analysis tab.
 
-Within the analysis tab you can explore different visuals and their
-options in each of the enclosed tabs.
+Within the analysis tab you can explore different visualisations and
+their options in each of the enclosed tabs.
