@@ -1,6 +1,6 @@
 Package: pandemonium
 Title: High Dimensional Analysis In Linked Spaces
-Version: 0.2.0
+Version: 0.2.0.9000
 Authors@R: c(
     person("Gabriel", "McCoy",  role = c("aut", "cre"),
            email = "gabe.mccoy02@gmail.com"),
