@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">pandemonium</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,8 +74,8 @@
 </h2>
 <p>This vignette outlines the use of the <code><a href="../reference/writeResults.html">writeResults()</a></code>
 function.</p>
-<p><code>writeResults</code> is a function to calculate coordinates and
-clustering results and write them to a CSV file.</p>
+<p><code><a href="../reference/writeResults.html">writeResults()</a></code> is a function to calculate coordinates
+and clustering results and write them to a CSV file outside the GUI.</p>
 </div>
 <div class="section level2">
 <h2 id="input">Input<a class="anchor" aria-label="anchor" href="#input"></a>
@@ -87,41 +87,41 @@ properties and coordinate functions.</p>
 <div class="section level4">
 <h4 id="data-frames">Data frames<a class="anchor" aria-label="anchor" href="#data-frames"></a>
 </h4>
-<p><code>space1</code> and <code>space2</code> are necessary inputs of
-the cluster space and linked space variables respectively. These should
-be two data frames with the same number of rows in each.</p>
+<p><code>space1</code> is the clustering space and <code>space2</code>
+is the linked space. These should be two data frames with the same
+number of rows in each.</p>
 </div>
 <div class="section level4">
 <h4 id="settings">Settings<a class="anchor" aria-label="anchor" href="#settings"></a>
 </h4>
-<p>Settings are options that would normally be selected within the app.
-Settings are passed as a named list in the form:
+<p>Settings are options from the GUI. Settings are passed as a named
+list in the form:
 <code>settings=list(k= , linkage= , metric= )</code></p>
 <table class="table">
 <thead><tr class="header">
-<th>Settings</th>
-<th>Description</th>
+<th align="left">Settings</th>
+<th align="left">Description</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>k=</code></td>
-<td>Numeric, number of clusters</td>
+<td align="left"><code>k=</code></td>
+<td align="left">Numeric, number of clusters</td>
 </tr>
 <tr class="even">
-<td><code>linkage=</code></td>
-<td>Linkage used by <code><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">stats::hclust</a></code>
+<td align="left"><code>linkage=</code></td>
+<td align="left">Linkage used by <code><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">stats::hclust</a></code>
 </td>
 </tr>
 <tr class="odd">
-<td><code>metric=</code></td>
-<td>Metric used by <code>getDists</code>
+<td align="left"><code>metric=</code></td>
+<td align="left">Metric used by <code>getDists</code>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section level4">
-<h4 id="file-name">file name<a class="anchor" aria-label="anchor" href="#file-name"></a>
+<h4 id="file-name">File name<a class="anchor" aria-label="anchor" href="#file-name"></a>
 </h4>
 <p><code>filename</code> specifies the file name or connection to write
 to.</p>
@@ -129,12 +129,12 @@ to.</p>
 <div class="section level4">
 <h4 id="coordinate-functions">Coordinate functions<a class="anchor" aria-label="anchor" href="#coordinate-functions"></a>
 </h4>
-<p><code>getCoordsSpace1</code> and <code>getCoordsSpace2</code> specify
-the coordinate functions for the clustering and linked space
-respectively. By default, <code>getCoordsSpace1</code> will be
-<code><a href="../reference/normCoords.html">normCoords()</a></code> and <code>getCoordsSpace2</code> will be
-<code>rawCoords</code>. These can be specified to be other coordinate
-functions; see <code>vignette("getCoords")</code> for more information
+<p><code>getCoords.space1</code> and <code>getCoords.space2</code>
+specify the coordinate functions for the clustering and linked space
+respectively. By default, <code>getCoords.space1</code> will be
+<code><a href="../reference/normCoords.html">normCoords()</a></code> and <code>getCoords.space2</code> will be
+<code><a href="../reference/rawCoords.html">rawCoords()</a></code>. These can be specified to be other coordinate
+functions; see <code><a href="../articles/get-coords.html">vignette("get-coords")</a></code> for more information
 on coordinate functions.</p>
 </div>
 <div class="section level4">
@@ -148,12 +148,13 @@ will need to be provided if used.</p>
 <div class="section level2">
 <h2 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
 </h2>
-<p><code>writeResults</code> will write a CSV file to the provided file
-name. The first columns of the CSV will be linked space coordinates,
-then the clustering space coordinates. clstr will be a number
-<code>1:settings$k</code> giving the clustering assignment of each
-point. BM will be the benchmarks of each cluster. A 0 will be here if
-the point is not a benchmark and a 1 if the point is a benchmark.</p>
+<p><code><a href="../reference/writeResults.html">writeResults()</a></code> will write a CSV file to the provided
+file name. The first columns of the CSV will be linked space
+coordinates, then the clustering space coordinates.
+<strong>clstr</strong> will be an integer giving the clustering
+assignment of each point. <strong>BM</strong> will be the benchmarks of
+each cluster. A 0 will be here if the point is not a benchmark and a 1
+if the point is a benchmark.</p>
 <p>The typical output of is as follows for the bikes data:</p>
 <pre><code>A1,A2,A3,A4,A5,A6,A7,A8,yr,temp,weathersit,atemp,hum,windspeed,clstr,BM
 0.953,1.200,1.649,0.473,-0.593,-0.891,-0.910,1.887,0,0.344,2,0.363,0.805,0.160,1,0
