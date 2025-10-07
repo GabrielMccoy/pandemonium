@@ -16,12 +16,12 @@ knitr::opts_chunk$set(
 ```
 
 # Overview
-This vignette describes the Analysis page of the pandemonium app and each of the tabs that are on the page. This is to serve as a reference for understanding these pages and the controls and outputs each of them contains.
+This vignette describes the Analysis page of the pandemonium app and each of the tabs on the page. This is to serve as a reference for understanding these pages and the controls and outputs each of them contains.
 
 
 # Tabs
 
-Once the data is loaded in the data page, the app will open into the analysis page. This consists of tabs that contain different visuals and their options.
+Once the data is loaded in the data page, the app will open into the analysis page. This consists of tabs that contain different options that can be selected interactively and resulting visualisations.
 
 ## Input
 
@@ -41,16 +41,16 @@ This page consists of a side bar with controls and a main panel of outputs.
 | show alpha hulls | a check box to show alpha hulls in the clustering plot in this tab|
 | alpha value | a numerical value for the alpha used by alpha hulls|
 
-##### Outputs
+#### Outputs
 
 On the right side of the tab 2-4 plots will be shown depending on the result of getScores.
 
 | | |
 |------------------------------------|------------------------------------|
 | **Heatmap plot** | **Clustering plot** |
-|this is an ordered dendrogram plot of the clustering| This is a plot of the clustering assignment with axis as selected in the side bar. Alpha hulls for each cluster will also be shown if selected|
+|this is an ordered dendrogram plot of the clustering| This is a plot of the clustering assignment with axes as selected in the side bar. Alpha hulls for each cluster will also be shown if selected|
 | **Score values** | **Score Bins** |
-| If `getScores` returns scores for each point these will be shown here on the axis as selected in the side bar | If `getScores` returns bins for each point these will be shown here on the axis as selected in the side bar 
+| If `getScores` returns scores for each point these will be shown here on the axes selected in the side bar | If `getScores` returns bins for each point these will be shown here on the axes selected in the side bar 
 
 
 ## Benchmarks
@@ -84,8 +84,8 @@ The top output is a colour scaled scatter plot of each variable in the cluster s
 Below this is a parallel coordinate plot of the variables in space 1. The points are coloured by clustering with benchmark points plotted opaque and all other points slightly transparent. Note that `ggpcp` will break ties on points with the same value for a clearer plot.
 Below this plot are 3 settings:
 
- - Center: centres the coordinates by their mean.
- - Scale: scales the coordinates by their variation
+ - Center: centres the coordinates by their mean
+ - Scale: scales the coordinates by their standard deviation
  - Filter: filters which clusters to display
 
 ## Dimension Reduction
@@ -121,7 +121,7 @@ This tab is used to explore the cluster and linked space through tour displays. 
 |--------|---------------------------------|----------------|
 | Colour | Colouring of points in the plot | Clustering or scores, bins if calculated by `getScores` or user defined grouping if given in data page|
 | Data | Data used in plot | Choice of either space 1 or space 2 or up to 5 principal components from the PCA of each space |
-| Tour type | Used to define the tour path | Grand and Radial will define their respective tours, the other choices are projection pursuit indices.\n Radial, Spline and Anomaly tours are not defined for 3d views. |
+| Tour type | Used to define the tour path | Grand and Radial will define their respective tours, the other choices are projection pursuit indices. Radial, Spline and Anomaly tours are not defined for 3d views. |
 | Use slice | Selection to turn view from a regular scatter to slice view | Slice width can be chosen if selected |
 | Display type | Selection of 2D or 3D projection | Some choices will be removed for 3D view |
 | Radial variable | Choice of variable from data projected to remove from view | Only shown if radial tour type is selected |

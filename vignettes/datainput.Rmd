@@ -74,7 +74,7 @@ knitr::include_graphics("Images/data_Input_page.png")
 On this page, variables can be removed from either space or even moved between them. A Coordinate function can be selected from the input functions. There are also two additional inputs for groupings or flags as well as a label.
 
 #### Groupings
-In this input you can select and variables passed to pandemonium in the `group=` input, as well as any variables removed from df or space 2 by deleting them in their inputs or variables that were automatically removed for being non-numeric. This is designed for categorical data so that it can be compared to clustering results. The selected variable(s) will be converted into a single factor with `interaction()`.
+In this input you can select variables passed to pandemonium in the `group=` input, as well as any variables removed from space 1 or space 2 by deleting them in their inputs. Variables that were automatically removed from the two spaces for being non-numeric can also be selected. This is designed for categorical data so that it can be compared to clustering results. The selected variable(s) will be converted into a single factor with `interaction()`.
 
 #### Label
 
