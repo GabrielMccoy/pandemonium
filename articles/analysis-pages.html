@@ -73,16 +73,16 @@
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>This vignette describes the Analysis page of the pandemonium app and
-each of the tabs that are on the page. This is to serve as a reference
-for understanding these pages and the controls and outputs each of them
+each of the tabs on the page. This is to serve as a reference for
+understanding these pages and the controls and outputs each of them
 contains.</p>
 </div>
 <div class="section level2">
 <h2 id="tabs">Tabs<a class="anchor" aria-label="anchor" href="#tabs"></a>
 </h2>
 <p>Once the data is loaded in the data page, the app will open into the
-analysis page. This consists of tabs that contain different visuals and
-their options.</p>
+analysis page. This consists of tabs that contain different options that
+can be selected interactively and resulting visualisations.</p>
 <div class="section level3">
 <h3 id="input">Input<a class="anchor" aria-label="anchor" href="#input"></a>
 </h3>
@@ -131,9 +131,10 @@ tab</td>
 </tr>
 </tbody>
 </table>
-<div class="section level6">
-<h6 id="outputs">Outputs<a class="anchor" aria-label="anchor" href="#outputs"></a>
-</h6>
+</div>
+<div class="section level5">
+<h5 id="outputs">Outputs<a class="anchor" aria-label="anchor" href="#outputs"></a>
+</h5>
 <p>On the right side of the tab 2-4 plots will be shown depending on the
 result of getScores.</p>
 <table class="table">
@@ -148,7 +149,7 @@ result of getScores.</p>
 </tr>
 <tr class="even">
 <td>this is an ordered dendrogram plot of the clustering</td>
-<td>This is a plot of the clustering assignment with axis as selected in
+<td>This is a plot of the clustering assignment with axes as selected in
 the side bar. Alpha hulls for each cluster will also be shown if
 selected</td>
 </tr>
@@ -158,13 +159,12 @@ selected</td>
 </tr>
 <tr class="even">
 <td>If <code>getScores</code> returns scores for each point these will
-be shown here on the axis as selected in the side bar</td>
+be shown here on the axes selected in the side bar</td>
 <td>If <code>getScores</code> returns bins for each point these will be
-shown here on the axis as selected in the side bar</td>
+shown here on the axes selected in the side bar</td>
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 <div class="section level3">
@@ -213,8 +213,8 @@ benchmark points plotted opaque and all other points slightly
 transparent. Note that <code>ggpcp</code> will break ties on points with
 the same value for a clearer plot. Below this plot are 3 settings:</p>
 <ul>
-<li>Center: centres the coordinates by their mean.</li>
-<li>Scale: scales the coordinates by their variation</li>
+<li>Center: centres the coordinates by their mean</li>
+<li>Scale: scales the coordinates by their standard deviation</li>
 <li>Filter: filters which clusters to display</li>
 </ul>
 </div>
@@ -301,7 +301,7 @@ from the PCA of each space</td>
 <td>Tour type</td>
 <td>Used to define the tour path</td>
 <td>Grand and Radial will define their respective tours, the other
-choices are projection pursuit indices.Radial, Spline and Anomaly tours
+choices are projection pursuit indices. Radial, Spline and Anomaly tours
 are not defined for 3d views.</td>
 </tr>
 <tr class="even">
