@@ -56,7 +56,7 @@ Each space can have a covariance matrix, inverse covariance matrix or reference 
 `writeResults()` will write a CSV file to the provided file name.
 The first columns of the CSV will be linked space coordinates, then the clustering space coordinates. 
 **clstr** will be an integer giving the clustering assignment of each point.
-**BM** will be the benchmarks of each cluster. A 0 will be here if the point is not a benchmark and a 1 if the point is a benchmark.
+**BM** identifies the benchmarks of each cluster, where 0 means the point is not a benchmark and 1 means the point is a benchmark.
 
 The typical output of is as follows for the bikes data:
 

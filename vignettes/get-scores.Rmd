@@ -42,19 +42,19 @@ The app will pass the following objects to getScore that may be used in calculat
 | `k` | number of clusters being made can be used to set number of bins |
 
 ## Output
-The function should return a named list with some of the following entries to be used byt the app.
+The function should return a named list with some of the following entries to be used by the app.
 
 | Output | Description |
 |------|-------------------------------------|
-| `score` | This should be a vector of length = rows of space 1, the values should be numeric |
+| `score` | This should be a vector of length = number of rows in space 1, the values should be numeric |
 | `scoreName` | A name for the title of the score plot |
-| `bins` | This should be a factor with length = rows of space 1 |
+| `bins` | This should be a factor vector with length = number of rows in space 1 |
 | `binName` | A name for the title of the bin plot |
 | `interest` | A vector of names of interesting points to display in the hover of `htmlwidgets` plots |
 | `is.interest` | A logical vector of interesting points to display in `ggplot` plots |
 
 ## Example
-a simple template for what a `getScore` function should look like is as follows:
+A simple template for what a `getScore` function should look like is as follows:
 
 ```{r,eval=FALSE}
 myScore <- function(space1=rv$space1, cov=rv$cov1, covinv=rv$covInv1,
@@ -64,7 +64,7 @@ myScore <- function(space1=rv$space1, cov=rv$cov1, covinv=rv$covInv1,
   ## Calculations
   n      <- nrow(space1)
   scores <- #function to calculate scores
-  bins   <- #function to calculate scores
+  bins   <- #function to bin scores
   
   ## Return
   ret <- list()

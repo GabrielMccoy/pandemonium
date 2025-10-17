@@ -19,7 +19,7 @@ This vignette describes the usage of the `getCoords` parameter in the `pandemoni
 
 This is an input for a named list of functions that can be used to calculate coordinates. The names of the list will be used as options for the coordinates selector in the GUI. 
 
-coordinates are a way to put each variable on equal footing for distance calculations. One simple coordinate function is normalising each variable by subtracting the mean and dividing by the standard deviation. Other forms are also possible and so we allow for the user to select what functions to pass to the app and which to use in the app.
+Coordinates are a way to put each variable on equal footing before distance calculations. A simple coordinate function is normalising each variable by subtracting the mean and dividing by the standard deviation. The package includes a set of coordinate functions, but other forms are also possible and can be defined as explained below.
 
 # Provided coordinate functions
 
@@ -37,11 +37,11 @@ Generic Loss Function Coordinates
 
 ### `rawCoords()`
 
-Returns the data frame passed to it. This should only be used where data is already passed as coordinates or coordinate calculations are otherwise impossible.
+Returns the data frame passed to it. This should only be used when the data is already provided as coordinates or coordinate calculations are otherwise impossible.
 
 ## `userCoords()`
 
-This is a closure of a coordinate function that returns the user defined coordinate matrix passed to the closure when called in the pandemonium call with `pandemonium(df, getCoords=list(user=userCoords(coordMatrix)))`. This cannot be used with variables removed from a space.
+This is a closure of a coordinate function that returns the user defined coordinate matrix passed to the closure when called in the pandemonium call with `pandemonium(df, getCoords=list(user=userCoords(coordMatrix)))`. This cannot be used when variables are removed from a space through the GUI.
 
 # Writing `getCoords` functions
 
