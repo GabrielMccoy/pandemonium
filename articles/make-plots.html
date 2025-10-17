@@ -74,9 +74,9 @@
 </h2>
 <p>This vignette describes the usage of the <code><a href="../reference/makePlots.html">makePlots()</a></code>
 function.</p>
-<p><code>makePlots</code> is a function to generate the plots from
-within the package outside so they can be saved and shared. Plots that
-have random or non deterministic outcomes have a seed set so they can be
+<p><code>makePlots</code> is a function to generate the plots as seen in
+the GUI outside of it, so they can be saved and shared. Plots that have
+random or non deterministic outcomes have a seed set so they can be
 reproduced.</p>
 <p><code>makePlots</code> has got the same inputs as pandemonium (see
 “Data input for pandemonium”) with the exception for settings. This
@@ -91,9 +91,9 @@ passed as <code>getCoordsSpace1</code> and
 <h2 id="settings">settings<a class="anchor" aria-label="anchor" href="#settings"></a>
 </h2>
 <p>The named list <code>settings</code> has some values that must be
-specified for every call to <code>makePlots</code> others are optional
-or only required for some plots. The required values for every call are
-as follows:</p>
+specified for every call to <code>makePlots</code> while others are
+optional or only required for certain plots. The required values for
+every call are as follows:</p>
 <table class="table">
 <colgroup>
 <col width="19%">
@@ -135,7 +135,7 @@ below.</td>
 <div class="section level3">
 <h3 id="plot-specific-settings">Plot specific settings<a class="anchor" aria-label="anchor" href="#plot-specific-settings"></a>
 </h3>
-<p>Each <code>plotType</code> has got its own required settings. for
+<p>Each <code>plotType</code> has got its own required settings. For
 each plot type these are described as follows:</p>
 <table class="table">
 <colgroup>
@@ -154,34 +154,34 @@ each plot type these are described as follows:</p>
 <td>Parallel coordinate plot</td>
 <td>
 <code>filt=</code> subset of 1:k (number of clusters) to show in the
-Plot. <code>centre=</code> <code>TRUE</code> or <code>FALSE</code>
+plot. <code>centre=</code> <code>TRUE</code> or <code>FALSE</code>:
 should centred coordinates be plotted. <code>scale=</code>
-<code>TRUE</code> or <code>FALSE</code> should scaled coordinates be
+<code>TRUE</code> or <code>FALSE</code>: should scaled coordinates be
 plotted.</td>
 </tr>
 <tr class="even">
 <td>“WC”</td>
-<td>Plot of clustering on axis from space 2</td>
+<td>Plot of clustering on axes from space 2</td>
 <td>
-<code>x=</code>,<code>y=</code> column names of space 2 to be axis
+<code>x=</code>,<code>y=</code> column names of space 2 to be drawn
 <br><code>showalpha=</code> TRUE or FALSE to show alpha hulls
 <br><code>WCa=</code> alpha value for alpha hulls</td>
 </tr>
 <tr class="odd">
 <td>“chi2”</td>
-<td>Plot of score on axis from space 2</td>
+<td>Plot of score on axes from space 2</td>
 <td>
-<code>x=</code>,<code>y=</code> column names of space 2 to be axis
-<br><em>note a function that returns values must be passed in
+<code>x=</code>,<code>y=</code> column names of space 2 to be drawn
+<br><em>Note that a function that returns values must be passed in
 <code>getScores</code></em>
 </td>
 </tr>
 <tr class="even">
 <td>“sigBins”</td>
-<td>Plot of bins on axis from space 2</td>
+<td>Plot of bins on axes from space 2</td>
 <td>
-<code>x=</code>,<code>y=</code> column names of space 2 to be axis
-<br><em>note a function that returns bins must be passed in
+<code>x=</code>,<code>y=</code> column names of space 2 to be drawn
+<br><em>Note that a function that returns bins must be passed in
 <code>getScores</code></em>
 </td>
 </tr>
@@ -199,11 +199,11 @@ plotted.</td>
 </tr>
 <tr class="odd">
 <td>“Obs”</td>
-<td>Plot space 1 variable on axis from space 2</td>
+<td>Plot space 1 variable on axes from space 2</td>
 <td>
 <code>Obs=</code> name of variable from space 1
 <br>`<code>x=</code>,<code>y=</code> column names of space 2 to be
-axis</td>
+drawn</td>
 </tr>
 </tbody>
 </table>
@@ -239,7 +239,8 @@ axis</td>
 </tr>
 <tr class="even">
 <td><code>out_dim=</code></td>
-<td>Dimension of output display. Numeric 2 or 3</td>
+<td>Dimension of output display. Numeric, possible values are 2 or
+3</td>
 </tr>
 <tr class="odd">
 <td><code>tour_path=</code></td>
@@ -261,7 +262,7 @@ axis</td>
 </tr>
 <tr class="odd">
 <td><code>slice_width=</code></td>
-<td>Numeric Relative slice volume</td>
+<td>Relative slice volume. Numeric</td>
 </tr>
 </tbody>
 </table>
@@ -282,7 +283,7 @@ axis</td>
 <tbody>
 <tr class="odd">
 <td><code>dimspace=</code></td>
-<td>One of “space1” or “space2” to show data of in tour</td>
+<td>One of “space1” or “space2” to use</td>
 </tr>
 <tr class="even">
 <td><code>colouring=</code></td>

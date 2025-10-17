@@ -77,12 +77,11 @@ parameter in the <code>pandemonium</code> app.</p>
 <p>This is an input for a named list of functions that can be used to
 calculate coordinates. The names of the list will be used as options for
 the coordinates selector in the GUI.</p>
-<p>coordinates are a way to put each variable on equal footing for
-distance calculations. One simple coordinate function is normalising
-each variable by subtracting the mean and dividing by the standard
-deviation. Other forms are also possible and so we allow for the user to
-select what functions to pass to the app and which to use in the
-app.</p>
+<p>Coordinates are a way to put each variable on equal footing before
+distance calculations. A simple coordinate function is normalising each
+variable by subtracting the mean and dividing by the standard deviation.
+The package includes a set of coordinate functions, but other forms are
+also possible and can be defined as explained below.</p>
 </div>
 <div class="section level2">
 <h2 id="provided-coordinate-functions">Provided coordinate functions<a class="anchor" aria-label="anchor" href="#provided-coordinate-functions"></a>
@@ -109,9 +108,9 @@ app.</p>
 <h4 id="rawcoords">
 <code>rawCoords()</code><a class="anchor" aria-label="anchor" href="#rawcoords"></a>
 </h4>
-<p>Returns the data frame passed to it. This should only be used where
-data is already passed as coordinates or coordinate calculations are
-otherwise impossible.</p>
+<p>Returns the data frame passed to it. This should only be used when
+the data is already provided as coordinates or coordinate calculations
+are otherwise impossible.</p>
 </div>
 <div class="section level3">
 <h3 id="usercoords">
@@ -121,7 +120,8 @@ otherwise impossible.</p>
 defined coordinate matrix passed to the closure when called in the
 pandemonium call with
 <code>pandemonium(df, getCoords=list(user=userCoords(coordMatrix)))</code>.
-This cannot be used with variables removed from a space.</p>
+This cannot be used when variables are removed from a space through the
+GUI.</p>
 </div>
 </div>
 <div class="section level2">

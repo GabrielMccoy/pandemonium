@@ -152,7 +152,7 @@ in calculations:</p>
 <h3 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
 </h3>
 <p>The function should return a named list with some of the following
-entries to be used byt the app.</p>
+entries to be used by the app.</p>
 <table class="table">
 <colgroup>
 <col width="13%">
@@ -165,8 +165,8 @@ entries to be used byt the app.</p>
 <tbody>
 <tr class="odd">
 <td><code>score</code></td>
-<td>This should be a vector of length = rows of space 1, the values
-should be numeric</td>
+<td>This should be a vector of length = number of rows in space 1, the
+values should be numeric</td>
 </tr>
 <tr class="even">
 <td><code>scoreName</code></td>
@@ -174,7 +174,8 @@ should be numeric</td>
 </tr>
 <tr class="odd">
 <td><code>bins</code></td>
-<td>This should be a factor with length = rows of space 1</td>
+<td>This should be a factor vector with length = number of rows in space
+1</td>
 </tr>
 <tr class="even">
 <td><code>binName</code></td>
@@ -196,7 +197,7 @@ should be numeric</td>
 <div class="section level3">
 <h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h3>
-<p>a simple template for what a <code>getScore</code> function should
+<p>A simple template for what a <code>getScore</code> function should
 look like is as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">myScore</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">space1</span><span class="op">=</span><span class="va">rv</span><span class="op">$</span><span class="va">space1</span>, <span class="va">cov</span><span class="op">=</span><span class="va">rv</span><span class="op">$</span><span class="va">cov1</span>, <span class="va">covinv</span><span class="op">=</span><span class="va">rv</span><span class="op">$</span><span class="va">covInv1</span>,</span>
@@ -206,7 +207,7 @@ look like is as follows:</p>
 <span>  <span class="co">## Calculations</span></span>
 <span>  <span class="va">n</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">space1</span><span class="op">)</span></span>
 <span>  <span class="va">scores</span> <span class="op">&lt;-</span> <span class="co">#function to calculate scores</span></span>
-<span>  <span class="va">bins</span>   <span class="op">&lt;-</span> <span class="co">#function to calculate scores</span></span>
+<span>  <span class="va">bins</span>   <span class="op">&lt;-</span> <span class="co">#function to bin scores</span></span>
 <span>  </span>
 <span>  <span class="co">## Return</span></span>
 <span>  <span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
