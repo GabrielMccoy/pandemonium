@@ -16,6 +16,15 @@ function that returns the user defined coordinates user_coords
 Allows the use of externally calculated coordinates in the app.
 Can only be used when variables are not reassigned between the two spaces.
 }
+\details{
+Externally calculated coordinates can be used through userCoords or
+as input data with rawCoords used as the coordinate function.
+The use of userCoords over rawCoords is in the treatment of input data.
+As pandemonium displays the input data in many plots the use of coordinates
+as input data will result in these plots being less meaningful for interpretation.
+Use userCoords where coordinates are necessary to calculate distances but
+interpretation from plots of clustering space is necessary.
+}
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 pandemonium(df = Bikes$space1, space2 = Bikes$space2,
