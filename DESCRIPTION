@@ -9,7 +9,7 @@ Authors@R: c(
     person("German", "Valencia", role = "aut",
            comment = c(ORCID = "https://orcid.org/0000-0001-6600-1290"))
   )
-Description: A shiny GUI that performs high dimensional cluster analysis. 
+Description: A 'shiny' GUI that performs high dimensional cluster analysis. 
   This tool performs data preparation, clustering and visualisation within a dynamic GUI. 
   With interactive methods allowing the user to change settings all without having to to leave the GUI.
 License: MIT + file LICENSE

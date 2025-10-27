@@ -11,6 +11,9 @@ outsidescore(scores, scoreName = NULL)
 
 \item{scoreName}{name for scores}
 }
+\value{
+named list containing scores for use in pandemonium
+}
 \description{
 Can be used as getScores input in pandemonium, to use score values
 that are computed externally.

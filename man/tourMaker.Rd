@@ -17,7 +17,8 @@ tourMaker(
   display,
   radial_start = NULL,
   radial_var = NULL,
-  slice_width = NULL
+  slice_width = NULL,
+  seed = NULL
 )
 }
 \arguments{
@@ -46,6 +47,8 @@ tourMaker(
 \item{radial_var}{variable to remove by radial tour}
 
 \item{slice_width}{width of slice}
+
+\item{seed}{sets the seed}
 }
 \value{
 detour

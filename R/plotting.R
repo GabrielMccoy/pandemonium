@@ -204,12 +204,15 @@ plotCstat <- function(dist, fit, chivals, stat, kmax=8){
 #' @param score score values and bins
 #' @param user_group user defined grouping
 #' @param pch factor with 2 levels 1 will be plotted as a circle 2 will be plotted as an o
+#' @param seed sets the seed
 #'
 #' @returns plotly plot
 #' @keywords internal
 #'
-plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduction, algorithm, group, score, user_group, pch){
-  set.seed(2025)
+plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduction, algorithm, group, score, user_group, pch, seed = NULL){
+  if(!is.null(seed)){
+    set.seed(seed)
+  }
   colour<- switch(colouring,
                   "clustering"  = group,
                   "user"        = user_group,
@@ -276,7 +279,7 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
 #'   settings = list(
 #'       plotType = "tour", k=4, metric="euclidean", linkage="ward.D2",
 #'       tourspace="space1", colouring="clustering", out_dim=2, tour_path="grand",
-#'       display="scatter",radial_start=NULL, radial_var=NULL, slice_width=NULL),
+#'       display="scatter",radial_start=NULL, radial_var=NULL, slice_width=NULL, seed = 2025),
 #'       cov = cov(Bikes$space1), space2 = Bikes$space2,
 #'       getScore = outsidescore(Bikes$other$res,"Residual"))
 #'
@@ -325,10 +328,10 @@ makePlots <- function(space1, settings, cov = NULL, covInv = NULL, exp = NULL, s
   else if(settings$plotType == "Obs"){return(plotObs(coord, x, y, space2, settings$obs, cond))}
   else if(settings$plotType == "dimRed"){return(plotDimRed(coord, coord2, as.matrix(dists), as.matrix(dists2),
                                                            settings$dimspace, settings$colouring, settings$dimReduction,
-                                                           settings$algorithm, groups, value, settings$user_group, pch))}
+                                                           settings$algorithm, groups, value, settings$user_group, pch, settings$seed))}
   else if(settings$plotType== "tour"){return(tourMaker(coord, coord2, groups, value, settings$user_group,
                                                        settings$tourspace, settings$colouring, settings$out_dim, settings$tour_path, settings$display,
-                                                       settings$radial_start, settings$radial_var, settings$slice_width))}
+                                                       settings$radial_start, settings$radial_var, settings$slice_width, settings$seed))}
 
   "plotType unknown"
 }

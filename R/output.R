@@ -17,6 +17,8 @@
 #' @param getCoords.space1 function to calculate coordinates on clustering space
 #' @param getCoords.space2 function to calculate coordinates on linked space
 #'
+#' @returns No return value, called for writing file
+#'
 #'@examples
 #'file<-tempfile()
 #'writeResults(space1 = Bikes$space1, space2 = Bikes$space2,

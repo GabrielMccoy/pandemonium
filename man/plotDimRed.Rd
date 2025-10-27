@@ -16,7 +16,8 @@ plotDimRed(
   group,
   score,
   user_group,
-  pch
+  pch,
+  seed = NULL
 )
 }
 \arguments{
@@ -43,6 +44,8 @@ plotDimRed(
 \item{user_group}{user defined grouping}
 
 \item{pch}{factor with 2 levels 1 will be plotted as a circle 2 will be plotted as an o}
+
+\item{seed}{sets the seed}
 }
 \value{
 plotly plot

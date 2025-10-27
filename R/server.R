@@ -19,6 +19,8 @@
 #' @param getCoords named list containing functions to calculate coordinates
 #' @param getScore named list containing functions to calculate scores to be plotted as bins and continuous value.
 #'
+#' @returns No return value, called to initiate 'shiny' app
+#'
 #' @importFrom rlang .data
 #' @export
 #'

@@ -47,6 +47,9 @@ pandemonium(
 
 \item{getScore}{named list containing functions to calculate scores to be plotted as bins and continuous value.}
 }
+\value{
+No return value, called to initiate 'shiny' app
+}
 \description{
 Opening the GUI to cluster the data points based on values in space2.
 Coordinates and distances are computed on the fly, or can be entered

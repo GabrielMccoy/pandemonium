@@ -6,7 +6,7 @@
 #' @param chivals vector with chi2 values
 #' @param ndf number of parameters (degrees of freedom of the chi2 distribution)
 #' @param k number of bins
-#' @return bin assignment for each point
+#' @returns bin assignment for each point
 #' @keywords internal
 chi2bins <- function(chivals, ndf, k){
   chimin <- min(chivals)
@@ -27,7 +27,7 @@ chi2bins <- function(chivals, ndf, k){
 #'
 #' @param chivals vector with chi2 values
 #' @param ndf number of parameters (degrees of freedom of the chi2 distribution)
-#' @return vector with sigma values
+#' @returns vector with sigma values
 #' @keywords internal
 computeSigma <- function(chivals, ndf){
   chimin <- min(chivals)
@@ -40,7 +40,7 @@ computeSigma <- function(chivals, ndf){
 #' @param pred matrix of predicted values for all points
 #' @param covInv inverse covariance matrix
 #' @param exp experimentally observed values
-#' @return vector with chi2 values
+#' @returns vector with chi2 values
 #' @keywords internal
 computeChi2 <- function(pred, covInv, exp){
   chi2 <- double(nrow(pred))
@@ -59,6 +59,8 @@ computeChi2 <- function(pred, covInv, exp){
 #' @param covinv inverse covariance matrix from space1
 #' @param exp reference point from space 1
 #' @param ... other expected values of getScore
+#'
+#' @returns named list containing scores for use in pandemonium
 #'
 #' @export
 #'
@@ -93,6 +95,8 @@ chi2score <- function(space1, covinv, exp, ...){
 #'
 #' @param scores external scores to be passed to the app.
 #' @param scoreName name for scores
+#'
+#' @returns named list containing scores for use in pandemonium
 #'
 #' @export
 #'

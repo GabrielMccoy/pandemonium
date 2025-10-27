@@ -13,14 +13,18 @@
 #' @param radial_var variable to remove by radial tour
 #' @param display display type, one of ("scatter","slice")
 #' @param slice_width width of slice
+#' @param seed sets the seed
 #'
 #' @returns detour
 #' @keywords internal
 #'
 tourMaker<- function(coord1, coord2, group, score, user_group,
                      tourspace, colouring, out_dim, tour_path, display,
-                     radial_start=NULL, radial_var=NULL, slice_width=NULL){
-  set.seed(2025)
+                     radial_start=NULL, radial_var=NULL, slice_width=NULL,
+                     seed=NULL){
+  if(!is.null(seed)){
+    set.seed(seed)
+  }
   colour<- switch(colouring,
                       "clustering"  = group,
                       "user"        = user_group,

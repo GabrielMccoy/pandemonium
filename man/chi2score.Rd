@@ -15,6 +15,9 @@ chi2score(space1, covinv, exp, ...)
 
 \item{...}{other expected values of getScore}
 }
+\value{
+named list containing scores for use in pandemonium
+}
 \description{
 Can be used as getScores input in pandemonium.
 Returns chi-squared values as the score and sigma bins as the bins.

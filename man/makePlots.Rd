@@ -66,7 +66,7 @@ makePlots(space1 = Bikes$space1,
   settings = list(
       plotType = "tour", k=4, metric="euclidean", linkage="ward.D2",
       tourspace="space1", colouring="clustering", out_dim=2, tour_path="grand",
-      display="scatter",radial_start=NULL, radial_var=NULL, slice_width=NULL),
+      display="scatter",radial_start=NULL, radial_var=NULL, slice_width=NULL, seed = 2025),
       cov = cov(Bikes$space1), space2 = Bikes$space2,
       getScore = outsidescore(Bikes$other$res,"Residual"))
 
