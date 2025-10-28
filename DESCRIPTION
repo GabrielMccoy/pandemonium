@@ -12,7 +12,7 @@ Authors@R: c(
 Description: A 'shiny' GUI that performs high dimensional cluster analysis. 
   This tool performs data preparation, clustering and visualisation within a dynamic GUI. 
   With interactive methods allowing the user to change settings all without having to to leave the GUI. 
-  An earlier version of this package was described in Laa and Valencia (2022) <doi:https://doi.org/10.1140/epjp/s13360-021-02310-1>
+  An earlier version of this package was described in Laa and Valencia (2022) <doi:https://doi.org/10.1140/epjp/s13360-021-02310-1>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
