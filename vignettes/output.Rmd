@@ -1,5 +1,5 @@
 ---
-title: "writeResults"
+title: "How to Use writeResults"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{writeResults}

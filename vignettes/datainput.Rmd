@@ -1,5 +1,5 @@
 ---
-title: "Data input for pandemonium"
+title: "Data Input for pandemonium"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Data input for pandemonium}

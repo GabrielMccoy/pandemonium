@@ -1,5 +1,5 @@
 ---
-title: "dimReduction"
+title: "Understanding the dimReduction Function Input"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{dimReduction}
