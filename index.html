@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="High Dimensional Analysis in Linked Spaces">
-<meta name="description" content="A shiny GUI that performs high dimensional cluster analysis. This tool performs data preparation, clustering and visualisation within a dynamic GUI. With interactive methods allowing the user to change settings all without having to to leave the GUI. An earlier version of this package was described in Laa and Valencia (2022) &lt;doi:https://doi.org/10.1140/epjp/s13360-021-02310-1&gt;.">
-<meta property="og:description" content="A shiny GUI that performs high dimensional cluster analysis. This tool performs data preparation, clustering and visualisation within a dynamic GUI. With interactive methods allowing the user to change settings all without having to to leave the GUI. An earlier version of this package was described in Laa and Valencia (2022) &lt;doi:https://doi.org/10.1140/epjp/s13360-021-02310-1&gt;.">
+<meta name="description" content="A shiny GUI that performs high dimensional cluster analysis. This tool performs data preparation, clustering and visualisation within a dynamic GUI. With interactive methods allowing the user to change settings all without having to to leave the GUI. An earlier version of this package was described in Laa and Valencia (2022) &lt;doi:10.1140/epjp/s13360-021-02310-1&gt;.">
+<meta property="og:description" content="A shiny GUI that performs high dimensional cluster analysis. This tool performs data preparation, clustering and visualisation within a dynamic GUI. With interactive methods allowing the user to change settings all without having to to leave the GUI. An earlier version of this package was described in Laa and Valencia (2022) &lt;doi:10.1140/epjp/s13360-021-02310-1&gt;.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">pandemonium</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,8 +66,11 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of pandemonium from <a href="https://github.com/GabrielMccoy/pandemonium" class="external-link">GitHub</a> with:</p>
+<p>The latest release version of pandemonium can be installed from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pandemonium"</span><span class="op">)</span></span></code></pre></div>
+<p>You can install the development version of pandemonium from <a href="https://github.com/GabrielMccoy/pandemonium" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"GabrielMccoy/pandemonium"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -75,7 +78,7 @@
 <h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
 <p>We use the <code>Bikes</code> data example to show how the app can be used. To load the GUI with this data, the following can be used.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gabrielmccoy.github.io/pandemonium/">pandemonium</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/pandemonium.html">pandemonium</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span>, space2 <span class="op">=</span> <span class="va">Bikes</span><span class="op">$</span><span class="va">space2</span>, </span>
 <span>                getScore <span class="op">=</span> <span class="fu"><a href="reference/outsidescore.html">outsidescore</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">other</span><span class="op">$</span><span class="va">res</span>,<span class="st">"Residual"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -83,7 +86,14 @@
 <p>Within the analysis tab you can explore different visualisations and their options in each of the enclosed tabs.</p>
 </div>
 </div>
-  </main><aside class="col-md-3"><div class="license">
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
+<ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=pandemonium" class="external-link">View on CRAN</a></li>
+</ul>
+</div>
+
+<div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
