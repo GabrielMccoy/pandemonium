@@ -40,6 +40,9 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
   }
   numeric.colnames <- c()
   nonnumeric.colnames <- c()
+  old_warn <- getOption("warn")
+  on.exit(options(warn = old_warn))
+
   options(warn = 1)
   for (var in colnames(df)){
     if (is.numeric(df[[var]])){

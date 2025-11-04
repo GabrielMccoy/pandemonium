@@ -18,6 +18,13 @@ settings without having to to leave the GUI.
 
 ## Installation
 
+The latest release version of pandemonium can be installed from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("pandemonium")
+```
+
 You can install the development version of pandemonium from
 [GitHub](https://github.com/GabrielMccoy/pandemonium) with:
 

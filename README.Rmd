@@ -16,6 +16,12 @@ Within the dynamic GUI pandemonium performs data preparation, clustering and vis
 
 ## Installation
 
+The latest release version of pandemonium can be installed from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("pandemonium")
+```
+
 You can install the development version of pandemonium from [GitHub](https://github.com/GabrielMccoy/pandemonium) with:
 
 ``` r
