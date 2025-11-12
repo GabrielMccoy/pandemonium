@@ -181,21 +181,26 @@ UI <- function () {
                               shiny::selectInput("tour1data","data", choices =
                                                    c("space1","space2","space1 PCA", "space2 PCA"),
                                                  selected = "space1"),
-                              shiny::selectInput("tour_type_obs","tour type",choices =
+                              shiny::hr(),
+                              shiny::selectInput("render1","Display type",
+                                                 choices = c("2D","3D"), selected = "2D"),
+                              shiny::uiOutput("holdButton1"),
+                              shiny::selectInput("tour_type_1","tour type",choices =
                                                    c("grand","cmass","holes","lda","pda","dcor","spline","radial","anomaly"), selected = "grand"),
                               #radial variable selection only shown if radial selected
-                              shiny::conditionalPanel("input.tour_type_obs == 'radial'",
-                                                      shiny::selectInput("select_radial_obs","radial variable",c(), multiple = TRUE),
-                                                      shiny::selectInput("radial_start_obs","radial start ppi",c("random","cmass","holes","lda","pda","dcor","spline"),selected = "random")),
+                              shiny::conditionalPanel("input.tour_type_1 == 'radial' ",
+                                                      shiny::selectInput("start1","starting view",choices = c("random"), selected = "random"),
+                                                      shiny::selectInput("select_radial_1","radial variable",c(), multiple = TRUE)),
                               #ellipse scaling only shown if anomaly selected. larger value means only further points
-                              shiny::conditionalPanel("input.tour_type_obs == 'anomaly'",
-                                                      shiny::selectInput("ellc_obs","ellc",1:30,selected = 1)),
+                              shiny::conditionalPanel("input.tour_type_1 == 'anomaly' ",
+                                                      shiny::selectInput("ellc_1","ellc",1:30,selected = 1)),
                               #slice display selection width only shown if slice selected
-                              shiny::checkboxInput("slice_obs","Use Slice"),
-                              shiny::conditionalPanel("input.slice_obs == true",
-                                                      shiny::numericInput("slw_obs","slice width",value=0.2,min=0,max=1)),
-                              shiny::selectInput("render1","Display type",
-                                                 choices = c("2D","3D"), selected = "2D")
+                              shiny::checkboxInput("slice_1","Use Slice"),
+                              shiny::conditionalPanel("input.slice_1 == true",
+                                                      shiny::numericInput("slw_1","slice width",value=0.2,min=0,max=1)),
+                              shiny::actionButton("buildTour1","Build Tour"),
+                              shiny::conditionalPanel("input.tour2data ==input.tour1data",
+                                                      shiny::actionButton("copyTour1","Copy next tour"))
                               ),
                 shiny::column(6,
                               #tour2 controls
@@ -204,21 +209,27 @@ UI <- function () {
                               shiny::selectInput("tour2data","data", choices =
                                                    c("space1","space2","space1 PCA", "space2 PCA"),
                                                  selected = "space2"),
-                              shiny::selectInput("tour_type_param","tour type",choices =
+                              shiny::hr(),
+                              shiny::selectInput("render2","Display type",
+                                                 choices = c("2D","3D"), selected = "2D"),
+                              shiny::uiOutput("holdButton2"),
+                              shiny::selectInput("tour_type_2","tour type",choices =
                                                    c("grand","cmass","holes","lda","pda","dcor","spline","radial","anomaly"), selected = "grand"),
                               #radial variable selection only shown if radial selected
-                              shiny::conditionalPanel("input.tour_type_param == 'radial'",
-                                                      shiny::selectInput("select_radial_par","radial variable", c(), multiple = TRUE),
-                                                      shiny::selectInput("radial_start_par","radial start ppi",c("random","cmass","holes","lda","pda","dcor","spline"),selected = "random")),
-                              #ellipse scaling only shown if anomaly selected
-                              shiny::conditionalPanel("input.tour_type_param == 'anomaly'",
-                                                      shiny::selectInput("ellc_param","ellc",1:30,selected = 1)),
+                              shiny::conditionalPanel("input.tour_type_2 == 'radial' ",
+                                                      shiny::selectInput("start2","starting view",choices = c("random"), selected = "random"),
+                                                      shiny::selectInput("select_radial_2","radial variable",c(), multiple = TRUE)),
+                              #ellipse scaling only shown if anomaly selected. larger value means only further points
+                              shiny::conditionalPanel("input.tour_type_2 == 'anomaly' ",
+                                                      shiny::selectInput("ellc_2","ellc",1:30,selected = 1)),
                               #slice display selection width only shown if slice selected
-                              shiny::checkboxInput("slice_par","Use Slice"),
-                              shiny::conditionalPanel("input.slice_par == true",
-                                                      shiny::numericInput("slw_par","slice width",value=0.2,min=0,max=1)),
-                              shiny::selectInput("render2","Display type",
-                                                 choices = c("2D","3D"), selected = "2D")
+                              shiny::checkboxInput("slice_2","Use Slice"),
+                              shiny::conditionalPanel("input.slice_2 == true",
+                                                      shiny::numericInput("slw_2","slice width",value=0.2,min=0,max=1)),
+                              shiny::actionButton("buildTour2","Build Tour"),
+                              shiny::conditionalPanel("input.tour2data ==input.tour1data",
+                                                      shiny::actionButton("copyTour2","Copy next tour"))
+
                               )
               )
           )),

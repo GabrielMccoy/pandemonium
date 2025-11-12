@@ -87,6 +87,8 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
   rv$detouring <- FALSE
   rv$radialWarn <-0
   rv$colour.choice <- c("clustering")
+  rv$heldSpace2 <- "none"
+  rv$heldSpace1 <- "none"
   n <- nrow(df)
   if(is.inv & !is.null(cov)) {
     covInv <- cov
@@ -434,7 +436,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
                                    "space2" = rv$space2names,
                                    "space1 PCA" = paste0("pc", 1:min(5, ncol(rv$space1))),
                                    "space2 PCA" = paste0(" pc", 1:min(5, ncol(rv$space2))))
-      shiny::updateSelectInput(session,"select_radial_obs",choices = rv$tour1projection, selected = rv$tour1projection[[1]])
+      shiny::updateSelectInput(session,"select_radial_1",choices = rv$tour1projection, selected = rv$tour1projection[[1]])
       rv$tour1data       <- switch(input$tour1data,
                                    "space1" = rv$coord1,
                                    "space2" = rv$coord2,
@@ -478,120 +480,151 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
       }
     },priority = 1)
 
-    shiny::observeEvent(c(input$radial_start_par, rv$space1_tour, input$slice_par,input$tour_type_param,rv$tour2data,rv$tour2),{
-      if (input$tour_type_param == "radial"){
-        if (input$radial_start_par == "random") {
-          rv$radial_view_par <- tourr::basis_random(length(rv$tour2projection))
-        }else {
-          radial_tour_par <- switch(input$radial_start_par,
-                                    "cmass"  = tourr::guided_tour(tourr::cmass()),
-                                    "holes"  = tourr::guided_tour(tourr::holes()),
-                                    "lda"    = tourr::guided_tour(tourr::lda_pp(rv$tour2$colour)),
-                                    "pda"    = tourr::guided_tour(tourr::pda_pp(rv$tour2$colour)),
-                                    "dcor"   = tourr::guided_tour(tourr::dcor2d()),
-                                    "spline" = tourr::guided_tour(tourr::splines2d()),
-          )
-          hist <- tourr::save_history(rv$tour2data, tour_path = radial_tour_par, max_bases = 1000)
-          view <- drop(hist[,,dim(hist)[3]])
-          attr(view,"class") <- NULL
-          attr(view,"data")  <- NULL
-          rv$radial_view_par <- view
-        }
+    #new tour computations
+
+    shiny::observeEvent(c(input$holdView1),{
+      view <-  drop(rv$hist1[,,dim(rv$hist1)[3]])
+      attr(view,"class") <- NULL
+      attr(view,"data")  <- NULL
+      rv$heldView1 <- view
+      rv$helsSpace1 <- input$tour1data
+    },ignoreInit = T)
+
+    shiny::observeEvent(c(input$holdView2,input$tour1data,input$holdView1),{
+      if ((input$tour2data == rv$heldSpace2) && (input$tour2data == rv$heldSpace1)){
+        shiny::updateSelectInput(session,"start1",choices = c("random","held","otherside"),selected = "held")
+      } else if ((input$tour2data == rv$heldSpace1)) {
+        shiny::updateSelectInput(session,"start1",choices = c("random","held"),selected = "held")
+      } else {
+        shiny::updateSelectInput(session,"start1",choices = c("random"))
       }
-    },priority = 1)
-    shiny::observeEvent(c(input$radial_start_obs, rv$space1_tour, input$slice_obs,input$tour_type_obs,rv$tour1data,rv$tour1),{
-      if (input$tour_type_obs=="radial"){
-        if (input$radial_start_obs == "random") {
-          rv$radial_view_obs <- tourr::basis_random(length(rv$tour1projection))
-        }else {
-          radial_tour_obs <- switch(input$radial_start_obs,
-                                    "cmass"  = tourr::guided_tour(tourr::cmass()),
-                                    "holes"  = tourr::guided_tour(tourr::holes()),
-                                    "lda"    = tourr::guided_tour(tourr::lda_pp(rv$tour1$colour)),
-                                    "pda"    = tourr::guided_tour(tourr::pda_pp(rv$tour1$colour)),
-                                    "dcor"   = tourr::guided_tour(tourr::dcor2d()),
-                                    "spline" = tourr::guided_tour(tourr::splines2d()),
-          )
-          hist <- tourr::save_history(rv$tour1data, tour_path = radial_tour_obs, max_bases = 1000)
-          view <- drop(hist[,,dim(hist)[3]])
-          attr(view,"class") <- NULL
-          attr(view,"data")  <- NULL
-          rv$radial_view_obs <- view
-        }
-      }
-    },priority = 1)
-    shiny::observeEvent(c(input$tour_type_param, input$select_radial_par,input$ellc_param,
-                          rv$radial_view_par,rv$tour2projection,rv$tour.dim2
-                          ,rv$coord1,rv$coord2,rv$pca1,rv$pca2,
-                          rv$coord_red1$Y,rv$coord_red2$Y,rv$tour1,rv$tour2), {
-      if (is.null(input$select_radial_par)){
-        rad.var<-1
-        shinyFeedback::feedbackWarning("select_radial_par", TRUE, text = "Warning: a radial variable must be selected", session = session)
+    },priority = -1)
+
+    shiny::observeEvent(c(input$select_radial_1),{
+      if (is.null(input$select_radial_1)){
+        radVar<-1
+        shinyFeedback::feedbackWarning("select_radial_1", TRUE, text = "Warning: a radial variable must be selected", session = session)
         rv$radialWarn <- rv$radialWarn+1
       }else{
-        rad.var <- which(rv$tour2projection %in% input$select_radial_par)
-        shinyFeedback::hideFeedback("select_radial_par", session = session)
+        radVar <- which(rv$tour1projection %in% input$select_radial_1)
+        shinyFeedback::hideFeedback("select_radial_1", session = session)
       }
-      rv$paramType <- switch(input$tour_type_param,
-                             "grand"  = tourr::grand_tour(rv$tour.dim2),
-                             "cmass"  = tourr::guided_tour(tourr::cmass(),rv$tour.dim2),
-                             "holes"  = tourr::guided_tour(tourr::holes(),rv$tour.dim2),
-                             "lda"    = tourr::guided_tour(tourr::lda_pp(rv$tour2$colour),rv$tour.dim2),
-                             "pda"    = tourr::guided_tour(tourr::pda_pp(rv$tour2$colour),rv$tour.dim2),
-                             "dcor"   = tourr::guided_tour(tourr::dcor2d(),rv$tour.dim2),
-                             "spline" = tourr::guided_tour(tourr::splines2d(),rv$tour.dim2),
-                             "radial" = tourr::radial_tour(rv$radial_view_par, rad.var),
-                             "anomaly"= tourr::guided_anomaly_tour(tourr::anomaly_index(),ellipse = rv$cov2, ellc=as.numeric(input$ellc_param))
+      rv$radVar1 <- radVar
+    },ignoreInit = T, ignoreNULL = F)
+
+    shiny::observeEvent(c(input$buildTour1,rv$load.app),{
+      startView <- switch(input$start1,
+                          "held"   = rv$heldView1,
+                          "random" = tourr::basis_random(length(rv$tour1projection)),
+                          "otherside"=rv$heldView2)
+      tour <- switch(input$tour_type_1,
+                     "grand"  = tourr::grand_tour(rv$tour.dim1),
+                     "cmass"  = tourr::guided_tour(tourr::cmass(),rv$tour.dim1),
+                     "holes"  = tourr::guided_tour(tourr::holes(),rv$tour.dim1),
+                     "lda"    = tourr::guided_tour(tourr::lda_pp(rv$tour1$colour),rv$tour.dim1),
+                     "pda"    = tourr::guided_tour(tourr::pda_pp(rv$tour1$colour),rv$tour.dim1),
+                     "dcor"   = tourr::guided_tour(tourr::dcor2d(),rv$tour.dim1),
+                     "spline" = tourr::guided_tour(tourr::splines2d(),rv$tour.dim1),
+                     "radial" = tourr::radial_tour(startView, rv$radVar1),
+                     "anomaly"= tourr::guided_anomaly_tour(tourr::anomaly_index(),ellipse = rv$cov1, ellc=as.numeric(input$ellc_param)) ##covariance should be the correct one
       )
-      rv$detour2.angles <- if (input$tour_type_param == "radial") 1 / 2 else 1
-      rv$tour_bases1 <- if(input$tour_type_param %in% c("cmass","holes","lda","pda","dcor","spline","anomaly")) 1000 else 20
-    },priority = 1)
-    shiny::observeEvent(c(input$tour_type_obs,input$select_radial_obs,input$ellc_obs,
-                          rv$radial_view_obs,rv$tour1projection,rv$tour.dim1,
-                          rv$coord1,rv$coord2,rv$pca1,rv$pca2,
-                          rv$coord_red1$Y,rv$coord_red2$Y,rv$tour1,rv$tour2),{
-      if (is.null(input$select_radial_obs)){
-        rad.var<-1
-        shinyFeedback::feedbackWarning("select_radial_obs", TRUE, text = "Warning: a radial variable must be selected", session = session)
+      tour_bases <- if(input$tour_type_1 %in% c("cmass","holes","lda","pda","dcor","spline","anomaly")) 100 else 20
+      rv$hist1 <- tourr::save_history(rv$tour1data, tour_path = tour, max_bases = tour_bases)
+      if (input$tour_type_1 %in% c("cmass","holes","lda","pda","dcor","spline")) {
+        output$holdButton1 <- shiny::renderUI(shiny::actionButton("holdView1","hold view"))
+      } else {
+        output$holdButton1 <- NULL
+      }
+      rv$detour1.angles <- if (input$tour_type_1 == "radial") 1 / 2 else 1
+
+    },ignoreInit = T)
+
+    shiny::observeEvent(c(input$holdView2),{
+      view <-  drop(rv$hist2[,,dim(rv$hist2)[3]])
+      attr(view,"class") <- NULL
+      attr(view,"data")  <- NULL
+      rv$heldView2  <- view
+      rv$heldSpace2 <- input$tour2data
+    },ignoreInit = T)
+
+    shiny::observeEvent(c(input$holdView2,input$tour2data,input$holdView1),{
+      if ((input$tour2data == rv$heldSpace2) && (input$tour2data == rv$heldSpace1)){
+        shiny::updateSelectInput(session,"start2",choices = c("random","held","otherside"),selected = "held")
+      } else if ((input$tour2data == rv$heldSpace2)) {
+        shiny::updateSelectInput(session,"start2",choices = c("random","held"),selected = "held")
+      } else {
+        shiny::updateSelectInput(session,"start2",choices = c("random"))
+      }
+    },priority = -1)
+
+    shiny::observeEvent(c(input$select_radial_2),{
+      if (is.null(input$select_radial_2)){
+        radVar<-1
+        shinyFeedback::feedbackWarning("select_radial_2", TRUE, text = "Warning: a radial variable must be selected", session = session)
         rv$radialWarn <- rv$radialWarn+1
       }else{
-        rad.var <- which(rv$tour1projection %in% input$select_radial_obs)
-        shinyFeedback::hideFeedback("select_radial_obs", session = session)
+        radVar <- which(rv$tour2projection %in% input$select_radial_2)
+        shinyFeedback::hideFeedback("select_radial_2", session = session)
       }
-      rv$obsType <- switch(input$tour_type_obs,
-                           "grand"  = tourr::grand_tour(rv$tour.dim1),
-                           "cmass"  = tourr::guided_tour(tourr::cmass(),rv$tour.dim1),
-                           "holes"  = tourr::guided_tour(tourr::holes(),rv$tour.dim1),
-                           "lda"    = tourr::guided_tour(tourr::lda_pp(rv$tour1$colour),rv$tour.dim1),
-                           "pda"    = tourr::guided_tour(tourr::pda_pp(rv$tour1$colour),rv$tour.dim1),
-                           "dcor"   = tourr::guided_tour(tourr::dcor2d(),rv$tour.dim1),
-                           "spline" = tourr::guided_tour(tourr::splines2d(),rv$tour.dim1),
-                           "radial" = tourr::radial_tour(rv$radial_view_obs, rad.var),
-                           "anomaly"= tourr::guided_anomaly_tour(tourr::anomaly_index(), ellipse = rv$cov1, ellc = as.numeric(input$ellc_obs))
+      rv$radVar2 <- radVar
+    },ignoreInit = T, ignoreNULL = F)
+
+    shiny::observeEvent(c(input$buildTour2,rv$load.app),{
+      startView <- switch(input$start2,
+                          "held"   = rv$heldView2,
+                          "random" = tourr::basis_random(length(rv$tour2projection)),
+                          "otherside"=rv$heldView1)
+      tour <- switch(input$tour_type_2,
+                     "grand"  = tourr::grand_tour(rv$tour.dim2),
+                     "cmass"  = tourr::guided_tour(tourr::cmass(),rv$tour.dim2),
+                     "holes"  = tourr::guided_tour(tourr::holes(),rv$tour.dim2),
+                     "lda"    = tourr::guided_tour(tourr::lda_pp(rv$tour1$colour),rv$tour.dim2),
+                     "pda"    = tourr::guided_tour(tourr::pda_pp(rv$tour1$colour),rv$tour.dim2),
+                     "dcor"   = tourr::guided_tour(tourr::dcor2d(),rv$tour.dim2),
+                     "spline" = tourr::guided_tour(tourr::splines2d(),rv$tour.dim2),
+                     "radial" = tourr::radial_tour(startView, rv$radVar2),
+                     "anomaly"= tourr::guided_anomaly_tour(tourr::anomaly_index(),ellipse = rv$cov2, ellc=as.numeric(input$ellc_param)) ##covariance should be the correct one
       )
-      rv$detour1.angles <- if (input$tour_type_obs == "radial") 1 / 2 else 1
-      rv$tour_bases2 <- if(input$tour_type_obs %in% c("cmass","holes","lda","pda","dcor","spline","anomaly")) 1000 else 20
-    },priority = 1)
-    shiny::observeEvent(c(input$slice_obs,input$slw_obs,rv$space1_tour,input$ellc_obs,rv$ell_obs,rv$tour1),{
-      if (input$slice_obs) {
-        rv$displayobs <- function(x){
-          return(detourr::show_slice(x, palette = rv$tour1$pal, slice_relative_volume = as.numeric(input$slw_obs)))
+      tour_bases <- if(input$tour_type_2 %in% c("cmass","holes","lda","pda","dcor","spline","anomaly")) 100 else 20
+      rv$hist2 <- tourr::save_history(rv$tour2data, tour_path = tour, max_bases = tour_bases)
+
+      if (input$tour_type_2 %in% c("cmass","holes","lda","pda","dcor","spline")) {
+        output$holdButton2 <- shiny::renderUI(shiny::actionButton("holdView2","hold view"))
+      } else {
+        output$holdButton2 <- NULL
+      }
+      rv$detour2.angles <- if (input$tour_type_2 == "radial") 1 / 2 else 1
+
+    },ignoreInit = T)
+
+    shiny::observeEvent(c(input$copyTour1),{
+      rv$hist1 <- rv$hist2
+    })
+
+    shiny::observeEvent(c(input$copyTour2),{
+      rv$hist2 <- rv$hist1
+    })
+
+    shiny::observeEvent(c(input$slice_1,input$slw_1,rv$space1_tour,input$ellc_obs,rv$ell_1,rv$tour1),{
+      if (input$slice_1) {
+        rv$display1 <- function(x){
+          return(detourr::show_slice(x, palette = rv$tour1$pal, slice_relative_volume = as.numeric(input$slw_1)))
         }
       }
       else {
-        rv$displayobs <- function(x){
+        rv$display1 <- function(x){
           return(detourr::show_scatter(x, palette = rv$tour1$pal, alpha=0.6)) # pch = rv$space1_tour$pch, ellipse = rv$ell_obs, ellc = as.numeric(input$ellc_obs)
         }
       }
     })
-    shiny::observeEvent(c(input$slice_par,input$slw_par,rv$space1_tour,input$ellc_param,rv$ell_par,rv$tour2),{
-      if(input$slice_par){
-        rv$displayparam <- function(x){
-          return(detourr::show_slice(x, palette = rv$tour2$pal, slice_relative_volume = as.numeric(input$slw_par)))
+    shiny::observeEvent(c(input$slice_2,input$slw_2,rv$space1_tour,input$ellc_param,rv$ell_2,rv$tour2),{
+      if(input$slice_2){
+        rv$display2 <- function(x){
+          return(detourr::show_slice(x, palette = rv$tour2$pal, slice_relative_volume = as.numeric(input$slw_2)))
         }
       }
       else {
-        rv$displayparam <- function(x){
+        rv$display2 <- function(x){
           return(detourr::show_scatter(x, palette = rv$tour2$pal, alpha=0.6)) # pch = rv$space2_tour$pch, ellipse = rv$ell_par, ellc = as.numeric(input$ellc_param)
         }
       }
@@ -706,21 +739,23 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
 
     output$tourImg1 <- detourr::shinyRenderDetour({
       shiny::validate(
-        shiny::need(try(!is.null(shared.data$origData()[rv$tour1projection])),"data cannot be plotted select different data")
+        shiny::need(try(!is.null(shared.data$origData()[rv$tour1projection])),"Data cannot be plotted select different data"),
+        shiny::need((length(rv$tour1projection)==dim(rv$hist1)[1]),"Tour not built with this data. Please build below")
       )
 
       detourr::detour(shared.data, detourr::tour_aes(projection = tidyselect::all_of(rv$tour1projection), colour = "colour1", label = I(.data$label1))) %>% #.data may be deprecated in this way
-        detourr::tour_path(rv$obsType, fps = 60, aps = rv$detour1.angles, max_bases = rv$tour_bases2) %>%
-        rv$displayobs()
+        detourr::tour_path(tourr::planned_tour(rv$hist1), fps = 60, aps = rv$detour1.angles, max_bases = dim(rv$hist1)[3]) %>%
+        rv$display1()
     })
     output$tourImg2 <- detourr::shinyRenderDetour({
       shiny::validate(
-        shiny::need(try(!is.null(shared.data$origData()[rv$tour2projection])),"data cannot be plotted select different data")
+        shiny::need(try(!is.null(shared.data$origData()[rv$tour2projection])),"data cannot be plotted select different data"),
+        shiny::need((length(rv$tour2projection)==dim(rv$hist2)[1]),"Tour not built with this data. Please build below")
       )
       rv$detouring <- TRUE
       detourr::detour(shared.data, detourr::tour_aes(projection = tidyselect::all_of(rv$tour2projection), colour = "colour2", label = I(.data$label2))) %>% #.data may be deprecated in this way
-        detourr::tour_path(rv$paramType, fps = 60, aps = rv$detour2.angles, max_bases = rv$tour_bases1) %>%
-        rv$displayparam()
+        detourr::tour_path(tourr::planned_tour(rv$hist2), fps = 60, aps = rv$detour2.angles, max_bases = dim(rv$hist2)[3]) %>%
+        rv$display2()
     })
 
     shiny::observeEvent(rv$detouring,{
