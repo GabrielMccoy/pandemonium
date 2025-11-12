@@ -1,0 +1,93 @@
+# Understanding the getCoords Function Input
+
+## Overview
+
+This vignette describes the usage of the `getCoords` parameter in the
+`pandemonium` app.
+
+This is an input for a named list of functions that can be used to
+calculate coordinates. The names of the list will be used as options for
+the coordinates selector in the GUI.
+
+Coordinates are a way to put each variable on equal footing before
+distance calculations. A simple coordinate function is normalising each
+variable by subtracting the mean and dividing by the standard deviation.
+The package includes a set of coordinate functions, but other forms are
+also possible and can be defined as explained below.
+
+## Provided coordinate functions
+
+#### `normcoords`
+
+This uses `scale` to center and scale the data.
+
+#### `pullCoords()`
+
+Chi-Squared Loss Function Coordinates
+
+#### `pullCoordsNoCov()`
+
+Generic Loss Function Coordinates
+
+#### `rawCoords()`
+
+Returns the data frame passed to it. This should only be used when the
+data is already provided as coordinates or coordinate calculations are
+otherwise impossible.
+
+### `userCoords()`
+
+Used for externally calculated coordinates, to cut down computation time
+or where a coordinate function cannot otherwise be written. This is a
+closure of a coordinate function that returns the user defined
+coordinate matrix passed to the closure when called in the pandemonium
+call with
+`pandemonium(df, getCoords=list(user=userCoords(coordMatrix)))`. This
+cannot be used when variables are removed from a space through the GUI.
+
+Externally calculated coordinates can be used through userCoords or as
+input data with rawCoords used as the coordinate function. The use of
+userCoords over rawCoords is in the treatment of input data. As
+pandemonium displays the input data in many plots the use of coordinates
+as input data will result in these plots being less meaningful for
+interpretation. Use userCoords where coordinates are necessary to
+calculate distances but interpretation from plots of clustering space is
+necessary.
+
+## Writing `getCoords` functions
+
+### Inputs
+
+| Input    | Description                             |
+|----------|-----------------------------------------|
+| `df`     | Data frame of raw values                |
+| `cov`    | Covariance matrix of data frame         |
+| `covinv` | Inverse covariance matrix of data frame |
+| `exp`    | reference point                         |
+
+### Ouput
+
+The function should return a single array the same size of the input df
+and with the same column names as df.
+
+### Example
+
+``` r
+pullCoordsNoCov <- function(df, cov, exp, ...){
+
+  n <- nrow(df)
+  df <- as.matrix(df)
+  nc <- ncol(df)
+  coord_mat <- matrix(nrow = n, ncol = nc)
+
+  for (i in 1:n){
+    for (j in 1:nc){
+      coord_mat[i, j] <- as.numeric((df[i, j] - exp$value[j]) / sqrt(cov[j, j]))
+    }
+  }
+  colnames(coord_mat) <- colnames(df)
+  return(coord_mat)
+}
+
+pandemonium(df,getCoords = list(pull = pullCoordsNoCov, normal = normCoords))
+```

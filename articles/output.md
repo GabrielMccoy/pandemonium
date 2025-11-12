@@ -1,0 +1,74 @@
+# How to Use writeResults
+
+## Overview
+
+This vignette outlines the use of the
+[`writeResults()`](https://gabrielmccoy.github.io/pandemonium/reference/writeResults.md)
+function.
+
+[`writeResults()`](https://gabrielmccoy.github.io/pandemonium/reference/writeResults.md)
+is a function to calculate coordinates and clustering results and write
+them to a CSV file outside the GUI.
+
+## Input
+
+There are 5 main types of inputs to the function. Of these the first 3
+are necessary inputs: Data frames, settings and file name. There are
+also optional inputs that can be described by two types: space
+properties and coordinate functions.
+
+#### Data frames
+
+`space1` is the clustering space and `space2` is the linked space. These
+should be two data frames with the same number of rows in each.
+
+#### Settings
+
+Settings are options from the GUI. Settings are passed as a named list
+in the form: `settings=list(k= , linkage= , metric= )`
+
+| Settings   | Description                                                            |
+|:-----------|:-----------------------------------------------------------------------|
+| `k=`       | Numeric, number of clusters                                            |
+| `linkage=` | Linkage used by [`stats::hclust`](https://rdrr.io/r/stats/hclust.html) |
+| `metric=`  | Metric used by `getDists`                                              |
+
+#### File name
+
+`filename` specifies the file name or connection to write to.
+
+#### Coordinate functions
+
+`getCoords.space1` and `getCoords.space2` specify the coordinate
+functions for the clustering and linked space respectively. By default,
+`getCoords.space1` will be
+[`normCoords()`](https://gabrielmccoy.github.io/pandemonium/reference/normCoords.md)
+and `getCoords.space2` will be
+[`rawCoords()`](https://gabrielmccoy.github.io/pandemonium/reference/rawCoords.md).
+These can be specified to be other coordinate functions; see
+[`vignette("get-coords")`](https://gabrielmccoy.github.io/pandemonium/articles/get-coords.md)
+for more information on coordinate functions.
+
+#### Space properties
+
+Each space can have a covariance matrix, inverse covariance matrix or
+reference point defined. These are used by some coordinate functions and
+will need to be provided if used.
+
+## Output
+
+[`writeResults()`](https://gabrielmccoy.github.io/pandemonium/reference/writeResults.md)
+will write a CSV file to the provided file name. The first columns of
+the CSV will be linked space coordinates, then the clustering space
+coordinates. **clstr** will be an integer giving the clustering
+assignment of each point. **BM** identifies the benchmarks of each
+cluster, where 0 means the point is not a benchmark and 1 means the
+point is a benchmark.
+
+The typical output of is as follows for the bikes data:
+
+    A1,A2,A3,A4,A5,A6,A7,A8,yr,temp,weathersit,atemp,hum,windspeed,clstr,BM
+    0.953,1.200,1.649,0.473,-0.593,-0.891,-0.910,1.887,0,0.344,2,0.363,0.805,0.160,1,0
+    0.700,-0.606,0.800,0.619,-0.593,-0.891,-0.910,1.080,0,0.363,2,0.353,0.696,0.248,3,0
+    -0.621,-0.771,-0.696,2.530,-0.593,-0.891,-0.910,-0.605,0,0.196,1,0.189,0.437,0.248,3,0
+    -0.621,-0.189,-0.696,2.18,-0.593,-0.891,-0.910,-0.3606,0,0.2,1,0.212,0.590,0.160,3,0

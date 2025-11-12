@@ -1,0 +1,104 @@
+# pandemonium
+
+![](reference/figures/pandemonium.png)
+
+pandemonium performs hierarchical cluster analysis within a Shiny GUI.
+The data space should be split into two parts, for example input
+variables and latent variables for a statistical model. Clustering is
+performed using the subset of variables in the *clustering space*, and
+cluster assignments are also visualised in the *linked space*.
+
+Within the dynamic GUI pandemonium performs data preparation, clustering
+and visualisation with interactive methods. The user can change all
+settings without having to to leave the GUI.
+
+## Installation
+
+The latest release version of pandemonium can be installed from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("pandemonium")
+```
+
+You can install the development version of pandemonium from
+[GitHub](https://github.com/GabrielMccoy/pandemonium) with:
+
+``` r
+# install.packages("pak")
+pak::pak("GabrielMccoy/pandemonium")
+```
+
+## Getting Started
+
+We use the `Bikes` data example to show how the app can be used. To load
+the GUI with this data, the following can be used.
+
+``` r
+library(pandemonium)
+pandemonium(df = Bikes$space1, space2 = Bikes$space2, 
+                getScore = outsidescore(Bikes$other$res,"Residual"))
+```
+
+By loading the app with the clustering space in `df` and the linked
+space in `space2` the data is automatically selected in the data page.
+From here pressing load app will launch the analysis tab.
+
+Within the analysis tab you can explore different visualisations and
+their options in each of the enclosed tabs.
+
+# Package index
+
+## All functions
+
+- [`Bikes`](https://gabrielmccoy.github.io/pandemonium/reference/Bikes.md)
+  : Bike sharing data with model information
+- [`chi2score()`](https://gabrielmccoy.github.io/pandemonium/reference/chi2score.md)
+  : Chi-squared scores function
+- [`getBenchmarkInformation()`](https://gabrielmccoy.github.io/pandemonium/reference/getBenchmarkInformation.md)
+  : Compute cluster information
+- [`getClusterDists()`](https://gabrielmccoy.github.io/pandemonium/reference/getClusterDists.md)
+  : Compute cluster distance summaries
+- [`getDists()`](https://gabrielmccoy.github.io/pandemonium/reference/getDists.md)
+  : Compute distances between all points
+- [`makePlots()`](https://gabrielmccoy.github.io/pandemonium/reference/makePlots.md)
+  : Generate a specified plot outside the GUI
+- [`normCoords()`](https://gabrielmccoy.github.io/pandemonium/reference/normCoords.md)
+  : Scaled coordinates
+- [`outsidescore()`](https://gabrielmccoy.github.io/pandemonium/reference/outsidescore.md)
+  : Using externally computed score values
+- [`pandemonium()`](https://gabrielmccoy.github.io/pandemonium/reference/pandemonium.md)
+  : Shiny app for exploring clustering solutions
+- [`pullCoords()`](https://gabrielmccoy.github.io/pandemonium/reference/pullCoords.md)
+  : Chi-Squared Loss Function Coordinates
+- [`pullCoordsNoCov()`](https://gabrielmccoy.github.io/pandemonium/reference/pullCoordsNoCov.md)
+  : Generic Loss Function Coordinates
+- [`rawCoords()`](https://gabrielmccoy.github.io/pandemonium/reference/rawCoords.md)
+  : Raw coordinates
+- [`tSNE()`](https://gabrielmccoy.github.io/pandemonium/reference/tSNE.md)
+  : t-Distributed Stochastic Neighbor Embedding
+- [`umap()`](https://gabrielmccoy.github.io/pandemonium/reference/umap.md)
+  : Uniform Manifold Approximation and Projection Embedding
+- [`userCoords()`](https://gabrielmccoy.github.io/pandemonium/reference/userCoords.md)
+  : User defined coordinate function
+- [`writeResults()`](https://gabrielmccoy.github.io/pandemonium/reference/writeResults.md)
+  : Write coordinates and cluster assignment to a CSV file
+
+# Articles
+
+### Articles
+
+- [Data Input for
+  pandemonium](https://gabrielmccoy.github.io/pandemonium/articles/datainput.md):
+- [Using the Data Analysis
+  Page](https://gabrielmccoy.github.io/pandemonium/articles/analysis-pages.md):
+- [Understanding the dimReduction Function
+  Input](https://gabrielmccoy.github.io/pandemonium/articles/dim-reduction.md):
+- [Understanding the getCoords Function
+  Input](https://gabrielmccoy.github.io/pandemonium/articles/get-coords.md):
+- [Understanding the getScore Function
+  Input](https://gabrielmccoy.github.io/pandemonium/articles/get-scores.md):
+- [How to Use
+  makePlots](https://gabrielmccoy.github.io/pandemonium/articles/make-plots.md):
+- [How to Use
+  writeResults](https://gabrielmccoy.github.io/pandemonium/articles/output.md):

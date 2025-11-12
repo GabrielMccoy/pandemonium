@@ -1,0 +1,64 @@
+# Understanding the dimReduction Function Input
+
+## Overview
+
+This vignette describes the usage of the `dimReduction` parameter in the
+`pandemonium` app and how new functions can be written for it.
+
+The input for `dimReduction` should be a named list of functions, where
+each function defines a dimension reduction and needs to be structured
+as follows.
+
+### Required function inputs:
+
+`mat` = n x m matrix of coordinates to reduce `dist` = n x n distance
+matrix
+
+While typically only one of the two is used for the dimension reduction,
+the interface requires that both arguments are accepted to avoid errors.
+
+### What the function should return:
+
+A list object that contains the output of the dimension reduction and
+can be accessed as `dimReduction(mat = mat, dist = dist)$Y` = n x 2
+matrix or data frame with dimension reduced coordinates for all
+observations.
+
+## How to write new functions
+
+The standard way to write a new function to be passed to `dimReduction`
+is as a wrapper for a common dimension reduction algorithm. The defined
+function must be able to take `mat` and `dist` as parameters. If only
+one of them is used it is best to write the function with space for
+additional parameters with `...` as seen in the following example.
+
+``` r
+tSNE_mat <- function(mat,...) {
+  coord_red = list()
+  coord_red$Y = Rtsne::Rtsne(mat)$Y
+  coord_red
+}
+
+tSNE_dist <- function(dist,...) {
+  coord_red = list()
+  coord_red$Y = Rtsne::Rtsne(dist, is.dist = TRUE)$Y
+  coord_red
+}
+
+newPandemonium(df, dim_reduction = list(tSNE_mat = tSNE_mat, tSNE_dist = tSNE_dist))
+```
+
+Some algorithms may take a dist object instead of a distance matrix.
+This can be done by converting the distance matrix using
+[`stats::as.dist()`](https://rdrr.io/r/stats/dist.html). An example is
+the implementation of `umap`.
+
+``` r
+umap <- function(dist,...) {
+  ret <- list()
+  ret$Y <- uwot::umap(stats::as.dist(dist))
+  ret
+}
+
+newPandemonium(df, dim_reduction = list(umap = umap))
+```
