@@ -449,7 +449,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
                                    "space2" = rv$space2names,
                                    "space1 PCA" = paste0("pc", 1:min(5, ncol(rv$space1))),
                                    "space2 PCA" = paste0(" pc", 1:min(5, ncol(rv$space2))))
-      shiny::updateSelectInput(session,"select_radial_par",choices = rv$tour2projection, selected = rv$tour2projection[[1]])
+      shiny::updateSelectInput(session,"select_radial_2",choices = rv$tour2projection, selected = rv$tour2projection[[1]])
       rv$tour2data       <- switch(input$tour2data,
                                    "space1" = rv$coord1,
                                    "space2" = rv$coord2,
