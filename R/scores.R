@@ -114,7 +114,7 @@ outsidescore <- function(scores,scoreName = NULL){
     ret$interest <- rep("",n)
     ret$is.interest <- which(ret$interest!="")
     ret$scoreName <- as.character(scoreName)
-    ret$binName   <- "quartile"
+    ret$binName   <- "Quartile"
     ret
   }
 }

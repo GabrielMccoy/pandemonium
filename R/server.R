@@ -350,7 +350,7 @@ pandemonium = function (df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         ggplot2::facet_wrap(~observable, scales = "free",
                             ncol = 7) + ggplot2::guides(colour = "none") +
         ggplot2::scale_colour_viridis_c() + ggplot2::theme_bw() +
-        ggplot2::labs(title="Centered coordinate values for all observables") +
+        ggplot2::labs(title="Centered coordinate values for all cluster variables") +
         ggplot2::theme(aspect.ratio = 1)
     })
     shiny::observeEvent(c(input$px, input$py, rv$benchmarks),{

@@ -53,12 +53,12 @@ UI <- function () {
                               shiny::fluidRow(
                                 shiny::column(6,
                                               shiny::hr(),
-                                              shiny::selectInput('space1', 'Space 1 ', c(), multiple=TRUE, selectize=TRUE),
+                                              shiny::selectInput('space1', 'Cluster Space', c(), multiple=TRUE, selectize=TRUE),
                                               shiny::selectInput("coord_space1","Coordinate Funcion",c())
                                 ),
                                 shiny::column(6,
                                               shiny::hr(),
-                                              shiny::selectInput('space2', 'Space 2', c(), multiple=TRUE, selectize=TRUE),
+                                              shiny::selectInput('space2', 'Linked Space', c(), multiple=TRUE, selectize=TRUE),
                                               shiny::selectInput("coord_space2","Coordinate Funcion",c())
                                 )
                               ),

@@ -1,6 +1,5 @@
 #' Show clusters in parameter space
 #'
-#' Parameter values no longer need to be on a regular grid pattern for this plot.(modified)
 #'
 #' @param wc parameter values as matrix
 #' @param x,y variables names (as string) to map to x and y axis
@@ -46,13 +45,12 @@ plotWC <- function (wc, x, y, interest, bmID, col, cond = NULL, groups = NULL, p
   p + ggplot2::geom_point(color = col[cond]) +
     ggplot2::geom_point(data = wc[interest,], shape = 1, size = 3) +
     ggplot2::geom_point(data = wc[bmID,], shape = 5, size = 3) +
-    ggplot2::theme_bw() + ggplot2::labs(title="Cluster assignment in parameter space") +
+    ggplot2::theme_bw() + ggplot2::labs(title="Cluster assignment in linked space") +
     ggplot2::theme(aspect.ratio = 1, legend.position = "none")
 }
 
 #' Make coordinate plot
 #'
-#' Parameter values no longer need to be on a regular grid pattern for this plot.(modified)
 #'
 #' @param coord coordinate representation of points
 #' @param x,y variables names (as string) to map to x and y axis
@@ -75,7 +73,6 @@ plotObs <- function (coord, x, y, wc, obs, cond = NULL) {
 
 #' Plot sigma bins in parameter space
 #'
-#' Parameter values no longer need to be on a regular grid pattern for this plot.(modified)
 #'
 #' @param wc parameter values as matrix
 #' @param interest logical vector showing that points are intersting
@@ -96,13 +93,12 @@ plotSigBin <- function (wc, interest, bmID, sigmabins, x, y, binName, cond = NUL
     ggplot2::geom_point(color = colSig[cond]) +
     ggplot2::geom_point(data = wc[interest,], shape = 1, size = 3) +
     ggplot2::geom_point(data = wc[bmID,], shape = 5, size = 3) +
-    ggplot2::theme_bw() + ggplot2::labs(title=paste(binName,"bins in parameter space")) +
+    ggplot2::theme_bw() + ggplot2::labs(title=paste(binName,"bins in linked space")) +
     ggplot2::theme(aspect.ratio = 1, legend.position = "none")
 }
 
 #' Plot chi2
 #'
-#' Parameter values no longer need to be on a regular grid pattern for this plot.(modified)
 #'
 #' @param wc parameter values as matrix
 #' @param chi2 vector with chi2 values
@@ -117,7 +113,7 @@ plotChi2 <- function (wc, chi2, x, y, scoreName = NULL, cond = NULL) {
   dplyr::mutate(wc[cond, ], chi2 = chi2[cond]) %>% ggplot2::ggplot(ggplot2::aes(.data[[x]], .data[[y]], color = .data[["chi2"]])) +
     ggplot2::geom_point() + ggplot2::guides(color = "none") +
     ggplot2::scale_color_viridis_c() + ggplot2::theme_bw() +
-    ggplot2::labs(title=paste(scoreName, "values")) + ggplot2::theme(aspect.ratio = 1)
+    ggplot2::labs(title=paste(scoreName, "values in linked space")) + ggplot2::theme(aspect.ratio = 1)
 }
 
 #' Make parallel coordinate plot
