@@ -76,10 +76,14 @@
 observations.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/pandemonium.html">pandemonium</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">Bikes</span><span class="op">$</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
-<p>Variables can be sorted into the <em>clustering space</em> (space1)
-and the <em>linked space</em> (space2) once loaded into the app in the
-data screen. Variables can be added or removed from each space with the
-drop down selector that appears by clicking on the box.</p>
+<p>This will automatically sort the variables into numeric and other
+variables, as well as impute any missing data using
+<code><a href="https://rdrr.io/pkg/VIM/man/kNN.html" class="external-link">VIM::kNN()</a></code> is VIM is installed otherwise entries with
+misssing data will be removed. Numeric variables can be sorted into the
+<em>clustering space</em> (space1) and the <em>linked space</em>
+(space2) once loaded into the app in the data screen. Variables can be
+added or removed from each space with the drop down selector that
+appears by clicking on the box.</p>
 <p><img src="Images/data_Input_page.png" class="r-plt" width="100%"></p>
 <p>Alternatively, the data can be passed in as two separate arrays with
 the clustering variables in <code>df = space1</code> and the linked
