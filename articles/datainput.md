@@ -37,9 +37,11 @@ includes optional data and function inputs. All inputs are shown in the
 following call.
 
 ``` r
-pandemonium(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NULL, space2.cov = NULL, 
-            space2.exp = NULL, group = NULL, label = NULL, user_dist = NULL, 
-            dimReduction = list(tSNE = tSNE, umap = umap), getCoords = list(normal = normCoords), getScore = NULL)
+pandemonium(df,
+  cov = NULL, is.inv = FALSE, exp = NULL, space2 = NULL, space2.cov = NULL,
+  space2.exp = NULL, group = NULL, label = NULL, user_dist = NULL,
+  dimReduction = list(tSNE = tSNE, umap = umap), getCoords = list(normal = normCoords), getScore = NULL
+)
 ```
 
 #### Data Inputs

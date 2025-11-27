@@ -106,15 +106,15 @@ reduction algorithm. The defined function must be able to take
 them is used it is best to write the function with space for additional
 parameters with <code>...</code> as seen in the following example.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tSNE_mat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">mat</span>,<span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">coord_red</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="va">coord_red</span><span class="op">$</span><span class="va">Y</span> <span class="op">=</span> <span class="fu">Rtsne</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Rtsne/man/Rtsne.html" class="external-link">Rtsne</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">$</span><span class="va">Y</span></span>
+<code class="sourceCode R"><span><span class="va">tSNE_mat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">mat</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">coord_red</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="va">coord_red</span><span class="op">$</span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu">Rtsne</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Rtsne/man/Rtsne.html" class="external-link">Rtsne</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span><span class="op">$</span><span class="va">Y</span></span>
 <span>  <span class="va">coord_red</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="va">tSNE_dist</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dist</span>,<span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">coord_red</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="va">coord_red</span><span class="op">$</span><span class="va">Y</span> <span class="op">=</span> <span class="fu">Rtsne</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Rtsne/man/Rtsne.html" class="external-link">Rtsne</a></span><span class="op">(</span><span class="va">dist</span>, is.dist <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">Y</span></span>
+<span><span class="va">tSNE_dist</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dist</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">coord_red</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="va">coord_red</span><span class="op">$</span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu">Rtsne</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Rtsne/man/Rtsne.html" class="external-link">Rtsne</a></span><span class="op">(</span><span class="va">dist</span>, is.dist <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">Y</span></span>
 <span>  <span class="va">coord_red</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -124,7 +124,7 @@ This can be done by converting the distance matrix using
 <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">stats::as.dist()</a></code>. An example is the implementation of
 <code>umap</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">umap</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dist</span>,<span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="va">umap</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dist</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="va">ret</span><span class="op">$</span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu">uwot</span><span class="fu">::</span><span class="fu"><a href="https://jlmelville.github.io/uwot/reference/umap.html" class="external-link">umap</a></span><span class="op">(</span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">as.dist</a></span><span class="op">(</span><span class="va">dist</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="va">ret</span></span>

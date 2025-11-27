@@ -61,23 +61,22 @@ A simple template for what a `getScore` function should look like is as
 follows:
 
 ``` r
-myScore <- function(space1=rv$space1, cov=rv$cov1, covinv=rv$covInv1,
-         exp=rv$exp, space2=rv$space2, space2.cov=rv$cov2, 
-         space2.exp=rv$space2.exp, k=rv$kC){
-  
+myScore <- function(space1 = rv$space1, cov = rv$cov1, covinv = rv$covInv1,
+                    exp = rv$exp, space2 = rv$space2, space2.cov = rv$cov2,
+                    space2.exp = rv$space2.exp, k = rv$kC) {
   ## Calculations
-  n      <- nrow(space1)
-  scores <- #function to calculate scores
-  bins   <- #function to bin scores
-  
-  ## Return
-  ret <- list()
-  ret$score       <- scores
-  ret$scoreName   <- "scores"
-  ret$bins        <- bins
-  ret$binName     <- "bins"
-  ret$interest    <- rep("",n)
-  ret$is.interest <- which(ret$interest!="")
+  n <- nrow(space1)
+  scores <- # function to calculate scores
+    bins <- # function to bin scores
+
+    ## Return
+    ret <- list()
+  ret$score <- scores
+  ret$scoreName <- "scores"
+  ret$bins <- bins
+  ret$binName <- "bins"
+  ret$interest <- rep("", n)
+  ret$is.interest <- which(ret$interest != "")
   ret
 }
 
@@ -89,20 +88,22 @@ write it as a closure and pass these values when calling the app. This
 has been done for `outsidescore` as seen below:
 
 ``` r
-outsidescore <- function(scores,scoreName = NULL){
-  function(space1, ...){
+outsidescore <- function(scores, scoreName = NULL) {
+  function(space1, ...) {
     ret <- list()
-    n<- nrow(space1)
+    n <- nrow(space1)
     ret$score <- scores
-    ret$bins <- cut(scores, stats::quantile(scores,c(0,0.25,0.75,1))-c(1,0,0,0), labels=c("lower","inner","upper"))
-    ret$interest <- rep("",n)
-    ret$is.interest <- which(ret$interest!="")
+    ret$bins <- cut(scores, stats::quantile(scores, c(0, 0.25, 0.75, 1)) - c(1, 0, 0, 0), labels = c("lower", "inner", "upper"))
+    ret$interest <- rep("", n)
+    ret$is.interest <- which(ret$interest != "")
     ret$scoreName <- as.character(scoreName)
-    ret$binName   <- "quartile"
+    ret$binName <- "quartile"
     ret
   }
 }
 
-pandemonium(df = Bikes$space1, space2 = Bikes$space2, 
-                getScore = outsidescore(Bikes$other$res,"Residual"))
+pandemonium(
+  df = Bikes$space1, space2 = Bikes$space2,
+  getScore = outsidescore(Bikes$other$res, "Residual")
+)
 ```

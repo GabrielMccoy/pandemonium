@@ -73,15 +73,14 @@ and with the same column names as df.
 ### Example
 
 ``` r
-pullCoordsNoCov <- function(df, cov, exp, ...){
-
+pullCoordsNoCov <- function(df, cov, exp, ...) {
   n <- nrow(df)
   df <- as.matrix(df)
   nc <- ncol(df)
   coord_mat <- matrix(nrow = n, ncol = nc)
 
-  for (i in 1:n){
-    for (j in 1:nc){
+  for (i in 1:n) {
+    for (j in 1:nc) {
       coord_mat[i, j] <- as.numeric((df[i, j] - exp$value[j]) / sqrt(cov[j, j]))
     }
   }
@@ -89,5 +88,5 @@ pullCoordsNoCov <- function(df, cov, exp, ...){
   return(coord_mat)
 }
 
-pandemonium(df,getCoords = list(pull = pullCoordsNoCov, normal = normCoords))
+pandemonium(df, getCoords = list(pull = pullCoordsNoCov, normal = normCoords))
 ```
