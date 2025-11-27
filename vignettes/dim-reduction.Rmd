@@ -35,15 +35,15 @@ A list object that contains the output of the dimension reduction and can be acc
 The standard way to write a new function to be passed to `dimReduction` is as a wrapper for a common dimension reduction algorithm.
 The defined function must be able to take `mat` and `dist` as parameters. If only one of them is used it is best to write the function with space for additional parameters with `...` as seen in the following example.
 ```{r,echo=TRUE,eval=FALSE}
-tSNE_mat <- function(mat,...) {
-  coord_red = list()
-  coord_red$Y = Rtsne::Rtsne(mat)$Y
+tSNE_mat <- function(mat, ...) {
+  coord_red <- list()
+  coord_red$Y <- Rtsne::Rtsne(mat)$Y
   coord_red
 }
 
-tSNE_dist <- function(dist,...) {
-  coord_red = list()
-  coord_red$Y = Rtsne::Rtsne(dist, is.dist = TRUE)$Y
+tSNE_dist <- function(dist, ...) {
+  coord_red <- list()
+  coord_red$Y <- Rtsne::Rtsne(dist, is.dist = TRUE)$Y
   coord_red
 }
 
@@ -53,7 +53,7 @@ newPandemonium(df, dim_reduction = list(tSNE_mat = tSNE_mat, tSNE_dist = tSNE_di
 Some algorithms may take a dist object instead of a distance matrix. This can be done by converting the distance matrix using `stats::as.dist()`. An example is the implementation of `umap`. 
 
 ```{r,echo=TRUE,eval=FALSE}
-umap <- function(dist,...) {
+umap <- function(dist, ...) {
   ret <- list()
   ret$Y <- uwot::umap(stats::as.dist(dist))
   ret

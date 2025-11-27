@@ -1,4 +1,3 @@
-
 #' @title Bike sharing data with model information
 #'
 #' @description The dataset contains daily counts of bikes rented with

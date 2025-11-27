@@ -1,4 +1,3 @@
-
 #' Bin points based on chi2
 #'
 #' Map to values of sigma and compute equidistant binning in sigma.
@@ -8,16 +7,17 @@
 #' @param k number of bins
 #' @returns bin assignment for each point
 #' @keywords internal
-chi2bins <- function(chivals, ndf, k){
+chi2bins <- function(chivals, ndf, k) {
   chimin <- min(chivals)
   # map chivals to sigmas
-  sigvals <- sqrt(stats::qchisq(stats::pchisq(chivals-chimin, ndf), 1))
+  sigvals <- sqrt(stats::qchisq(stats::pchisq(chivals - chimin, ndf), 1))
   sigvals <- pmin(sigvals, 5)
   # get bins in sigma
-  sigmabins <- seq(0, max(sigvals), length.out = k+1)
+  sigmabins <- seq(0, max(sigvals), length.out = k + 1)
   sigbinned <- cut(sigvals, sigmabins,
-                   include.lowest = TRUE,
-                   labels = FALSE)
+    include.lowest = TRUE,
+    labels = FALSE
+  )
   sigbinned
 }
 
@@ -29,10 +29,10 @@ chi2bins <- function(chivals, ndf, k){
 #' @param ndf number of parameters (degrees of freedom of the chi2 distribution)
 #' @returns vector with sigma values
 #' @keywords internal
-computeSigma <- function(chivals, ndf){
+computeSigma <- function(chivals, ndf) {
   chimin <- min(chivals)
   # map chivals to sigmas, cutoff at 5
-  pmin(sqrt(stats::qchisq(stats::pchisq(chivals-chimin, ndf), 1)), 5)
+  pmin(sqrt(stats::qchisq(stats::pchisq(chivals - chimin, ndf), 1)), 5)
 }
 
 #' Compute chi2 value for all points
@@ -42,10 +42,10 @@ computeSigma <- function(chivals, ndf){
 #' @param exp experimentally observed values
 #' @returns vector with chi2 values
 #' @keywords internal
-computeChi2 <- function(pred, covInv, exp){
+computeChi2 <- function(pred, covInv, exp) {
   chi2 <- double(nrow(pred))
-  for (i in 1:nrow(pred)){
-    chi2[i] <- as.matrix(exp$value - pred[i,]) %*% covInv %*% t(as.matrix(exp$value - pred[i,]))
+  for (i in 1:nrow(pred)) {
+    chi2[i] <- as.matrix(exp$value - pred[i, ]) %*% covInv %*% t(as.matrix(exp$value - pred[i, ]))
   }
   return(chi2)
 }
@@ -65,23 +65,24 @@ computeChi2 <- function(pred, covInv, exp){
 #' @export
 #'
 #' @examples
-#' chi2score(Bikes$space1,solve(cov(Bikes$space1)),
-#'             data.frame(value = colMeans(Bikes$space1)))
+#' chi2score(
+#'   Bikes$space1, solve(cov(Bikes$space1)),
+#'   data.frame(value = colMeans(Bikes$space1))
+#' )
 #'
-#'
-chi2score <- function(space1, covinv, exp, ...){
-  ret <-list()
-  n<- nrow(space1)
-  ndf<-ncol(space1)
-  ret$score<- computeChi2(space1, covinv, exp)
-  sig <- floor(computeSigma(ret$score,ndf))+1
-  ret$bins <- factor(sig,labels = c("1","2","3","4","5","5+")[sort(unique(sig))])
+chi2score <- function(space1, covinv, exp, ...) {
+  ret <- list()
+  n <- nrow(space1)
+  ndf <- ncol(space1)
+  ret$score <- computeChi2(space1, covinv, exp)
+  sig <- floor(computeSigma(ret$score, ndf)) + 1
+  ret$bins <- factor(sig, labels = c("1", "2", "3", "4", "5", "5+")[sort(unique(sig))])
 
-  ret$interest <- rep("",n)
-  ret$interest[which.min(ret$bins)]<- "bf"
-  ret$is.interest <- which(ret$interest!="")
+  ret$interest <- rep("", n)
+  ret$interest[which.min(ret$bins)] <- "bf"
+  ret$is.interest <- which(ret$interest != "")
   ret$scoreName <- "chi2"
-  ret$binName   <- "sigma"
+  ret$binName <- "sigma"
   ret
 }
 
@@ -101,20 +102,21 @@ chi2score <- function(space1, covinv, exp, ...){
 #' @export
 #'
 #' @examplesIf interactive()
-#' pandemonium(df = Bikes$space1, space2 = Bikes$space2,
-#'               getScore = outsidescore(Bikes$other$res,"Residual"))
+#' pandemonium(
+#'   df = Bikes$space1, space2 = Bikes$space2,
+#'   getScore = outsidescore(Bikes$other$res, "Residual")
+#' )
 #'
-#'
-outsidescore <- function(scores,scoreName = NULL){
-  function(space1, ...){
+outsidescore <- function(scores, scoreName = NULL) {
+  function(space1, ...) {
     ret <- list()
-    n<- nrow(space1)
+    n <- nrow(space1)
     ret$score <- scores
-    ret$bins <- cut(scores, stats::quantile(scores,c(0,0.25,0.75,1))-c(1,0,0,0), labels=c("lower","inner","upper"))
-    ret$interest <- rep("",n)
-    ret$is.interest <- which(ret$interest!="")
+    ret$bins <- cut(scores, stats::quantile(scores, c(0, 0.25, 0.75, 1)) - c(1, 0, 0, 0), labels = c("lower", "inner", "upper"))
+    ret$interest <- rep("", n)
+    ret$is.interest <- which(ret$interest != "")
     ret$scoreName <- as.character(scoreName)
-    ret$binName   <- "Quartile"
+    ret$binName <- "Quartile"
     ret
   }
 }
