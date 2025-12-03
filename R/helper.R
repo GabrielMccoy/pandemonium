@@ -137,7 +137,7 @@ getClusterStats <- function(dist, fit, chivals, kmax = 10) {
   )
   for (k in 2:kmax) {
     gr <- stats::cutree(fit, k)
-    chibins <- chi2bins(chivals, 2, k)
+    chibins <- chi2Bins(chivals, 2, k)
 
     x <- fpc::cluster.stats(dist, gr, alt.clustering = chibins)
     bmInfo <- getBenchmarkInformation(as.matrix(dist), gr)
