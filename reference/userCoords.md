@@ -34,8 +34,9 @@ necessary.
 
 ``` r
 if (FALSE) { # interactive()
-pandemonium(df = Bikes$space1, space2 = Bikes$space2,
-              coords = list(normalised = normCoords, space2 = userCoords(Bikes$space2)))
-
+pandemonium(
+  df = Bikes$space1, space2 = Bikes$space2,
+  coords = list(normalised = normCoords, space2 = userCoords(Bikes$space2))
+)
 }
 ```

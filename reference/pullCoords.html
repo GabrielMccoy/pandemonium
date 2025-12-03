@@ -83,8 +83,10 @@ computing the chi-squared loss.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">pullCoords</span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">space2</span>,<span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">space2</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>            <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">space2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">pullCoords</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">Bikes</span><span class="op">$</span><span class="va">space2</span>, <span class="fu"><a href="https://rdrr.io/r/base/solve.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">space2</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">space2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              yr         temp weathersit       atemp         hum  windspeed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.8292029 -1.046511064  0.3768171  0.94035509  0.60997604 -0.1313423</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.9130219  0.003682338  0.7378488 -0.06234677  0.01749241  0.5709120</span>
@@ -92,7 +94,6 @@ computing the chi-squared loss.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.9163204  0.029964266 -0.9802563 -0.26735866  0.38279082 -0.5303732</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -1.0908367  0.212017821 -0.1012415 -0.38494219 -0.98100221 -0.6324212</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [6,] -1.0442625 -0.687876640 -0.2763956  0.47016164 -0.68068108 -1.5712841</span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

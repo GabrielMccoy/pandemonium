@@ -1,7 +1,6 @@
 # Plot chi2
 
-Parameter values no longer need to be on a regular grid pattern for this
-plot.(modified)
+Plot chi2
 
 ## Usage
 

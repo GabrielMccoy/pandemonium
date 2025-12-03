@@ -29,13 +29,13 @@ distances between all points
 ## Examples
 
 ``` r
-getDists(Bikes$space1[1:5,],"euclidean")
+getDists(Bikes$space1[1:5, ], "euclidean")
 #>           1         2         3         4
 #> 2 0.9652271                              
 #> 3 2.8380077 2.1357739                    
 #> 4 2.5636606 1.8901896 0.3659190          
 #> 5 2.7035401 1.9682619 0.2672703 0.2627526
-getDists(Bikes$space1[1:5,],"maximum")
+getDists(Bikes$space1[1:5, ], "maximum")
 #>           1         2         3         4
 #> 2 0.6336683                              
 #> 3 1.6802070 1.4197401                    

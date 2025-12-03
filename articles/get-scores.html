@@ -224,7 +224,7 @@ look like is as follows:</p>
 write it as a closure and pass these values when calling the app. This
 has been done for <code>outsidescore</code> as seen below:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">outsidescore</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">scores</span>, <span class="va">scoreName</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="va">outsideScore</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">scores</span>, <span class="va">scoreName</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw">function</span><span class="op">(</span><span class="va">space1</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">ret</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">space1</span><span class="op">)</span></span>
@@ -240,7 +240,7 @@ has been done for <code>outsidescore</code> as seen below:</p>
 <span></span>
 <span><span class="fu"><a href="../reference/pandemonium.html">pandemonium</a></span><span class="op">(</span></span>
 <span>  df <span class="op">=</span> <span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span>, space2 <span class="op">=</span> <span class="va">Bikes</span><span class="op">$</span><span class="va">space2</span>,</span>
-<span>  getScore <span class="op">=</span> <span class="fu"><a href="../reference/outsidescore.html">outsidescore</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">other</span><span class="op">$</span><span class="va">res</span>, <span class="st">"Residual"</span><span class="op">)</span></span>
+<span>  getScore <span class="op">=</span> <span class="fu">outsideScore</span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">other</span><span class="op">$</span><span class="va">res</span>, <span class="st">"Residual"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>

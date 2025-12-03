@@ -88,7 +88,7 @@ write it as a closure and pass these values when calling the app. This
 has been done for `outsidescore` as seen below:
 
 ``` r
-outsidescore <- function(scores, scoreName = NULL) {
+outsideScore <- function(scores, scoreName = NULL) {
   function(space1, ...) {
     ret <- list()
     n <- nrow(space1)
@@ -104,6 +104,6 @@ outsidescore <- function(scores, scoreName = NULL) {
 
 pandemonium(
   df = Bikes$space1, space2 = Bikes$space2,
-  getScore = outsidescore(Bikes$other$res, "Residual")
+  getScore = outsideScore(Bikes$other$res, "Residual")
 )
 ```

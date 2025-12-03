@@ -87,7 +87,7 @@ benchmark points plotted opaque and all other points slightly
 transparent. Note that `ggpcp` will break ties on points with the same
 value for a clearer plot. Below this plot are 3 settings:
 
-- Center: centres the coordinates by their mean
+- Centre: centres the coordinates by their mean
 - Scale: scales the coordinates by their standard deviation
 - Filter: filters which clusters to display
 

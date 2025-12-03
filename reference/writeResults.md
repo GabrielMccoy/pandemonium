@@ -84,10 +84,11 @@ No return value, called for writing file
 ## Examples
 
 ``` r
-file<-tempfile()
-writeResults(space1 = Bikes$space1, space2 = Bikes$space2,
-settings = list(metric="euclidean",linkage="ward.D2",k=4), filename = file)
+file <- tempfile()
+writeResults(
+  space1 = Bikes$space1, space2 = Bikes$space2,
+  settings = list(metric = "euclidean", linkage = "ward.D2", k = 4), filename = file
+)
 file.remove(file)
 #> [1] TRUE
-
 ```

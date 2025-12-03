@@ -31,7 +31,7 @@ data frame with distance information
 ## Examples
 
 ``` r
-dists <- getDists(Bikes$space1,"euclidean")
+dists <- getDists(Bikes$space1, "euclidean")
 fit <- stats::hclust(dists, "ward.D2")
 groups <- stats::cutree(fit, k = 4)
 bm <- getBenchmarkInformation(as.matrix(dists), groups)

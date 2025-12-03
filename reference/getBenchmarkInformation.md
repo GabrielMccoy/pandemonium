@@ -26,7 +26,7 @@ data frame with cluster information
 ## Examples
 
 ``` r
-dists <- getDists(Bikes$space1,"euclidean")
+dists <- getDists(Bikes$space1, "euclidean")
 fit <- stats::hclust(dists, "ward.D2")
 groups <- stats::cutree(fit, k = 4)
 getBenchmarkInformation(as.matrix(dists), groups)

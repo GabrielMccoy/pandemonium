@@ -1,7 +1,6 @@
 # Make coordinate plot
 
-Parameter values no longer need to be on a regular grid pattern for this
-plot.(modified)
+Make coordinate plot
 
 ## Usage
 
