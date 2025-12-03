@@ -20,5 +20,4 @@ Using scale to center and scale the coordinates.
 \examples{
 head(normCoords(Bikes$space2))
 
-
 }

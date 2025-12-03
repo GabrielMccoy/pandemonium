@@ -24,6 +24,13 @@
 #' @export
 #'
 pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NULL, space2.cov = NULL, space2.exp = NULL, group = NULL, label = NULL, user_dist = NULL, dimReduction = list(tSNE = tSNE, umap = umap), getCoords = list(normal = normCoords), getScore = NULL) {
+  if (!is.list(dimReduction)){
+    stop("dimReduction needs to be a named list of functions")
+  }
+  if (!is.list(getCoords)){
+    stop("getCoords needs to be a named list of functions")
+  }
+
   stopifnot(
     is.null(space2) || nrow(df) == nrow(space2),
     is.null(cov) || (ncol(df) == nrow(cov) && ncol(df) == ncol(cov)),

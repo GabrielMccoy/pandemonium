@@ -24,8 +24,9 @@ scaled with the standard deviation.
 Uses the i,ith entry of the covariance matrix as the standard deviation of the ith variable.
 }
 \examples{
-head(pullCoordsNoCov(Bikes$space2,cov(Bikes$space2),
-                data.frame(value = colMeans(Bikes$space2))))
-
+head(pullCoordsNoCov(
+  Bikes$space2, cov(Bikes$space2),
+  data.frame(value = colMeans(Bikes$space2))
+))
 
 }

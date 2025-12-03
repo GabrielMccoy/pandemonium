@@ -24,8 +24,9 @@ to the reference, using the covariance matrix as when
 computing the chi-squared loss.
 }
 \examples{
-head(pullCoords(Bikes$space2,solve(cov(Bikes$space2)),
-            data.frame(value = colMeans(Bikes$space2))))
-
+head(pullCoords(
+  Bikes$space2, solve(cov(Bikes$space2)),
+  data.frame(value = colMeans(Bikes$space2))
+))
 
 }

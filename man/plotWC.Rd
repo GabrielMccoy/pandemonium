@@ -43,6 +43,6 @@ plotWC(
 ggplot
 }
 \description{
-Parameter values no longer need to be on a regular grid pattern for this plot.(modified)
+Show clusters in parameter space
 }
 \keyword{internal}

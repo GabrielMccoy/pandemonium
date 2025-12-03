@@ -41,7 +41,7 @@ the GUI with this data, the following can be used.
 ``` r
 library(pandemonium)
 pandemonium(df = Bikes$space1, space2 = Bikes$space2, 
-                getScore = outsidescore(Bikes$other$res,"Residual"))
+                getScore = outsideScore(Bikes$other$res,"Residual"))
 ```
 
 By loading the app with the clustering space in `df` and the linked

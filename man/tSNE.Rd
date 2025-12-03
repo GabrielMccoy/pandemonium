@@ -18,7 +18,6 @@ list containing a n x 2 matrix of reduced dimension data in Y
 Computes non-linear dimension reduction with Rtsne and default parameters.
 }
 \examples{
-head(tSNE(getDists(Bikes$space1,"euclidean"))$Y)
-
+head(tSNE(getDists(Bikes$space1, "euclidean"))$Y)
 
 }

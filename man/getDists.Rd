@@ -20,7 +20,7 @@ distances between all points
 Compute distances between all points
 }
 \examples{
-getDists(Bikes$space1[1:5,],"euclidean")
-getDists(Bikes$space1[1:5,],"maximum")
+getDists(Bikes$space1[1:5, ], "euclidean")
+getDists(Bikes$space1[1:5, ], "maximum")
 
 }
