@@ -201,11 +201,12 @@ plotHeatmap <- function(dat, fit, k, pal) {
 #' @param chivals vector of chi2 values
 #' @param stat cluster statistic to draw
 #' @param kmax maximum number of clusters to appear in the plot
+#' @importFrom rlang .data
 #' @return ggplot
 #' @keywords internal
 plotCstat <- function(dist, fit, chivals, stat, kmax = 8) {
   cstats <- getClusterStats(dist, fit, chivals, kmax)
-  ggplot2::ggplot(cstats, ggplot2::aes({{ "k" }}, {{ stat }})) +
+  ggplot2::ggplot(cstats, ggplot2::aes(.data$k, .data[[stat]])) +
     ggplot2::geom_line() +
     ggplot2::labs(x = "# clusters", y = cstat_names[[stat]]) +
     ggplot2::theme_bw()
@@ -326,17 +327,17 @@ makePlots <- function(space1, settings, cov = NULL, covInv = NULL, exp = NULL, s
   x <- settings$x
   y <- settings$y
 
-  coord <- getCoordsSpace1(space1, cov, covInv, exp)
-  try(coord2 <- getCoordsSpace2(space2, space2.cov, space2.covInv, space2.exp))
+  coord <- getCoordsSpace1(df = space1, cov = cov, covInv = covInv, exp = exp)
+  try(coord2 <- getCoordsSpace2(df = space2, cov = space2.cov, covInv = space2.covInv, exp = space2.exp))
   dists <- getDists(coord, settings$metric, user_dist)
   try(dists2 <- getDists(coord2, settings$metric, NULL))
   fit <- stats::hclust(dists, settings$linkage)
   groups <- stats::cutree(fit, k = settings$k)
   lvl <- unique(groups[stats::order.dendrogram(stats::as.dendrogram(fit))])
   groups <- as.numeric(factor(groups, levels = lvl))
-  # score fuction
+  # score function
   if (!is.null(getScore)) {
-    value <- try(getScore(space1, cov, covInv, exp, space2, space2.cov, space2.exp, settings$k))
+    value <- try(getScore(space1 = space1, cov = cov, covinv = covInv, exp = exp, space2 = space2, space2.cov = space2.cov, space2.exp = space2.exp, k = settings$k))
     if (!is.null(value$score)) {
       scorecol <- viridis::viridis(n)[rank(value$score)]
     }
