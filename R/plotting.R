@@ -326,7 +326,7 @@ makePlots <- function(space1, settings, cov = NULL, covInv = NULL, exp = NULL, s
   x <- settings$x
   y <- settings$y
 
-  coord <- getCoordsSpace2(space1, cov, covInv, exp)
+  coord <- getCoordsSpace1(space1, cov, covInv, exp)
   try(coord2 <- getCoordsSpace2(space2, space2.cov, space2.covInv, space2.exp))
   dists <- getDists(coord, settings$metric, user_dist)
   try(dists2 <- getDists(coord2, settings$metric, NULL))
