@@ -18,7 +18,6 @@ list containing a 2 x n matrix of reduced dimension data
 Computes non-linear dimension reduction with uwot and default parameters.
 }
 \examples{
-head(umap(getDists(Bikes$space1,"euclidean"))$Y)
-
+head(umap(getDists(Bikes$space1, "euclidean"))$Y)
 
 }

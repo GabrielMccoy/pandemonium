@@ -11,21 +11,21 @@
 #' @returns matrix with coordinate representation of all points
 #' @export
 #'
-#'@examples
-#' head(pullCoords(Bikes$space2,solve(cov(Bikes$space2)),
-#'             data.frame(value = colMeans(Bikes$space2))))
+#' @examples
+#' head(pullCoords(
+#'   Bikes$space2, solve(cov(Bikes$space2)),
+#'   data.frame(value = colMeans(Bikes$space2))
+#' ))
 #'
-#'
-pullCoords <- function(df, covInv, exp,...){
-
+pullCoords <- function(df, covInv, exp, ...) {
   n <- nrow(df)
   df <- as.matrix(df)
   nc <- ncol(df)
   coord_mat <- matrix(nrow = n, ncol = nc)
 
-  for (i in 1:n){
-    for (j in 1:nc){
-      coord_mat[i, j] <- sum(covInv[j,] * (df[i,] - exp$value)) / sqrt(covInv[j, j])
+  for (i in 1:n) {
+    for (j in 1:nc) {
+      coord_mat[i, j] <- sum(covInv[j, ] * (df[i, ] - exp$value)) / sqrt(covInv[j, j])
     }
   }
   colnames(coord_mat) <- colnames(df)
@@ -47,19 +47,19 @@ pullCoords <- function(df, covInv, exp,...){
 #' @export
 #'
 #' @examples
-#' head(pullCoordsNoCov(Bikes$space2,cov(Bikes$space2),
-#'                 data.frame(value = colMeans(Bikes$space2))))
+#' head(pullCoordsNoCov(
+#'   Bikes$space2, cov(Bikes$space2),
+#'   data.frame(value = colMeans(Bikes$space2))
+#' ))
 #'
-#'
-pullCoordsNoCov <- function(df, cov, exp, ...){
-
+pullCoordsNoCov <- function(df, cov, exp, ...) {
   n <- nrow(df)
   df <- as.matrix(df)
   nc <- ncol(df)
   coord_mat <- matrix(nrow = n, ncol = nc)
 
-  for (i in 1:n){
-    for (j in 1:nc){
+  for (i in 1:n) {
+    for (j in 1:nc) {
       coord_mat[i, j] <- as.numeric((df[i, j] - exp$value[j]) / sqrt(cov[j, j]))
     }
   }
@@ -80,8 +80,7 @@ pullCoordsNoCov <- function(df, cov, exp, ...){
 #' @examples
 #' head(normCoords(Bikes$space2))
 #'
-#'
-normCoords <- function(df, ...){
+normCoords <- function(df, ...) {
   return(scale(df))
 }
 
@@ -108,8 +107,7 @@ normCoords <- function(df, ...){
 #' @examples
 #' head(rawCoords(Bikes$space2))
 #'
-#'
-rawCoords <- function(df, ...){
+rawCoords <- function(df, ...) {
   return(df)
 }
 
@@ -133,13 +131,14 @@ rawCoords <- function(df, ...){
 #' @export
 #'
 #' @examplesIf interactive()
-#' pandemonium(df = Bikes$space1, space2 = Bikes$space2,
-#'               coords = list(normalised = normCoords, space2 = userCoords(Bikes$space2)))
+#' pandemonium(
+#'   df = Bikes$space1, space2 = Bikes$space2,
+#'   coords = list(normalised = normCoords, space2 = userCoords(Bikes$space2))
+#' )
 #'
-#'
-userCoords <- function(user_coords){
-  function(df,...){
-    coord<- user_coords
+userCoords <- function(user_coords) {
+  function(df, ...) {
+    coord <- user_coords
     colnames(coord) <- colnames(df)
     return(user_coords)
   }

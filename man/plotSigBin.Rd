@@ -37,6 +37,6 @@ plotSigBin(
 ggplot
 }
 \description{
-Parameter values no longer need to be on a regular grid pattern for this plot.(modified)
+Plot sigma bins in parameter space
 }
 \keyword{internal}

@@ -21,6 +21,6 @@ plotChi2(wc, chi2, x, y, scoreName = NULL, cond = NULL)
 ggplot
 }
 \description{
-Parameter values no longer need to be on a regular grid pattern for this plot.(modified)
+Plot chi2
 }
 \keyword{internal}

@@ -21,6 +21,6 @@ plotObs(coord, x, y, wc, obs, cond = NULL)
 ggplot
 }
 \description{
-Parameter values no longer need to be on a regular grid pattern for this plot.(modified)
+Make coordinate plot
 }
 \keyword{internal}

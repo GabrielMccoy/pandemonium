@@ -23,7 +23,8 @@ To launch the app, the user needs to provide a data frame with the observations.
 pandemonium(df = Bikes$df)
 ```
 
-Variables can be sorted into the *clustering space* (space1) and the *linked space* (space2) once loaded into the app in the data screen. Variables can be added or removed from each space with the drop down selector that appears by clicking on the box.
+This will automatically sort the variables into numeric and other variables, as well as impute any missing data using `VIM::kNN()` is VIM is installed otherwise entries with misssing data will be removed.
+Numeric variables can be sorted into the *clustering space* (space1) and the *linked space* (space2) once loaded into the app in the data screen. Variables can be added or removed from each space with the drop down selector that appears by clicking on the box.
 
 ```{r,echo=FALSE}
 knitr::include_graphics("Images/data_Input_page.png")
@@ -39,9 +40,11 @@ pandemonium(df = Bikes$space1, space2 = Bikes$space2)
 
 A complete input for `pandemonium()` includes optional data and function inputs. All inputs are shown in the following call.
 ```{r,eval=FALSE}
-pandemonium(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NULL, space2.cov = NULL, 
-            space2.exp = NULL, group = NULL, label = NULL, user_dist = NULL, 
-            dimReduction = list(tSNE = tSNE, umap = umap), getCoords = list(normal = normCoords), getScore = NULL)
+pandemonium(df,
+  cov = NULL, is.inv = FALSE, exp = NULL, space2 = NULL, space2.cov = NULL,
+  space2.exp = NULL, group = NULL, label = NULL, user_dist = NULL,
+  dimReduction = list(tSNE = tSNE, umap = umap), getCoords = list(normal = normCoords), getScore = NULL
+)
 ```
 
 #### Data Inputs

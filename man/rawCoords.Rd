@@ -30,5 +30,4 @@ interpretation from plots of clustering space is necessary.
 \examples{
 head(rawCoords(Bikes$space2))
 
-
 }

@@ -18,71 +18,75 @@
 #' @returns detour
 #' @keywords internal
 #'
-tourMaker<- function(coord1, coord2, group, score, user_group,
-                     tourspace, colouring, out_dim, tour_path, display,
-                     radial_start=NULL, radial_var=NULL, slice_width=NULL,
-                     seed=NULL){
-  if(!is.null(seed)){
+tourMaker <- function(coord1, coord2, group, score, user_group,
+                      tourspace, colouring, out_dim, tour_path, display,
+                      radial_start = NULL, radial_var = NULL, slice_width = NULL,
+                      seed = NULL) {
+  if (!is.null(seed)) {
     set.seed(seed)
   }
-  colour<- switch(colouring,
-                      "clustering"  = group,
-                      "user"        = user_group,
-                      "bins"        = score$bins,
-                      "score"       = rank(score$score))
-  pal <-    switch(colouring,
-                       "clustering"  = RColorBrewer::brewer.pal(length(unique(colour)),"Dark2"),
-                       "user"        = RColorBrewer::brewer.pal(length(unique(colour)), "Set3"),
-                       "bins"        = RColorBrewer::brewer.pal(length(unique(colour)),"Set2"),
-                       "score"       = viridis::viridis(length(colour)))
+  colour <- switch(colouring,
+    "clustering"  = group,
+    "user"        = user_group,
+    "bins"        = score$bins,
+    "score"       = rank(score$score)
+  )
+  pal <- switch(colouring,
+    "clustering"  = RColorBrewer::brewer.pal(length(unique(colour)), "Dark2"),
+    "user"        = RColorBrewer::brewer.pal(length(unique(colour)), "Set3"),
+    "bins"        = RColorBrewer::brewer.pal(length(unique(colour)), "Set2"),
+    "score"       = viridis::viridis(length(colour))
+  )
   projection <- switch(tourspace,
-                               "space1" = colnames(coord1),
-                               "space2" = colnames(coord2))
-  data       <- switch(tourspace,
-                               "space1" = as.data.frame(coord1),
-                               "space2" = as.data.frame(coord2))
+    "space1" = colnames(coord1),
+    "space2" = colnames(coord2)
+  )
+  data <- switch(tourspace,
+    "space1" = as.data.frame(coord1),
+    "space2" = as.data.frame(coord2)
+  )
   data$colour <- colour
-  if (tour_path == "radial"){
+  if (tour_path == "radial") {
     if (tour_path == "random") {
       radial_view <- tourr::basis_random(length(projection))
-    }else {
+    } else {
       radial_tour <- switch(radial_start,
-                                "cmass"  = tourr::guided_tour(tourr::cmass()),
-                                "holes"  = tourr::guided_tour(tourr::holes()),
-                                "lda"    = tourr::guided_tour(tourr::lda_pp(colour)),
-                                "pda"    = tourr::guided_tour(tourr::pda_pp(colour)),
-                                "dcor"   = tourr::guided_tour(tourr::dcor2d()),
-                                "spline" = tourr::guided_tour(tourr::splines2d()),
+        "cmass"  = tourr::guided_tour(tourr::cmass()),
+        "holes"  = tourr::guided_tour(tourr::holes()),
+        "lda"    = tourr::guided_tour(tourr::lda_pp(colour)),
+        "pda"    = tourr::guided_tour(tourr::pda_pp(colour)),
+        "dcor"   = tourr::guided_tour(tourr::dcor2d()),
+        "spline" = tourr::guided_tour(tourr::splines2d()),
       )
       hist <- tourr::save_history(data, tour_path = radial_tour, max_bases = 1000)
-      view <- drop(hist[,,dim(hist)[3]])
-      attr(view,"class") <- NULL
-      attr(view,"data")  <- NULL
+      view <- drop(hist[, , dim(hist)[3]])
+      attr(view, "class") <- NULL
+      attr(view, "data") <- NULL
       radial_view <- view
     }
   }
-  if (is.null(radial_var)){
-    radial_var<-1
+  if (is.null(radial_var)) {
+    radial_var <- 1
   }
   tourPath <- switch(tour_path,
-                         "grand"  = tourr::grand_tour(out_dim),
-                         "cmass"  = tourr::guided_tour(tourr::cmass(),out_dim),
-                         "holes"  = tourr::guided_tour(tourr::holes(),out_dim),
-                         "lda"    = tourr::guided_tour(tourr::lda_pp(colour),out_dim),
-                         "pda"    = tourr::guided_tour(tourr::pda_pp(colour),out_dim),
-                         "dcor"   = tourr::guided_tour(tourr::dcor2d(),out_dim),
-                         "spline" = tourr::guided_tour(tourr::splines2d(),out_dim),
-                         "radial" = tourr::radial_tour(radial_view, radial_var),
-                         "anomaly"= tourr::guided_anomaly_tour(tourr::anomaly_index())
+    "grand" = tourr::grand_tour(out_dim),
+    "cmass" = tourr::guided_tour(tourr::cmass(), out_dim),
+    "holes" = tourr::guided_tour(tourr::holes(), out_dim),
+    "lda" = tourr::guided_tour(tourr::lda_pp(colour), out_dim),
+    "pda" = tourr::guided_tour(tourr::pda_pp(colour), out_dim),
+    "dcor" = tourr::guided_tour(tourr::dcor2d(), out_dim),
+    "spline" = tourr::guided_tour(tourr::splines2d(), out_dim),
+    "radial" = tourr::radial_tour(radial_view, radial_var),
+    "anomaly" = tourr::guided_anomaly_tour(tourr::anomaly_index())
   )
   angles <- if (tour_path == "radial") 1 / 2 else 1
-  tour_bases <- if(tour_path %in% c("cmass","holes","lda","pda","dcor","spline","anomaly")) 1000 else 20
+  tour_bases <- if (tour_path %in% c("cmass", "holes", "lda", "pda", "dcor", "spline", "anomaly")) 1000 else 20
 
-  if (display=="slice"){
+  if (display == "slice") {
     d <- detourr::detour(data, detourr::tour_aes(projection = tidyselect::all_of(projection), colour = "colour")) %>%
       detourr::tour_path(tourPath, fps = 60, aps = angles, max_bases = tour_bases) %>%
       detourr::show_slice(palette = pal, slice_relative_volume = as.numeric(slice_width))
-  } else{
+  } else {
     d <- detourr::detour(data, detourr::tour_aes(projection = tidyselect::all_of(projection), colour = "colour")) %>%
       detourr::tour_path(tourPath, fps = 60, aps = angles, max_bases = tour_bases) %>%
       detourr::show_scatter(palette = pal)

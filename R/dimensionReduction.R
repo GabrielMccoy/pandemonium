@@ -9,11 +9,10 @@
 #' @export
 #'
 #' @examples
-#' head(tSNE(getDists(Bikes$space1,"euclidean"))$Y)
+#' head(tSNE(getDists(Bikes$space1, "euclidean"))$Y)
 #'
-#'
-tSNE <- function(dist,...) {
-  Rtsne::Rtsne(dist, is_distance=TRUE)
+tSNE <- function(dist, ...) {
+  Rtsne::Rtsne(dist, is_distance = TRUE)
 }
 
 #' Uniform Manifold Approximation and Projection Embedding
@@ -27,10 +26,9 @@ tSNE <- function(dist,...) {
 #' @export
 #'
 #' @examples
-#' head(umap(getDists(Bikes$space1,"euclidean"))$Y)
+#' head(umap(getDists(Bikes$space1, "euclidean"))$Y)
 #'
-#'
-umap <- function(dist,...) {
+umap <- function(dist, ...) {
   ret <- list()
   ret$Y <- uwot::umap(stats::as.dist(dist))
   ret

@@ -7,11 +7,13 @@
 #' @export
 #'
 #' @examples
-#' getDists(Bikes$space1[1:5,],"euclidean")
-#' getDists(Bikes$space1[1:5,],"maximum")
+#' getDists(Bikes$space1[1:5, ], "euclidean")
+#' getDists(Bikes$space1[1:5, ], "maximum")
 #'
-getDists <- function(coord, metric, user_dist=NULL){
-  if(metric == "user") return(stats::as.dist(user_dist))
+getDists <- function(coord, metric, user_dist = NULL) {
+  if (metric == "user") {
+    return(stats::as.dist(user_dist))
+  }
   stats::dist(coord, method = metric)
 }
 
@@ -27,27 +29,32 @@ getDists <- function(coord, metric, user_dist=NULL){
 #' @export
 #'
 #' @examples
-#' dists <- getDists(Bikes$space1,"euclidean")
+#' dists <- getDists(Bikes$space1, "euclidean")
 #' fit <- stats::hclust(dists, "ward.D2")
 #' groups <- stats::cutree(fit, k = 4)
 #' getBenchmarkInformation(as.matrix(dists), groups)
 #'
-getBenchmarkInformation <- function(dmat, groups){
+getBenchmarkInformation <- function(dmat, groups) {
   k <- length(unique(groups))
-  ret <- tibble::tibble(id = numeric(length = k),
-                        r = numeric(length = k), d = numeric(length = k),
-                        group = numeric(length = k))
+  ret <- tibble::tibble(
+    id = numeric(length = k),
+    r = numeric(length = k), d = numeric(length = k),
+    group = numeric(length = k)
+  )
   i <- 1
-  for (gr in unique(groups)){
-    idx <- which(groups==gr)
+  for (gr in unique(groups)) {
+    idx <- which(groups == gr)
     d_gr <- dmat[idx, idx]
-    if(length(idx) == 1) d_vec <- 0
-    else d_vec <- colSums(d_gr^2)
+    if (length(idx) == 1) {
+      d_vec <- 0
+    } else {
+      d_vec <- colSums(d_gr^2)
+    }
     id <- idx[which.min(d_vec)]
     d <- max(d_gr)
     r <- max(d_gr[which.min(d_vec)])
-    ret[i,] <- t(c(id, r, d, gr))
-    i <- i+1
+    ret[i, ] <- t(c(id, r, d, gr))
+    i <- i + 1
   }
   ret
 }
@@ -66,37 +73,38 @@ getBenchmarkInformation <- function(dmat, groups){
 #' @export
 #'
 #' @examples
-#' dists <- getDists(Bikes$space1,"euclidean")
+#' dists <- getDists(Bikes$space1, "euclidean")
 #' fit <- stats::hclust(dists, "ward.D2")
 #' groups <- stats::cutree(fit, k = 4)
 #' bm <- getBenchmarkInformation(as.matrix(dists), groups)
 #' getClusterDists(as.matrix(dists), groups, bm)
 #'
-getClusterDists <- function(dmat, groups, benchmarks){
+getClusterDists <- function(dmat, groups, benchmarks) {
   k <- length(unique(groups))
   n <- choose(k, 2)
-  ret <- tibble::tibble(grA = numeric(length = n),  grB = numeric(length = n),
-                        d1 = numeric(length = n), d2 = numeric(length = n),
-                        d3 = numeric(length = n))
+  ret <- tibble::tibble(
+    grA = numeric(length = n), grB = numeric(length = n),
+    d1 = numeric(length = n), d2 = numeric(length = n),
+    d3 = numeric(length = n)
+  )
 
   ni <- 1
-  for (i in 1:(k-1)){
-    for (j in (i+1):k){
-
+  for (i in 1:(k - 1)) {
+    for (j in (i + 1):k) {
       id1 <- dplyr::filter(benchmarks, .data$group == i)$id
       id2 <- dplyr::filter(benchmarks, .data$group == j)$id
 
       d1 <- dmat[id1, id2]
 
-      idx1 <- which(groups==i)
-      idx2 <- which(groups==j)
+      idx1 <- which(groups == i)
+      idx2 <- which(groups == j)
 
 
       d2 <- min(dmat[idx1, idx2])
       d3 <- max(dmat[idx1, idx2])
 
 
-      ret[ni,] <- t(c(i, j, d1, d2, d3))
+      ret[ni, ] <- t(c(i, j, d1, d2, d3))
       ni <- ni + 1
     }
   }
@@ -114,31 +122,35 @@ getClusterDists <- function(dmat, groups, benchmarks){
 #' @param kmax maximum number of clusters considered
 #' @return data frame with cluster statistics
 #' @keywords internal
-getClusterStats <- function(dist, fit, chivals, kmax=10){
-  ret <- tibble::tibble(k = numeric(length = kmax-1),
-                        within.cluster.ss = numeric(length = kmax-1),
-                        wb.ratio = numeric(length = kmax-1),
-                        ch = numeric(length = kmax-1),
-                        pearsongamma = numeric(length = kmax-1),
-                        dunn = numeric(length = kmax-1),
-                        dchi2rand = numeric(length = kmax-1),
-                        rmax = numeric(length = kmax-1),
-                        dmax = numeric(length = kmax-1),
-                        dmin = numeric(length = kmax-1))
-  for(k in 2:kmax){
+getClusterStats <- function(dist, fit, chivals, kmax = 10) {
+  ret <- tibble::tibble(
+    k = numeric(length = kmax - 1),
+    within.cluster.ss = numeric(length = kmax - 1),
+    wb.ratio = numeric(length = kmax - 1),
+    ch = numeric(length = kmax - 1),
+    pearsongamma = numeric(length = kmax - 1),
+    dunn = numeric(length = kmax - 1),
+    dchi2rand = numeric(length = kmax - 1),
+    rmax = numeric(length = kmax - 1),
+    dmax = numeric(length = kmax - 1),
+    dmin = numeric(length = kmax - 1)
+  )
+  for (k in 2:kmax) {
     gr <- stats::cutree(fit, k)
-    chibins <- chi2bins(chivals, 2, k)
+    chibins <- chi2Bins(chivals, 2, k)
 
     x <- fpc::cluster.stats(dist, gr, alt.clustering = chibins)
     bmInfo <- getBenchmarkInformation(as.matrix(dist), gr)
     bmDists <- getClusterDists(as.matrix(dist), gr, bmInfo)
     bmMinDist <- min(bmDists$d1)
 
-    ret[k-1,] <- t(c(k, x$within.cluster.ss, x$wb.ratio,
-                     x$ch, x$pearsongamma, x$dunn,
-                     x$corrected.rand,
-                     max(bmInfo$r), max(bmInfo$d),
-                     bmMinDist))
+    ret[k - 1, ] <- t(c(
+      k, x$within.cluster.ss, x$wb.ratio,
+      x$ch, x$pearsongamma, x$dunn,
+      x$corrected.rand,
+      max(bmInfo$r), max(bmInfo$d),
+      bmMinDist
+    ))
   }
   ret
 }
@@ -159,7 +171,7 @@ cstat_names <- c(
 #'
 #' @keywords internal
 #'
-cstat_labeller <- function(){
+cstat_labeller <- function() {
   return(ggplot2::labeller(stat = cstat_names))
 }
 
@@ -171,22 +183,25 @@ cstat_labeller <- function(){
 #' @returns list containing colour assignment, palette and labels for use in plotting
 #' @keywords internal
 #'
-colourHelper <- function(choice,rv){
+colourHelper <- function(choice, rv) {
   ret <- list()
-  ret$colour<- switch(choice,
-                      "clustering"  = rv$groups,
-                      "user"        = rv$user.group,
-                      "bins"        = rv$colSig,
-                      "score"       = rank(rv$value$score))
-  ret$pal <-    switch(choice,
-                       "clustering"  = rv$pal,
-                       "user"        = rv$user.pal,
-                       "bins"        = rv$palSig,
-                       "score"       = rv$scorecol)
+  ret$colour <- switch(choice,
+    "clustering"  = rv$groups,
+    "user"        = rv$user.group,
+    "bins"        = rv$colSig,
+    "score"       = rank(rv$value$score)
+  )
+  ret$pal <- switch(choice,
+    "clustering"  = rv$pal,
+    "user"        = rv$user.pal,
+    "bins"        = rv$palSig,
+    "score"       = rv$scorecol
+  )
   ret$label <- switch(choice,
-                      "clustering"  = paste(rv$groups,rv$label,rv$value$interest),
-                      "user"        = paste(rv$user.group,rv$label,rv$value$interest),
-                      "bins"        = paste(rv$value$bins,rv$label,rv$value$interest),
-                      "score"       = paste(rv$label,rv$value$interest))
+    "clustering"  = paste(rv$groups, rv$label, rv$value$interest),
+    "user"        = paste(rv$user.group, rv$label, rv$value$interest),
+    "bins"        = paste(rv$value$bins, rv$label, rv$value$interest),
+    "score"       = paste(rv$label, rv$value$interest)
+  )
   ret
 }

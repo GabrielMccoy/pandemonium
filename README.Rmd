@@ -35,7 +35,7 @@ We use the `Bikes` data example to show how the app can be used. To load the GUI
 ``` r
 library(pandemonium)
 pandemonium(df = Bikes$space1, space2 = Bikes$space2, 
-                getScore = outsidescore(Bikes$other$res,"Residual"))
+                getScore = outsideScore(Bikes$other$res,"Residual"))
 ```
 By loading the app with the clustering space in `df` and the linked space in `space2` the data is automatically selected in the data page. From here pressing load app will launch the analysis tab.
 
