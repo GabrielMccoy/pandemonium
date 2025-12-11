@@ -4,6 +4,8 @@
 
 - [`Bikes`](https://gabrielmccoy.github.io/pandemonium/reference/Bikes.md)
   : Bike sharing data with model information
+- [`chi2Score()`](https://gabrielmccoy.github.io/pandemonium/reference/chi2Score.md)
+  : Chi-squared scores function
 - [`getBenchmarkInformation()`](https://gabrielmccoy.github.io/pandemonium/reference/getBenchmarkInformation.md)
   : Compute cluster information
 - [`getClusterDists()`](https://gabrielmccoy.github.io/pandemonium/reference/getClusterDists.md)
@@ -14,6 +16,8 @@
   : Generate a specified plot outside the GUI
 - [`normCoords()`](https://gabrielmccoy.github.io/pandemonium/reference/normCoords.md)
   : Scaled coordinates
+- [`outsideScore()`](https://gabrielmccoy.github.io/pandemonium/reference/outsideScore.md)
+  : Using externally computed score values
 - [`pandemonium()`](https://gabrielmccoy.github.io/pandemonium/reference/pandemonium.md)
   : Shiny app for exploring clustering solutions
 - [`pullCoords()`](https://gabrielmccoy.github.io/pandemonium/reference/pullCoords.md)
