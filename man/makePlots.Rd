@@ -62,7 +62,7 @@ makePlots(
     plotType = "WC", x = "hum", y = "temp", k = 4, metric = "euclidean",
     linkage = "ward.D2", WCa = 0.5, showalpha = TRUE
   ), cov = cov(Bikes$space1),
-  space2 = Bikes$space2, getScore = outsidescore(Bikes$other$res, "Residual")
+  space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual")
 )
 
 makePlots(
@@ -73,7 +73,7 @@ makePlots(
     display = "scatter", radial_start = NULL, radial_var = NULL, slice_width = NULL, seed = 2025
   ),
   cov = cov(Bikes$space1), space2 = Bikes$space2,
-  getScore = outsidescore(Bikes$other$res, "Residual")
+  getScore = outsideScore(Bikes$other$res, "Residual")
 )
 
 }

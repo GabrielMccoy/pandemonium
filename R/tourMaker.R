@@ -47,7 +47,7 @@ tourMaker <- function(coord1, coord2, group, score, user_group,
   )
   data$colour <- colour
   if (tour_path == "radial") {
-    if (tour_path == "random") {
+    if (radial_start == "random") {
       radial_view <- tourr::basis_random(length(projection))
     } else {
       radial_tour <- switch(radial_start,
@@ -58,7 +58,7 @@ tourMaker <- function(coord1, coord2, group, score, user_group,
         "dcor"   = tourr::guided_tour(tourr::dcor2d()),
         "spline" = tourr::guided_tour(tourr::splines2d()),
       )
-      hist <- tourr::save_history(data, tour_path = radial_tour, max_bases = 1000)
+      hist <- tourr::save_history(data[projection], tour_path = radial_tour, max_bases = 1000)
       view <- drop(hist[, , dim(hist)[3]])
       attr(view, "class") <- NULL
       attr(view, "data") <- NULL

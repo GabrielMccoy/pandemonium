@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples
-#' chi2score(
+#' chi2Score(
 #'   Bikes$space1, solve(cov(Bikes$space1)),
 #'   data.frame(value = colMeans(Bikes$space1))
 #' )
