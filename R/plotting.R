@@ -295,6 +295,7 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
 #' @param getCoordsSpace1 function to calculate coordinates in space 1
 #' @param getCoordsSpace2 function to calculate coordinates in space 2
 #' @param getScore function to calculate scores and bins
+#' @param results an output of `makeResults()`, used to reduce computation when many plots are made.
 #'
 #' @returns ggplot, plotly or detourr plot depending on settings$plotType
 #' @export
@@ -321,71 +322,126 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
 #'
 makePlots <- function(space1, settings, cov = NULL, covInv = NULL, exp = NULL, space2 = NULL,
                       space2.cov = NULL, space2.covInv, space2.exp = NULL, user_dist = NULL,
-                      getCoordsSpace1 = normCoords, getCoordsSpace2 = normCoords, getScore = NULL) {
+                      getCoordsSpace1 = normCoords, getCoordsSpace2 = normCoords, getScore = NULL, results = NULL) {
   n <- nrow(space1)
   cond <- 1:n
   x <- settings$x
   y <- settings$y
 
-  coord <- getCoordsSpace1(df = space1, cov = cov, covInv = covInv, exp = exp)
-  try(coord2 <- getCoordsSpace2(df = space2, cov = space2.cov, covInv = space2.covInv, exp = space2.exp))
-  dists <- getDists(coord, settings$metric, user_dist)
-  try(dists2 <- getDists(coord2, settings$metric, NULL))
-  fit <- stats::hclust(dists, settings$linkage)
-  groups <- stats::cutree(fit, k = settings$k)
-  lvl <- unique(groups[stats::order.dendrogram(stats::as.dendrogram(fit))])
-  groups <- as.numeric(factor(groups, levels = lvl))
-  # score function
-  if (!is.null(getScore)) {
-    value <- try(getScore(space1 = space1, cov = cov, covinv = covInv, exp = exp, space2 = space2, space2.cov = space2.cov, space2.exp = space2.exp, k = settings$k))
-    if (!is.null(value$score)) {
-      scorecol <- viridis::viridis(n)[rank(value$score)]
+  if (is.null(results)) {
+    results <- list()
+    results$coord <- getCoordsSpace1(df = space1, cov = cov, covInv = covInv, exp = exp)
+    try(results$coord2 <- getCoordsSpace2(df = space2, cov = space2.cov, covInv = space2.covInv, exp = space2.exp))
+    results$dists <- getDists(results$coord, settings$metric, user_dist)
+    try(results$dists2 <- getDists(results$coord2, settings$metric, NULL))
+    results$fit <- stats::hclust(results$dists, settings$linkage)
+    groups <- stats::cutree(results$fit, k = settings$k)
+    lvl <- unique(groups[stats::order.dendrogram(stats::as.dendrogram(results$fit))])
+    results$groups <- as.numeric(factor(groups, levels = lvl))
+    # score function
+    if (!is.null(getScore)) {
+      results$value <- try(getScore(space1 = space1, cov = cov, covinv = covInv, exp = exp, space2 = space2, space2.cov = space2.cov, space2.exp = space2.exp, k = settings$k))
     }
-    if (!is.null(value$bins)) {
-      palSig <- RColorBrewer::brewer.pal(length(unique(value$bins)), "Set2")
-      colSig <- palSig[value$bins]
-    }
+  } else {
+    settings$k <- max(results$groups)
   }
+
   # colours
+  if (!is.null(results$value$score)) {
+    scorecol <- viridis::viridis(n)[rank(results$value$score)]
+  }
+  if (!is.null(results$value$bins)) {
+    palSig <- RColorBrewer::brewer.pal(length(unique(results$value$bins)), "Set2")
+    colSig <- palSig[results$value$bins]
+  }
   pal <- RColorBrewer::brewer.pal(settings$k, "Dark2")
-  col <- pal[groups]
-  benchmarks <- getBenchmarkInformation(as.matrix(dists), groups)
+  col <- pal[results$groups]
+  benchmarks <- getBenchmarkInformation(as.matrix(results$dists), results$groups)
   pch <- rep(20, n)
-  pch[value$is.interest] <- 2
+  pch[results$value$is.interest] <- 2
   # make plots
   if (settings$plotType == "PC") {
-    return(plotPC(coord, groups, benchmarks$id, settings$filt, c = settings$centre, s = settings$scale))
+    return(plotPC(results$coord, results$groups, benchmarks$id, settings$filt, c = settings$centre, s = settings$scale))
   } else if (settings$plotType == "WC") {
-    return(plotWC(space2, x, y, value$is.interest, benchmarks$id, col, groups = groups, pal = pal, a = settings$WCa, showalpha = settings$showalpha))
+    return(plotWC(space2, x, y, results$value$is.interest, benchmarks$id, col, groups = results$groups, pal = pal, a = settings$WCa, showalpha = settings$showalpha))
   } else if (settings$plotType == "chi2") {
-    return(plotChi2(space2, value$score, x, y, value$scoreName, cond))
+    return(plotChi2(space2, results$value$score, x, y, results$value$scoreName, cond))
   } else if (settings$plotType == "sigBins") {
     return(plotSigBin(
-      space2, value$is.interest, benchmarks$id, value$bins,
-      x, y, value$binName, cond, "Set2"
+      space2, results$value$is.interest, benchmarks$id, results$value$bins,
+      x, y, results$value$binName, cond, "Set2"
     ))
   } else if (settings$plotType == "heatmap") {
-    return(plotHeatmap(as.matrix(dists), fit, settings$k, pal))
+    return(plotHeatmap(as.matrix(results$dists), results$fit, settings$k, pal))
   } else if (settings$plotType %in% names(cstat_names)) {
     return(plotCstat(
-      dists, fit, computeChi2(space1, covInv, exp),
+      results$dists, results$fit, computeChi2(space1, covInv, exp),
       settings$plotType
     ))
   } else if (settings$plotType == "Obs") {
-    return(plotObs(coord, x, y, space2, settings$obs, cond))
+    return(plotObs(results$coord, x, y, space2, settings$obs, cond))
   } else if (settings$plotType == "dimRed") {
     return(plotDimRed(
-      coord, coord2, as.matrix(dists), as.matrix(dists2),
+      results$coord, results$coord2, as.matrix(results$dists), as.matrix(results$dists2),
       settings$dimspace, settings$colouring, settings$dimReduction,
-      settings$algorithm, groups, value, settings$user_group, pch, settings$seed
+      settings$algorithm, results$groups, results$value, settings$user_group, pch, settings$seed
     ))
   } else if (settings$plotType == "tour") {
     return(tourMaker(
-      coord, coord2, groups, value, settings$user_group,
+      results$coord, results$coord2, results$groups, results$value, settings$user_group,
       settings$tourspace, settings$colouring, settings$out_dim, settings$tour_path, settings$display,
       settings$radial_start, settings$radial_var, settings$slice_width, settings$seed
     ))
   }
 
   "plotType unknown"
+}
+
+#' Generate Results for makePlots
+#'
+#' Settings are: metric, linkage, k. for details see the vignette on makePlots
+#'
+#' @param space1 dataframe of variables in cluster space
+#' @param cov covariance matrix for space 1
+#' @param covInv inverse covariance matrix for space 1
+#' @param exp reference point in space 1
+#' @param space2 dataframe of variables in linked space
+#' @param space2.cov covariance matrix for space 2
+#' @param space2.covInv inverse covariance matrix for space 2
+#' @param space2.exp reference point in space 2
+#' @param settings list specifying parameters usually selected in the app
+#' @param user_dist user defined distances
+#' @param getCoordsSpace1 function to calculate coordinates in space 1
+#' @param getCoordsSpace2 function to calculate coordinates in space 2
+#' @param getScore function to calculate scores and bins
+#'
+#' @returns list of results to be passed to makePlots
+#' @export
+#'
+#' @examples
+#' r <- makeResults(space1 = Bikes$space1, settings = list(k = 4,
+#'    metric = "euclidean", linkage = "ward.D2"), cov = cov(Bikes$space1),
+#'    space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"))
+#' makePlots(space1 = Bikes$space1, settings = list(plotType = "Obs",
+#'    x = "hum", y = "temp", obs = "A1"), cov = cov(Bikes$space1),
+#'    space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"),
+#'    results = r)
+#'
+makeResults <- function(space1, settings, cov = NULL, covInv = NULL, exp = NULL, space2 = NULL,
+                        space2.cov = NULL, space2.covInv, space2.exp = NULL, user_dist = NULL,
+                        getCoordsSpace1 = normCoords, getCoordsSpace2 = normCoords, getScore = NULL){
+  results <- list()
+  results$coord <- getCoordsSpace1(df = space1, cov = cov, covInv = covInv, exp = exp)
+  try(results$coord2 <- getCoordsSpace2(df = space2, cov = space2.cov, covInv = space2.covInv, exp = space2.exp))
+  results$dists <- getDists(results$coord, settings$metric, user_dist)
+  try(results$dists2 <- getDists(results$coord2, settings$metric, NULL))
+  results$fit <- stats::hclust(results$dists, settings$linkage)
+  groups <- stats::cutree(results$fit, k = settings$k)
+  lvl <- unique(groups[stats::order.dendrogram(stats::as.dendrogram(results$fit))])
+  results$groups <- as.numeric(factor(groups, levels = lvl))
+  # score function
+  if (!is.null(getScore)) {
+    results$value <- try(getScore(space1 = space1, cov = cov, covinv = covInv, exp = exp, space2 = space2, space2.cov = space2.cov, space2.exp = space2.exp, k = settings$k))
+  }
+  results
 }

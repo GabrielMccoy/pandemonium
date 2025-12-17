@@ -27,6 +27,6 @@ test_that("radial tour works with random basis", {
 test_that("radial tour works with ppi basis", {
   expect_message(makePlots(space1 = Bikes$space1, settings = list(
     plotType = "tour", k = 4, metric = "euclidean", linkage = "ward.D2", tourspace = "space1", colouring = "clustering", out_dim = 2, tour_path = "radial", display = "scatter",
-    radial_start = "pda", radial_var = 1, slice_width = NULL, seed = 2025
+    radial_start = "pda", radial_var = c(1,4), slice_width = NULL, seed = 2025
   ), cov = cov(Bikes$space1), space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual")), regexp = "Converting input data to the required matrix format.")
 })

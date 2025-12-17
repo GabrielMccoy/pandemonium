@@ -17,7 +17,8 @@ makePlots(
   user_dist = NULL,
   getCoordsSpace1 = normCoords,
   getCoordsSpace2 = normCoords,
-  getScore = NULL
+  getScore = NULL,
+  results = NULL
 )
 }
 \arguments{
@@ -46,6 +47,8 @@ makePlots(
 \item{getCoordsSpace2}{function to calculate coordinates in space 2}
 
 \item{getScore}{function to calculate scores and bins}
+
+\item{results}{an output of \code{makeResults()}, used to reduce computation when many plots are made.}
 }
 \value{
 ggplot, plotly or detourr plot depending on settings$plotType
