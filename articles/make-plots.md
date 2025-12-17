@@ -1,5 +1,9 @@
 # How to Use makePlots
 
+``` r
+library(pandemonium)
+```
+
 ## Overview
 
 This vignette describes the usage of the
@@ -16,7 +20,11 @@ the app with one named list to define all settings. Two other small
 differences in the input to the function are as follows. `CovInv` is
 specified for each space. Coordinate functions cannot be passed as a
 named list instead the functions themselves are passed as
-`getCoordsSpace1` and `getCoordsSpace2`.
+`getCoordsSpace1` and `getCoordsSpace2`. `makePlots` also allows for
+many of the calculations to be performed once with
+[`makeResults()`](https://gabrielmccoy.github.io/pandemonium/reference/makeResults.md)
+this allows for the many plots to be made without redoing calculations
+everytime see below for more details.
 
 ## settings
 
@@ -75,3 +83,32 @@ A dimension reduction view of the high dimensional space.
 | `algorithm=`   | Name of algorithm used for dimension reduction                                                |
 | `dimReduction` | Function for calculating dimension reduction see “using dimension reduction” for more details |
 | `seed`         | Set the seed for the function                                                                 |
+
+## results
+
+The results parameter allows for faster computation times using the
+[`makeResults()`](https://gabrielmccoy.github.io/pandemonium/reference/makeResults.md)
+function.
+
+This function creates a list of results used by `makePlots` that are
+normally computed if not provided through the results parameter.
+`makeResults` takes all of the same parameters as `makePlots`, the
+settings that need to be provided are `k`, `linkage` and `metric`. The
+output is then passed to `makePlots` and the previous settings are no
+longer need to be provided.
+
+A typical use is as below.
+
+``` r
+r <- makeResults(space1 = Bikes$space1, settings = list(k = 4, metric = "euclidean", linkage = "ward.D2"), cov = cov(Bikes$space1), space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"))
+
+makePlots(space1 = Bikes$space1, settings = list(plotType = "Obs", x = "hum", y = "temp", obs = "A1"), cov = cov(Bikes$space1), space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"), results = r)
+```
+
+![](make-plots_files/figure-html/unnamed-chunk-2-1.png)
+
+``` r
+makePlots(space1 = Bikes$space1, settings = list(plotType = "WC", x = "hum", y = "temp", WCa = 0.5, showalpha = TRUE), cov = cov(Bikes$space1), space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"), results = r)
+```
+
+![](make-plots_files/figure-html/unnamed-chunk-2-2.png)

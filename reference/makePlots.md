@@ -20,7 +20,8 @@ makePlots(
   user_dist = NULL,
   getCoordsSpace1 = normCoords,
   getCoordsSpace2 = normCoords,
-  getScore = NULL
+  getScore = NULL,
+  results = NULL
 )
 ```
 
@@ -77,6 +78,12 @@ makePlots(
 - getScore:
 
   function to calculate scores and bins
+
+- results:
+
+  an output of
+  [`makeResults()`](https://gabrielmccoy.github.io/pandemonium/reference/makeResults.md),
+  used to reduce computation when many plots are made.
 
 ## Value
 

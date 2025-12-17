@@ -14,6 +14,8 @@
   : Compute distances between all points
 - [`makePlots()`](https://gabrielmccoy.github.io/pandemonium/reference/makePlots.md)
   : Generate a specified plot outside the GUI
+- [`makeResults()`](https://gabrielmccoy.github.io/pandemonium/reference/makeResults.md)
+  : Generate Results for makePlots
 - [`normCoords()`](https://gabrielmccoy.github.io/pandemonium/reference/normCoords.md)
   : Scaled coordinates
 - [`outsideScore()`](https://gabrielmccoy.github.io/pandemonium/reference/outsideScore.md)

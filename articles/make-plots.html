@@ -69,6 +69,8 @@
 
     
     
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gabrielmccoy.github.io/pandemonium/">pandemonium</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
@@ -84,8 +86,11 @@ replaces the GUI in the app with one named list to define all settings.
 Two other small differences in the input to the function are as follows.
 <code>CovInv</code> is specified for each space. Coordinate functions
 cannot be passed as a named list instead the functions themselves are
-passed as <code>getCoordsSpace1</code> and
-<code>getCoordsSpace2</code>.</p>
+passed as <code>getCoordsSpace1</code> and <code>getCoordsSpace2</code>.
+<code>makePlots</code> also allows for many of the calculations to be
+performed once with <code><a href="../reference/makeResults.html">makeResults()</a></code> this allows for the many
+plots to be made without redoing calculations everytime see below for
+more details.</p>
 </div>
 <div class="section level2">
 <h2 id="settings">settings<a class="anchor" aria-label="anchor" href="#settings"></a>
@@ -317,6 +322,28 @@ reduction” for more details</td>
 </table>
 </div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="results">results<a class="anchor" aria-label="anchor" href="#results"></a>
+</h2>
+<p>The results parameter allows for faster computation times using the
+<code><a href="../reference/makeResults.html">makeResults()</a></code> function.</p>
+<p>This function creates a list of results used by
+<code>makePlots</code> that are normally computed if not provided
+through the results parameter. <code>makeResults</code> takes all of the
+same parameters as <code>makePlots</code>, the settings that need to be
+provided are <code>k</code>, <code>linkage</code> and
+<code>metric</code>. The output is then passed to <code>makePlots</code>
+and the previous settings are no longer need to be provided.</p>
+<p>A typical use is as below.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeResults.html">makeResults</a></span><span class="op">(</span>space1 <span class="op">=</span> <span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span>, settings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>k <span class="op">=</span> <span class="fl">4</span>, metric <span class="op">=</span> <span class="st">"euclidean"</span>, linkage <span class="op">=</span> <span class="st">"ward.D2"</span><span class="op">)</span>, cov <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span><span class="op">)</span>, space2 <span class="op">=</span> <span class="va">Bikes</span><span class="op">$</span><span class="va">space2</span>, getScore <span class="op">=</span> <span class="fu"><a href="../reference/outsideScore.html">outsideScore</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">other</span><span class="op">$</span><span class="va">res</span>, <span class="st">"Residual"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/makePlots.html">makePlots</a></span><span class="op">(</span>space1 <span class="op">=</span> <span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span>, settings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>plotType <span class="op">=</span> <span class="st">"Obs"</span>, x <span class="op">=</span> <span class="st">"hum"</span>, y <span class="op">=</span> <span class="st">"temp"</span>, obs <span class="op">=</span> <span class="st">"A1"</span><span class="op">)</span>, cov <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span><span class="op">)</span>, space2 <span class="op">=</span> <span class="va">Bikes</span><span class="op">$</span><span class="va">space2</span>, getScore <span class="op">=</span> <span class="fu"><a href="../reference/outsideScore.html">outsideScore</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">other</span><span class="op">$</span><span class="va">res</span>, <span class="st">"Residual"</span><span class="op">)</span>, results <span class="op">=</span> <span class="va">r</span><span class="op">)</span></span></code></pre></div>
+<p><img src="make-plots_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" width="700"></p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/makePlots.html">makePlots</a></span><span class="op">(</span>space1 <span class="op">=</span> <span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span>, settings <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>plotType <span class="op">=</span> <span class="st">"WC"</span>, x <span class="op">=</span> <span class="st">"hum"</span>, y <span class="op">=</span> <span class="st">"temp"</span>, WCa <span class="op">=</span> <span class="fl">0.5</span>, showalpha <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, cov <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">space1</span><span class="op">)</span>, space2 <span class="op">=</span> <span class="va">Bikes</span><span class="op">$</span><span class="va">space2</span>, getScore <span class="op">=</span> <span class="fu"><a href="../reference/outsideScore.html">outsideScore</a></span><span class="op">(</span><span class="va">Bikes</span><span class="op">$</span><span class="va">other</span><span class="op">$</span><span class="va">res</span>, <span class="st">"Residual"</span><span class="op">)</span>, results <span class="op">=</span> <span class="va">r</span><span class="op">)</span></span></code></pre></div>
+<p><img src="make-plots_files/figure-html/unnamed-chunk-2-2.png" class="r-plt" width="700"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
