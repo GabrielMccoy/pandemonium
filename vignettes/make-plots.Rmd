@@ -13,8 +13,8 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-
-```{r setup}
+ 
+```{r setup, echo = FALSE}
 library(pandemonium)
 ```
 
