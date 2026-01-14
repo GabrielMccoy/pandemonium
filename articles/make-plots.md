@@ -1,9 +1,5 @@
 # How to Use makePlots
 
-``` r
-library(pandemonium)
-```
-
 ## Overview
 
 This vignette describes the usage of the
