@@ -464,6 +464,9 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
     )
     output$pc <- shiny::renderPlot({
       shiny::req(rv$load.app)
+      shiny::validate(
+        shiny::need(!is.null(input$pc.filt),"Select clusters in Grouping selection below to show PC plot")
+      )
       plotPC(rv$coord1, rv$groups, rv$benchmarks$id, input$pc.filt, input$pc.centre, input$pc.scale, a = 0.2, rv$pal)
     })
     output$wc <- shiny::renderPlot(
@@ -572,17 +575,17 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
     shiny::observeEvent(c(input$tour1data, rv$space1names, rv$space2names),
       {
         rv$tour1projection <- switch(input$tour1data,
-          "space1" = rv$space1names,
-          "space2" = rv$space2names,
-          "space1 PCA" = paste0("pc", 1:min(5, ncol(rv$space1))),
-          "space2 PCA" = paste0(" pc", 1:min(5, ncol(rv$space2)))
+          "Cluster Space" = rv$space1names,
+          "Linked Space" = rv$space2names,
+          "Cluster PCA" = paste0("pc", 1:min(5, ncol(rv$space1))),
+          "Linked PCA" = paste0(" pc", 1:min(5, ncol(rv$space2)))
         )
         shiny::updateSelectInput(session, "select_radial_1", choices = rv$tour1projection, selected = rv$tour1projection[[1]])
         rv$tour1data <- switch(input$tour1data,
-          "space1" = rv$coord1,
-          "space2" = rv$coord2,
-          "space1 PCA" = rv$pca1,
-          "space2 PCA" = rv$pca2
+          "Cluster Space" = rv$coord1,
+          "Linked Space" = rv$coord2,
+          "Cluster PCA" = rv$pca1,
+          "Linked PCA" = rv$pca2
         )
       },
       priority = 1
@@ -590,17 +593,17 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
     shiny::observeEvent(c(input$tour2data, rv$space1names, rv$space2names),
       {
         rv$tour2projection <- switch(input$tour2data,
-          "space1" = rv$space1names,
-          "space2" = rv$space2names,
-          "space1 PCA" = paste0("pc", 1:min(5, ncol(rv$space1))),
-          "space2 PCA" = paste0(" pc", 1:min(5, ncol(rv$space2)))
+          "Cluster Space" = rv$space1names,
+          "Linked Space" = rv$space2names,
+          "Cluster PCA" = paste0("pc", 1:min(5, ncol(rv$space1))),
+          "Linked PCA" = paste0(" pc", 1:min(5, ncol(rv$space2)))
         )
         shiny::updateSelectInput(session, "select_radial_2", choices = rv$tour2projection, selected = rv$tour2projection[[1]])
         rv$tour2data <- switch(input$tour2data,
-          "space1" = rv$coord1,
-          "space2" = rv$coord2,
-          "space1 PCA" = rv$pca1,
-          "space2 PCA" = rv$pca2
+          "Cluster Space" = rv$coord1,
+          "Linked Space" = rv$coord2,
+          "Cluster PCA" = rv$pca1,
+          "Linked PCA" = rv$pca2
         )
       },
       priority = 1
@@ -832,7 +835,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         if ((input$algorithm1 == input$algorithm2) && (input$red1.data == input$red2.data)) {
           rv$coord_red1 <- rv$coord_red2
         } else {
-          if (input$red1.data == "space1") {
+          if (input$red1.data == "Cluster Space") {
             rv$coord_red1 <- try(dimReduction[[input$algorithm1]](mat = rv$coord1, dist = rv$d_mat))
           } else {
             rv$coord_red1 <- try(dimReduction[[input$algorithm1]](mat = rv$coord2, dist = rv$d_mat2))
@@ -851,7 +854,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         if ((input$algorithm1 == input$algorithm2) && (input$red1.data == input$red2.data)) {
           rv$coord_red2 <- rv$coord_red1
         } else {
-          if (input$red2.data == "space1") {
+          if (input$red2.data == "Cluster Space") {
             rv$coord_red2 <- try(dimReduction[[input$algorithm2]](mat = rv$coord1, dist = rv$d_mat))
           } else {
             rv$coord_red2 <- try(dimReduction[[input$algorithm2]](mat = rv$coord2, dist = rv$d_mat2))

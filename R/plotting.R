@@ -167,7 +167,7 @@ plotPC <- function(coord, groups, benchmarkIds, filt, c = TRUE, s = TRUE, a = 0.
     ggpcp::geom_pcp_axes() +
     ggpcp::geom_pcp(ggplot2::aes(colour = .data$gr, alpha = .data$alphalvl)) +
     ggplot2::scale_color_manual(values = pal[sort(as.numeric(filt))]) +
-    ggplot2::labs(title = "Parallel coordinate plot") +
+    ggplot2::labs(title = "Parallel coordinate plot in cluster space") +
     ggplot2::theme_bw() +
     ggplot2::theme(
       axis.title.y = ggplot2::element_blank(),

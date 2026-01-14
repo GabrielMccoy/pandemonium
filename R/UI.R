@@ -173,7 +173,7 @@ UI <- function() {
                   6,
                   plotly::plotlyOutput("dimRed1", width = "100%", height = "500px"),
                   shiny::selectInput("algorithm1", "algorithm", c()),
-                  shiny::selectInput("red1.data", "data", c("space1", "space2"), selected = "space1"),
+                  shiny::selectInput("red1.data", "data", c("Cluster Space", "Linked Space"), selected = "Cluster Space"),
                   shiny::selectInput("dimred.colour1", "colour",
                     c("clustering", "sigma bins", "chi squared", "user"),
                     selected = "clustering"
@@ -183,7 +183,7 @@ UI <- function() {
                   6,
                   plotly::plotlyOutput("dimRed2", width = "100%", height = "500px"),
                   shiny::selectInput("algorithm2", "algorithm", c()),
-                  shiny::selectInput("red2.data", "data", c("space1", "space2"), selected = "space2"),
+                  shiny::selectInput("red2.data", "data", c("Cluster Space", "Linked Space"), selected = "Linked Space"),
                   shiny::selectInput("dimred.colour2", "colour",
                     c("clustering", "sigma bins", "chi squared", "user"),
                     selected = "clustering"
@@ -217,8 +217,8 @@ UI <- function() {
                   ),
                   shiny::selectInput("tour1data", "data",
                     choices =
-                      c("space1", "space2", "space1 PCA", "space2 PCA"),
-                    selected = "space1"
+                      c("Cluster Space", "Linked Space", "Cluster PCA", "Linked PCA"),
+                    selected = "Cluster Space"
                   ),
                   shiny::hr(),
                   shiny::selectInput("render1", "Display type",
@@ -261,8 +261,8 @@ UI <- function() {
                   ),
                   shiny::selectInput("tour2data", "data",
                     choices =
-                      c("space1", "space2", "space1 PCA", "space2 PCA"),
-                    selected = "space2"
+                      c("Cluster Space", "Linked Space", "Cluster PCA", "Linked PCA"),
+                    selected = "Linked Space"
                   ),
                   shiny::hr(),
                   shiny::selectInput("render2", "Display type",
