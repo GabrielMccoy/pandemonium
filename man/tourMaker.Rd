@@ -18,6 +18,7 @@ tourMaker(
   radial_start = NULL,
   radial_var = NULL,
   slice_width = NULL,
+  final_frame = FALSE,
   seed = NULL
 )
 }
@@ -48,10 +49,12 @@ tourMaker(
 
 \item{slice_width}{width of slice}
 
+\item{final_frame}{if true returns the final frame as a ggplot2 plot otherwise returns detour object}
+
 \item{seed}{sets the seed}
 }
 \value{
-detour
+detour or ggplot2
 }
 \description{
 function to make tours

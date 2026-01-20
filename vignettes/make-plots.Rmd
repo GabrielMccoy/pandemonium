@@ -72,6 +72,7 @@ A `detourr` tour of the high dimensional space.
 | `radial_start=` | Projection to use as start of radial tour, one of "random","cmass","holes","lda","pda","dcor","origin","spline","mahalanobis" |
 | `radial_var=` |  Variable to remove by radial tour |
 | `slice_width=` | Relative slice volume. Numeric |
+|`final_frame` | if true returns the final frame as a ggplot2 plot of final frame otherwise returns detour object |
 | `seed` | Set the seed for the function |
 
 #### "dimRed"
@@ -84,6 +85,7 @@ A dimension reduction view of the high dimensional space.
 | `user_group=` | User defined grouping for each point used if "user" is passed for `colouring` |
 | `algorithm=` | Name of algorithm used for dimension reduction |
 | `dimReduction` | Function for calculating dimension reduction see "using dimension reduction" for more details |
+| `interactive` | `TRUE` or `FALSE` if true returns plotly plot if false returns ggplot2 plot |
 | `seed` | Set the seed for the function |
 
 # results

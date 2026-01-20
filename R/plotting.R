@@ -226,14 +226,20 @@ plotCstat <- function(dist, fit, chivals, stat, kmax = 8) {
 #' @param score score values and bins
 #' @param user_group user defined grouping
 #' @param pch factor with 2 levels 1 will be plotted as a circle 2 will be plotted as an o
+#' @param interactive TRUE or FALSE if true returns plotly plot if false returns ggplot2 plot
 #' @param seed sets the seed
 #'
-#' @returns plotly plot
+#' @importFrom rlang .data
+#'
+#' @returns plotly or ggplot2 plot
 #' @keywords internal
 #'
-plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduction, algorithm, group, score, user_group, pch, seed = NULL) {
+plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduction, algorithm, group, score, user_group, pch, interactive, seed = NULL) {
   if (!is.null(seed)) {
     set.seed(seed)
+  }
+  if (is.null(interactive)) {
+    interactive <- !knitr::is_latex_output()
   }
   colour <- switch(colouring,
     "clustering"  = group,
@@ -257,22 +263,48 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
   }
   colnames(mat) <- c("dim1", "dim2")
 
-  plotly::plot_ly(as.data.frame(mat),
-    x = ~dim1, y = ~dim2,
-    color = as.factor(colour),
-    symbol = pch, symbols = c("circle", "o"),
-    colors = pal, marker = list(showscale = FALSE)
-  ) %>%
-    plotly::add_trace(type = "scatter", mode = "markers") %>%
-    plotly::layout(
-      title = dim.title,
-      xaxis = list(
-        title = paste(dim.axislab, 1),
-        scaleanchor = "y"
-      ),
-      yaxis = list(title = paste(dim.axislab, 2)),
-      showlegend = FALSE
-    )
+  if (interactive) {
+    p <- plotly::plot_ly(as.data.frame(mat),
+                         x = ~dim1, y = ~dim2,
+                         color = as.factor(colour),
+                         symbol = pch, symbols = c("circle", "o"),
+                         colors = pal, marker = list(showscale = FALSE)
+    ) %>%
+      plotly::add_trace(type = "scatter", mode = "markers") %>%
+      plotly::layout(
+        title = dim.title,
+        xaxis = list(
+          title = paste(dim.axislab, 1),
+          scaleanchor = "y"
+        ),
+        yaxis = list(title = paste(dim.axislab, 2)),
+        showlegend = FALSE
+      )
+  } else {
+    p <- ggplot2::ggplot(
+      as.data.frame(mat),
+      ggplot2::aes(
+        x = .data[["dim1"]],
+        y = .data[["dim2"]],
+        colour = factor(colour),
+        shape = factor(pch)
+      )
+    ) +
+      ggplot2::geom_point() +
+      ggplot2::scale_colour_manual(values = pal) +
+      ggplot2::coord_equal() +
+      ggplot2::labs(
+        title = dim.title,
+        x = paste(dim.axislab, 1),
+        y = paste(dim.axislab, 2)
+      ) +
+      ggplot2::theme_minimal() +
+      ggplot2::theme(
+        legend.position = "none"
+      )
+  }
+
+  p
 }
 
 
@@ -384,13 +416,13 @@ makePlots <- function(space1, settings, cov = NULL, covInv = NULL, exp = NULL, s
     return(plotDimRed(
       results$coord, results$coord2, as.matrix(results$dists), as.matrix(results$dists2),
       settings$dimspace, settings$colouring, settings$dimReduction,
-      settings$algorithm, results$groups, results$value, settings$user_group, pch, settings$seed
+      settings$algorithm, results$groups, results$value, settings$user_group, pch, settings$interactive, settings$seed
     ))
   } else if (settings$plotType == "tour") {
     return(tourMaker(
       results$coord, results$coord2, results$groups, results$value, settings$user_group,
       settings$tourspace, settings$colouring, settings$out_dim, settings$tour_path, settings$display,
-      settings$radial_start, settings$radial_var, settings$slice_width, settings$seed
+      settings$radial_start, settings$radial_var, settings$slice_width, settings$final_frame, settings$seed
     ))
   }
 

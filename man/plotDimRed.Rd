@@ -17,6 +17,7 @@ plotDimRed(
   score,
   user_group,
   pch,
+  interactive,
   seed = NULL
 )
 }
@@ -45,10 +46,12 @@ plotDimRed(
 
 \item{pch}{factor with 2 levels 1 will be plotted as a circle 2 will be plotted as an o}
 
+\item{interactive}{TRUE or FALSE if true returns plotly plot if false returns ggplot2 plot}
+
 \item{seed}{sets the seed}
 }
 \value{
-plotly plot
+plotly or ggplot2 plot
 }
 \description{
 Plot dimension reduction plot

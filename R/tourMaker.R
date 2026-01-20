@@ -13,17 +13,22 @@
 #' @param radial_var variable to remove by radial tour
 #' @param display display type, one of ("scatter","slice")
 #' @param slice_width width of slice
+#' @param final_frame if true returns the final frame as a ggplot2 plot otherwise returns detour object
 #' @param seed sets the seed
 #'
-#' @returns detour
+#'
+#' @returns detour or ggplot2
 #' @keywords internal
 #'
 tourMaker <- function(coord1, coord2, group, score, user_group,
                       tourspace, colouring, out_dim, tour_path, display,
                       radial_start = NULL, radial_var = NULL, slice_width = NULL,
-                      seed = NULL) {
+                      final_frame = FALSE, seed = NULL) {
   if (!is.null(seed)) {
     set.seed(seed)
+  }
+  if (is.null(final_frame)){
+    final_frame <- FALSE
   }
   colour <- switch(colouring,
     "clustering"  = group,
@@ -90,6 +95,28 @@ tourMaker <- function(coord1, coord2, group, score, user_group,
     d <- detourr::detour(data, detourr::tour_aes(projection = tidyselect::all_of(projection), colour = "colour")) %>%
       detourr::tour_path(tourPath, fps = 60, aps = angles, max_bases = tour_bases) %>%
       detourr::show_scatter(palette = pal)
+  }
+  if (final_frame) {
+    d_plot <- render_proj(center(dplyr::select(data,!matches("colour"))), d$x$projectionMatrices[length(d$x$projectionMatrices)][[1]])
+    return(ggplot() +
+      geom_point(data=d_plot$data_prj, aes(x=P1, y=P2, colour=as.factor(colour))) +
+      geom_segment(data=d_plot$axes, aes(x=x1, y=y1, xend=x2, yend=y2)) +
+      annotate(
+        "text",
+        x = d_plot$axes$x2,
+        y = d_plot$axes$y2,
+        label = projection
+      )+
+      xlim(-1,1) + ylim(-1, 1) +
+      scale_colour_discrete(name="", palette=pal) +
+      theme_bw() +
+      theme(aspect.ratio=1,
+            axis.text=element_blank(),
+            axis.title=element_blank(),
+            axis.ticks=element_blank(),
+            panel.grid=element_blank(),
+            legend.position = "none",
+            panel.border=element_blank()))
   }
   d
 }
