@@ -19,6 +19,7 @@ tourMaker(
   radial_start = NULL,
   radial_var = NULL,
   slice_width = NULL,
+  final_frame = FALSE,
   seed = NULL
 )
 ```
@@ -79,10 +80,15 @@ tourMaker(
 
   width of slice
 
+- final_frame:
+
+  if true returns the final frame as a ggplot2 plot otherwise returns
+  detour object
+
 - seed:
 
   sets the seed
 
 ## Value
 
-detour
+detour or ggplot2

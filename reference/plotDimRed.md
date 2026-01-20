@@ -18,6 +18,7 @@ plotDimRed(
   score,
   user_group,
   pch,
+  interactive,
   seed = NULL
 )
 ```
@@ -74,10 +75,15 @@ plotDimRed(
   factor with 2 levels 1 will be plotted as a circle 2 will be plotted
   as an o
 
+- interactive:
+
+  TRUE or FALSE if true returns plotly plot if false returns ggplot2
+  plot
+
 - seed:
 
   sets the seed
 
 ## Value
 
-plotly plot
+plotly or ggplot2 plot
