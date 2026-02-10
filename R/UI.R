@@ -129,6 +129,10 @@ UI <- function() {
             )
           ),
           shiny::tabPanel(
+            "Statistics",
+            shiny::fluidPage(shiny::plotOutput("clusterstats"))
+          ),
+          shiny::tabPanel(
             "Benchmarks",
             shiny::fluidPage(
               shiny::h3(),
@@ -381,10 +385,7 @@ UI <- function() {
               )
             )
           ),
-          shiny::tabPanel(
-            "Statistics",
-            shiny::fluidPage(shiny::plotOutput("clusterstats"))
-          )
+
         )
       )
     )

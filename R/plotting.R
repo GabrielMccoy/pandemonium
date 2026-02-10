@@ -27,7 +27,7 @@ plotWC <- function(wc, x, y, interest, bmID, col, cond = NULL, groups = NULL, pa
       data <- unique(wc[group_indices, c(x, y)])
       if (nrow(data) > 3) {
         hull <- tryCatch(alphahull::ahull(data, alpha = a), error = function(e) {
-          warning(paste("alphahull failed for group", group, "no hull will be plotted"), call. = )
+          warning(paste("alphahull failed for group", group, "no hull will be plotted"), call. = FALSE)
           return(NULL)
         })
         if (is.null(hull)) {

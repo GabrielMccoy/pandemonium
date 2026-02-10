@@ -17,6 +17,7 @@
 #' @param seed sets the seed
 #'
 #'
+#' @importFrom rlang .data
 #' @returns detour or ggplot2
 #' @keywords internal
 #'
@@ -97,26 +98,26 @@ tourMaker <- function(coord1, coord2, group, score, user_group,
       detourr::show_scatter(palette = pal)
   }
   if (final_frame) {
-    d_plot <- render_proj(center(dplyr::select(data,!matches("colour"))), d$x$projectionMatrices[length(d$x$projectionMatrices)][[1]])
-    return(ggplot() +
-      geom_point(data=d_plot$data_prj, aes(x=P1, y=P2, colour=as.factor(colour))) +
-      geom_segment(data=d_plot$axes, aes(x=x1, y=y1, xend=x2, yend=y2)) +
-      annotate(
-        "text",
-        x = d_plot$axes$x2,
-        y = d_plot$axes$y2,
-        label = projection
-      )+
-      xlim(-1,1) + ylim(-1, 1) +
-      scale_colour_discrete(name="", palette=pal) +
-      theme_bw() +
-      theme(aspect.ratio=1,
-            axis.text=element_blank(),
-            axis.title=element_blank(),
-            axis.ticks=element_blank(),
-            panel.grid=element_blank(),
+    d_plot <- tourr::render_proj(tourr::center(dplyr::select(data,!dplyr::matches("colour"))), d$x$projectionMatrices[length(d$x$projectionMatrices)][[1]])
+    return(ggplot2::ggplot() +
+        ggplot2::geom_point(data=d_plot$data_prj, ggplot2::aes(x=.data$P1, y=.data$P2, colour=as.factor(colour))) +
+        ggplot2::geom_segment(data=d_plot$axes, ggplot2::aes(x=.data$x1, y=.data$y1, xend=.data$x2, yend=.data$y2)) +
+        ggplot2::annotate(
+          "text",
+          x = d_plot$axes$x2,
+          y = d_plot$axes$y2,
+          label = projection
+          )+
+        ggplot2::xlim(-1,1) + ggplot2::ylim(-1, 1) +
+        ggplot2::scale_colour_discrete(name="", palette=pal) +
+        ggplot2::theme_bw() +
+        ggplot2::theme(aspect.ratio=1,
+            axis.text=ggplot2::element_blank(),
+            axis.title=ggplot2::element_blank(),
+            axis.ticks=ggplot2::element_blank(),
+            panel.grid=ggplot2::element_blank(),
             legend.position = "none",
-            panel.border=element_blank()))
+            panel.border=ggplot2::element_blank()))
   }
   d
 }

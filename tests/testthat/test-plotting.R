@@ -35,3 +35,9 @@ test_that("radial tour works with ppi basis", {
   ), cov = cov(Bikes$space1), space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual")), regexp = "Converting input data to the required matrix format.")
 })
 
+test_that("tour final frame works", {
+  expect_no_condition(makePlots(space1 = Bikes$space1, settings = list(
+    plotType = "tour", k = 4, metric = "euclidean", linkage = "ward.D2", tourspace = "space1", colouring = "clustering", out_dim = 2, tour_path = "grand", display = "scatter",
+    radial_start = "random", radial_var = 1, slice_width = NULL, seed = 2025, final_frame = TRUE
+  ), cov = cov(Bikes$space1), space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual")))
+})
