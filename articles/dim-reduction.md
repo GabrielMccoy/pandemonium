@@ -45,7 +45,7 @@ tSNE_dist <- function(dist, ...) {
   coord_red
 }
 
-newPandemonium(df, dim_reduction = list(tSNE_mat = tSNE_mat, tSNE_dist = tSNE_dist))
+pandemonium(df, dim_reduction = list(tSNE_mat = tSNE_mat, tSNE_dist = tSNE_dist))
 ```
 
 Some algorithms may take a dist object instead of a distance matrix.
@@ -60,5 +60,5 @@ umap <- function(dist, ...) {
   ret
 }
 
-newPandemonium(df, dim_reduction = list(umap = umap))
+pandemonium(df, dim_reduction = list(umap = umap))
 ```
