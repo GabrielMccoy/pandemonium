@@ -43,6 +43,24 @@ result of getScores.
 | **Score values**                                                                                           | **Score Bins**                                                                                                                                 |
 | If `getScores` returns scores for each point these will be shown here on the axes selected in the side bar | If `getScores` returns bins for each point these will be shown here on the axes selected in the side bar                                       |
 
+### Statistics
+
+![](Images/statistics_tab_bike.png)
+
+This tab is used to evaluate the number of clusters that should be used.
+The following cluster statistics are evaluated for solutions with two to
+eight clusters:
+
+- WB ratio
+- Normalized gamma
+- Dunn index
+- Calinski and Harabasz index
+- Minimum radius
+- Maximum radius
+- Maximum diameter
+- Minimum benchmark distance
+- ARI with CI binning
+
 ### Benchmarks
 
 ![](Images/benchmark_tab_bike.png)
@@ -121,17 +139,26 @@ data page.
 
 This tab is used to explore the cluster and linked space through tour
 displays. Two tours are displayed with options for each which can be
-selected below.
+selected below. You will need to select the options you wish to use for
+the tour then press build tour in order to update the tour display with
+your tour. If both tours have the same data selected a button appears to
+copy the next tour this will show the same tour path as has been built
+for the next tour with what ever display options are selected. After any
+projection pursuit guided tour the final frame can be held to be used as
+a starting frame of a radial tour using the hold view button then
+selecting the held view as the starting view of the radial tour. If the
+held view was built in the other tour but for the same data semecting
+otherside will use that held view.
 
 | Option          | Description                                                 | Note                                                                                                                                                                  |
 |-----------------|-------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Colour          | Colouring of points in the plot                             | Clustering or scores, bins if calculated by `getScores` or user defined grouping if given in data page                                                                |
 | Data            | Data used in plot                                           | Choice of either space 1 or space 2 or up to 5 principal components from the PCA of each space                                                                        |
+| Display type    | Selection of 2D or 3D projection                            | Some choices will be removed for 3D view                                                                                                                              |
 | Tour type       | Used to define the tour path                                | Grand and Radial will define their respective tours, the other choices are projection pursuit indices. Radial, Spline and Anomaly tours are not defined for 3d views. |
 | Use slice       | Selection to turn view from a regular scatter to slice view | Slice width can be chosen if selected                                                                                                                                 |
-| Display type    | Selection of 2D or 3D projection                            | Some choices will be removed for 3D view                                                                                                                              |
 | Radial variable | Choice of variable from data projected to remove from view  | Only shown if radial tour type is selected                                                                                                                            |
-| Radial start    | Projection to start radial tour from                        | Random or a projection pursuit index which will be used first                                                                                                         |
+| Starting view   | Projection to start radial tour from                        | Random or a selection of held views.                                                                                                                                  |
 | Slice width     | Relative volume of slice                                    | Only shown if use slice is selected                                                                                                                                   |
 | ellc            | Ellipse scale for anomaly tour                              | Only shown if anomaly tour is selected                                                                                                                                |
 
@@ -167,24 +194,6 @@ plot will not update for this choice. A heatmap plot and cluster
 assignment plot are shown for each on the right of the page. Below the
 settings a contingency table is shown to compare the two cluster
 assignments.
-
-### Statistics
-
-![](Images/statistics_tab_bike.png)
-
-This tab is used to evaluate the number of clusters that should be used.
-The following cluster statistics are evaluated for solutions with two to
-eight clusters:
-
-- WB ratio
-- Normalized gamma
-- Dunn index
-- Calinski and Harabasz index
-- Minimum radius
-- Maximum radius
-- Maximum diameter
-- Minimum benchmark distance
-- ARI with CI binning
 
 ## A note on linked brushing
 

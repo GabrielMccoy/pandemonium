@@ -24,4 +24,5 @@ computeChi2(pred, covInv, exp)
 
 ## Value
 
-vector with chi2 values
+vector with chi2 values or vector of zeros if covInv and exp not
+provided
