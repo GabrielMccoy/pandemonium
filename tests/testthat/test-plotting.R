@@ -41,3 +41,7 @@ test_that("tour final frame works", {
     radial_start = "random", radial_var = 1, slice_width = NULL, seed = 2025, final_frame = TRUE
   ), cov = cov(Bikes$space1), space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual")))
 })
+
+test_that("stats",{
+  expect_no_condition(makePlots(space1 = Bikes$space1, space2 = Bikes$space2, exp = data.frame(value = colMeans(Bikes$space1)), covInv = solve(cov(Bikes$space1)), settings = list(plotType = "ch",  k = 4, metric = "euclidean", linkage = "ward.D2")))
+})

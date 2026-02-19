@@ -111,12 +111,17 @@ computeSigma <- function(chivals, ndf) {
 #' @param pred matrix of predicted values for all points
 #' @param covInv inverse covariance matrix
 #' @param exp experimentally observed values
-#' @returns vector with chi2 values
+#' @returns vector with chi2 values or vector of zeros if covInv and exp not provided
 #' @keywords internal
 computeChi2 <- function(pred, covInv, exp) {
-  chi2 <- double(nrow(pred))
-  for (i in 1:nrow(pred)) {
-    chi2[i] <- as.matrix(exp$value - pred[i, ]) %*% covInv %*% t(as.matrix(exp$value - pred[i, ]))
+  if (!(is.null(covInv)|is.null(exp))){
+    chi2 <- double(nrow(pred))
+    for (i in 1:nrow(pred)) {
+      chi2[i] <- as.matrix(exp$value - pred[i, ]) %*% covInv %*% t(as.matrix(exp$value - pred[i, ]))
+    }
+    return(chi2)
+  } else {
+    return(rep(0,NROW(pred)))
   }
-  return(chi2)
+
 }

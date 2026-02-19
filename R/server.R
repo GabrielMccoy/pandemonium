@@ -654,16 +654,16 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         attr(view, "class") <- NULL
         attr(view, "data") <- NULL
         rv$heldView1 <- view
-        rv$helsSpace1 <- input$tour1data
+        rv$heldSpace1 <- input$tour1data
       },
       ignoreInit = T
     )
 
     shiny::observeEvent(c(input$holdView2, input$tour1data, input$holdView1),
       {
-        if ((input$tour2data == rv$heldSpace2) && (input$tour2data == rv$heldSpace1)) {
+        if ((input$tour1data == rv$heldSpace2) && (input$tour1data == rv$heldSpace1)) {
           shiny::updateSelectInput(session, "start1", choices = c("random", "held", "otherside"), selected = "held")
-        } else if ((input$tour2data == rv$heldSpace1)) {
+        } else if ((input$tour1data == rv$heldSpace1)) {
           shiny::updateSelectInput(session, "start1", choices = c("random", "held"), selected = "held")
         } else {
           shiny::updateSelectInput(session, "start1", choices = c("random"))
@@ -704,10 +704,10 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
           "dcor" = tourr::guided_tour(tourr::dcor2d(), rv$tour.dim1),
           "spline" = tourr::guided_tour(tourr::splines2d(), rv$tour.dim1),
           "radial" = tourr::radial_tour(startView, rv$radVar1),
-          "anomaly" = tourr::guided_anomaly_tour(tourr::anomaly_index(), ellipse = rv$cov1, ellc = as.numeric(input$ellc_param)) ## covariance should be the correct one
+          "anomaly" = tourr::guided_anomaly_tour(tourr::anomaly_index(), ellipse = rv$cov1, ellc = input$ellc_1)
         )
         tour_bases <- if (input$tour_type_1 %in% c("cmass", "holes", "lda", "pda", "dcor", "spline", "anomaly")) 100 else 20
-        rv$hist1 <- tourr::save_history(rv$tour1data, tour_path = tour, max_bases = tour_bases)
+        rv$hist1 <- tryCatch(tourr::save_history(rv$tour1data, tour_path = tour, max_bases = tour_bases), error = function(e) {if (e$message == "length(anomalies) > 0 is not TRUE") return("fail_ellc")})
         if (input$tour_type_1 %in% c("cmass", "holes", "lda", "pda", "dcor", "spline")) {
           output$holdButton1 <- shiny::renderUI(shiny::actionButton("holdView1", "hold view"))
         } else {
@@ -774,10 +774,10 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
           "dcor" = tourr::guided_tour(tourr::dcor2d(), rv$tour.dim2),
           "spline" = tourr::guided_tour(tourr::splines2d(), rv$tour.dim2),
           "radial" = tourr::radial_tour(startView, rv$radVar2),
-          "anomaly" = tourr::guided_anomaly_tour(tourr::anomaly_index(), ellipse = rv$cov2, ellc = as.numeric(input$ellc_param)) ## covariance should be the correct one
+          "anomaly" = tourr::guided_anomaly_tour(tourr::anomaly_index(), ellipse = rv$cov2, ellc = input$ellc_2)
         )
         tour_bases <- if (input$tour_type_2 %in% c("cmass", "holes", "lda", "pda", "dcor", "spline", "anomaly")) 100 else 20
-        rv$hist2 <- tourr::save_history(rv$tour2data, tour_path = tour, max_bases = tour_bases)
+        rv$hist2 <- tryCatch(tourr::save_history(rv$tour2data, tour_path = tour, max_bases = tour_bases), error = function(e) {if (e$message == "length(anomalies) > 0 is not TRUE") return("fail_ellc")})
 
         if (input$tour_type_2 %in% c("cmass", "holes", "lda", "pda", "dcor", "spline")) {
           output$holdButton2 <- shiny::renderUI(shiny::actionButton("holdView2", "hold view"))
@@ -948,7 +948,8 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
     output$tourImg1 <- detourr::shinyRenderDetour({
       shiny::validate(
         shiny::need(try(!is.null(shared.data$origData()[rv$tour1projection])), "Data cannot be plotted select different data"),
-        shiny::need((length(rv$tour1projection) == dim(rv$hist1)[1]), "Tour not built with this data. Please build below")
+        shiny::need(rv$hist1!="fail_ellc","ellc is too large to find any anomalies"),
+        shiny::need(((length(rv$tour1projection) == dim(rv$hist1)[1])||(rv$hist1=="fail_ellc")), "Tour not built with this data. Please build below")
       )
 
       detourr::detour(shared.data, detourr::tour_aes(projection = tidyselect::all_of(rv$tour1projection), colour = "colour1", label = I(.data$label1))) %>% # .data may be deprecated in this way
@@ -958,7 +959,8 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
     output$tourImg2 <- detourr::shinyRenderDetour({
       shiny::validate(
         shiny::need(try(!is.null(shared.data$origData()[rv$tour2projection])), "data cannot be plotted select different data"),
-        shiny::need((length(rv$tour2projection) == dim(rv$hist2)[1]), "Tour not built with this data. Please build below")
+        shiny::need(rv$hist2!="fail_ellc","ellc is too large to find any anomalies"),
+        shiny::need(((length(rv$tour2projection) == dim(rv$hist2)[1])||(rv$hist2=="fail_ellc")), "Tour not built with this data. Please build below")
       )
       rv$detouring <- TRUE
       detourr::detour(shared.data, detourr::tour_aes(projection = tidyselect::all_of(rv$tour2projection), colour = "colour2", label = I(.data$label2))) %>% # .data may be deprecated in this way

@@ -242,7 +242,7 @@ UI <- function() {
                   # ellipse scaling only shown if anomaly selected. larger value means only further points
                   shiny::conditionalPanel(
                     "input.tour_type_1 == 'anomaly' ",
-                    shiny::selectInput("ellc_1", "ellc", 1:30, selected = 1)
+                    shiny::numericInput("ellc_1", "ellc", value = 1, min = 0)
                   ),
                   # slice display selection width only shown if slice selected
                   shiny::checkboxInput("slice_1", "Use Slice"),
@@ -286,7 +286,7 @@ UI <- function() {
                   # ellipse scaling only shown if anomaly selected. larger value means only further points
                   shiny::conditionalPanel(
                     "input.tour_type_2 == 'anomaly' ",
-                    shiny::selectInput("ellc_2", "ellc", 1:30, selected = 1)
+                    shiny::numericInput("ellc_2", "ellc", value = 1, min = 0)
                   ),
                   # slice display selection width only shown if slice selected
                   shiny::checkboxInput("slice_2", "Use Slice"),

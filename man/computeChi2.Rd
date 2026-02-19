@@ -14,7 +14,7 @@ computeChi2(pred, covInv, exp)
 \item{exp}{experimentally observed values}
 }
 \value{
-vector with chi2 values
+vector with chi2 values or vector of zeros if covInv and exp not provided
 }
 \description{
 Compute chi2 value for all points
