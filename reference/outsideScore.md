@@ -29,7 +29,7 @@ named list containing scores for use in pandemonium
 ``` r
 if (FALSE) { # interactive()
 pandemonium(
-  df = Bikes$space1, space2 = Bikes$space2,
+  df = Bikes$space1, linked = Bikes$space2,
   getScore = outsidescore(Bikes$other$res, "Residual")
 )
 }

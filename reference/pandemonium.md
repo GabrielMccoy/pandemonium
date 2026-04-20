@@ -1,6 +1,6 @@
 # Shiny app for exploring clustering solutions
 
-Opening the GUI to cluster the data points based on values in space2.
+Opening the GUI to cluster the data points based on values in linked.
 Coordinates and distances are computed on the fly, or can be entered in
 the function call.
 
@@ -12,9 +12,9 @@ pandemonium(
   cov = NULL,
   is.inv = FALSE,
   exp = NULL,
-  space2 = NULL,
-  space2.cov = NULL,
-  space2.exp = NULL,
+  linked = NULL,
+  linked.cov = NULL,
+  linked.exp = NULL,
   group = NULL,
   label = NULL,
   user_dist = NULL,
@@ -43,16 +43,16 @@ pandemonium(
 
   observable reference value (e.g. experimental measurement)
 
-- space2:
+- linked:
 
   data frame assumed to be in space 2 but variables can be re-assigned
   in the app
 
-- space2.cov:
+- linked.cov:
 
   covariance matrix (optional)
 
-- space2.exp:
+- linked.exp:
 
   observable reference value (e.g. experimental measurement)
 

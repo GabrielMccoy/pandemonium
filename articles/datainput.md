@@ -22,11 +22,11 @@ appears by clicking on the box.
 
 Alternatively, the data can be passed in as two separate arrays with the
 clustering variables in `df = space1` and the linked variables in
-`space2 = space2`. This will select them in space 1 and 2 in the data
+`linked = space2`. This will select them in space 1 and 2 in the data
 screen when loading the app. This can be done like this:
 
 ``` r
-pandemonium(df = Bikes$space1, space2 = Bikes$space2)
+pandemonium(df = Bikes$space1, linked = Bikes$space2)
 ```
 
 ### Optional inputs
@@ -38,8 +38,8 @@ following call.
 
 ``` r
 pandemonium(df,
-  cov = NULL, is.inv = FALSE, exp = NULL, space2 = NULL, space2.cov = NULL,
-  space2.exp = NULL, group = NULL, label = NULL, user_dist = NULL,
+  cov = NULL, is.inv = FALSE, exp = NULL, linked = NULL, linked.cov = NULL,
+  linked.exp = NULL, group = NULL, label = NULL, user_dist = NULL,
   dimReduction = list(tSNE = tSNE, umap = umap), getCoords = list(normal = normCoords), getScore = NULL
 )
 ```
@@ -50,8 +50,8 @@ pandemonium(df,
 |----------------------|-----------------------------------------------------------------------|-------------|---------------------------------------------------------------|------------------------------------------------------|
 | `label`              | vector, length = n                                                    | points      | row index                                                     | Shown in tours/dim. reduction hover text             |
 | `group`              | vector / data.frame                                                   | points      | none                                                          | Define user-specified groups; categorical or numeric |
-| `cov`,`space2.cov`\* | matrix                                                                | group/space | computed via [`stats::cov`](https://rdrr.io/r/stats/cor.html) | Used in `getScores`, `getCoords`, anomaly tour       |
-| `exp`,`space2.exp`   | data frame with column `value` length of number of variables in space | variables   | mean vector                                                   | Reference point in space used in getCoords           |
+| `cov`,`linked.cov`\* | matrix                                                                | group/space | computed via [`stats::cov`](https://rdrr.io/r/stats/cor.html) | Used in `getScores`, `getCoords`, anomaly tour       |
+| `exp`,`linked.exp`   | data frame with column `value` length of number of variables in space | variables   | mean vector                                                   | Reference point in space used in getCoords           |
 | `user_dists`         | matrix                                                                | space1      | ignored                                                       | Advanced: overrides `getDists` output                |
 
 \* `cov` can also be the inverse covariance matrix by setting

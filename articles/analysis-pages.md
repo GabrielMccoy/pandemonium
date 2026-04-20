@@ -75,22 +75,6 @@ diameter (maximum distance between any two points within the cluster)
 will be given. Finally the score value of the benchmark point will be
 given if getScores returns a score.
 
-### Distance breakdown
-
-![](Images/distancebreak_tab_bike.png)
-
-This tab is used to compare within and between cluster distances. Two
-histogram plots are shown for each cluster. The right plot is the within
-cluster distances (the distances between each pair of points within the
-cluster) and the left plot is the outside cluster distances (the
-distances between any point within the cluster and any point outside the
-cluster). A shadow is shown in the background of the overall
-distribution of distances in the data set. Both histograms on the plot
-are normalised such that the area below is 1.
-
-> WARNING: Distance breakdown tab can take up to 10 minutes to load. The
-> app may be unresponsive during this time.
-
 ### Coordinates
 
 ![](Images/coordinates_tab_bike.png)
@@ -108,6 +92,22 @@ value for a clearer plot. Below this plot are 3 settings:
 - Centre: centres the coordinates by their mean
 - Scale: scales the coordinates by their standard deviation
 - Filter: filters which clusters to display
+
+### Distance breakdown
+
+![](Images/distancebreak_tab_bike.png)
+
+This tab is used to compare within and between cluster distances. Two
+histogram plots are shown for each cluster. The right plot is the within
+cluster distances (the distances between each pair of points within the
+cluster) and the left plot is the outside cluster distances (the
+distances between any point within the cluster and any point outside the
+cluster). A shadow is shown in the background of the overall
+distribution of distances in the data set. Both histograms on the plot
+are normalised such that the area below is 1.
+
+> WARNING: Distance breakdown tab can take up to 10 minutes to load. The
+> app may be unresponsive during this time.
 
 ### Dimension Reduction
 

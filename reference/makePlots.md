@@ -8,15 +8,15 @@ vignette on using this function.
 
 ``` r
 makePlots(
-  space1,
+  cluster,
   settings,
   cov = NULL,
   covInv = NULL,
   exp = NULL,
-  space2 = NULL,
-  space2.cov = NULL,
-  space2.covInv,
-  space2.exp = NULL,
+  linked = NULL,
+  linked.cov = NULL,
+  linked.covInv,
+  linked.exp = NULL,
   user_dist = NULL,
   getCoordsSpace1 = normCoords,
   getCoordsSpace2 = normCoords,
@@ -27,7 +27,7 @@ makePlots(
 
 ## Arguments
 
-- space1:
+- cluster:
 
   dataframe of variables in cluster space
 
@@ -47,19 +47,19 @@ makePlots(
 
   reference point in space 1
 
-- space2:
+- linked:
 
   dataframe of variables in linked space
 
-- space2.cov:
+- linked.cov:
 
   covariance matrix for space 2
 
-- space2.covInv:
+- linked.covInv:
 
   inverse covariance matrix for space 2
 
-- space2.exp:
+- linked.exp:
 
   reference point in space 2
 
@@ -69,11 +69,11 @@ makePlots(
 
 - getCoordsSpace1:
 
-  function to calculate coordinates in space 1
+  function to calculate coordinates in cluster space
 
 - getCoordsSpace2:
 
-  function to calculate coordinates in space 2
+  function to calculate coordinates in linked space
 
 - getScore:
 
@@ -93,23 +93,23 @@ ggplot, plotly or detourr plot depending on settings\$plotType
 
 ``` r
 makePlots(
-  space1 = Bikes$space1,
+  cluster = Bikes$space1,
   settings = list(
     plotType = "WC", x = "hum", y = "temp", k = 4, metric = "euclidean",
     linkage = "ward.D2", WCa = 0.5, showalpha = TRUE
   ), cov = cov(Bikes$space1),
-  space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual")
+  linked = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual")
 )
 
 
 makePlots(
-  space1 = Bikes$space1,
+  cluster = Bikes$space1,
   settings = list(
     plotType = "tour", k = 4, metric = "euclidean", linkage = "ward.D2",
     tourspace = "space1", colouring = "clustering", out_dim = 2, tour_path = "grand",
     display = "scatter", radial_start = NULL, radial_var = NULL, slice_width = NULL, seed = 2025
   ),
-  cov = cov(Bikes$space1), space2 = Bikes$space2,
+  cov = cov(Bikes$space1), linked = Bikes$space2,
   getScore = outsideScore(Bikes$other$res, "Residual")
 )
 

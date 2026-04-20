@@ -19,8 +19,8 @@ properties and coordinate functions.
 
 #### Data frames
 
-`space1` is the clustering space and `space2` is the linked space. These
-should be two data frames with the same number of rows in each.
+`cluster` is the clustering space and `linked` is the linked space.
+These should be two data frames with the same number of rows in each.
 
 #### Settings
 

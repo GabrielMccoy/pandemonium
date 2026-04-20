@@ -32,13 +32,13 @@ calculations:
 
 | Input        | Description                                                     |
 |--------------|-----------------------------------------------------------------|
-| `space1`     | Data frame of space 1 values                                    |
+| `cluster`    | Data frame of space 1 values                                    |
 | `cov`        | Covariance matrix of space 1                                    |
 | `covinv`     | Inverse covariance matrix of space 1                            |
 | `exp`        | reference point in space 1                                      |
-| `space2`     | Data frame of space 2 values                                    |
-| `space2.cov` | Covariance matrix of space 2                                    |
-| `space2.exp` | reference point in space 2                                      |
+| `linked`     | Data frame of space 2 values                                    |
+| `linked.cov` | Covariance matrix of space 2                                    |
+| `linked.exp` | reference point in space 2                                      |
 | `k`          | number of clusters being made can be used to set number of bins |
 
 ### Output
@@ -61,11 +61,11 @@ A simple template for what a `getScore` function should look like is as
 follows:
 
 ``` r
-myScore <- function(space1 = rv$space1, cov = rv$cov1, covinv = rv$covInv1,
-                    exp = rv$exp, space2 = rv$space2, space2.cov = rv$cov2,
-                    space2.exp = rv$space2.exp, k = rv$kC) {
+myScore <- function(cluster, cov, covinv,
+                    exp, linked, linked.cov,
+                    linked.exp, k) {
   ## Calculations
-  n <- nrow(space1)
+  n <- nrow(cluster)
   scores <- # function to calculate scores
     bins <- # function to bin scores
 
@@ -89,9 +89,9 @@ has been done for `outsidescore` as seen below:
 
 ``` r
 outsideScore <- function(scores, scoreName = NULL) {
-  function(space1, ...) {
+  function(cluster, ...) {
     ret <- list()
-    n <- nrow(space1)
+    n <- nrow(cluster)
     ret$score <- scores
     ret$bins <- cut(scores, stats::quantile(scores, c(0, 0.25, 0.75, 1)) - c(1, 0, 0, 0), labels = c("lower", "inner", "upper"))
     ret$interest <- rep("", n)
@@ -103,7 +103,7 @@ outsideScore <- function(scores, scoreName = NULL) {
 }
 
 pandemonium(
-  df = Bikes$space1, space2 = Bikes$space2,
+  df = Bikes$space1, linked = Bikes$space2,
   getScore = outsideScore(Bikes$other$res, "Residual")
 )
 ```

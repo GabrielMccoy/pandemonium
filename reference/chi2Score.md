@@ -6,12 +6,12 @@ values as the score and sigma bins as the bins.
 ## Usage
 
 ``` r
-chi2Score(space1, covinv, exp, ...)
+chi2Score(cluster, covinv, exp, ...)
 ```
 
 ## Arguments
 
-- space1:
+- cluster:
 
   dataframe with variables in space1
 

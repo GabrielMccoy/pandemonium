@@ -98,15 +98,15 @@ need to be provided.
 A typical use is as below.
 
 ``` r
-r <- makeResults(space1 = Bikes$space1, settings = list(k = 4, metric = "euclidean", linkage = "ward.D2"), cov = cov(Bikes$space1), space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"))
+r <- makeResults(cluster = Bikes$space1, settings = list(k = 4, metric = "euclidean", linkage = "ward.D2"), cov = cov(Bikes$space1), linked = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"))
 
-makePlots(space1 = Bikes$space1, settings = list(plotType = "Obs", x = "hum", y = "temp", obs = "A1"), cov = cov(Bikes$space1), space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"), results = r)
+makePlots(cluster = Bikes$space1, settings = list(plotType = "Obs", x = "hum", y = "temp", obs = "A1"), cov = cov(Bikes$space1), linked = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"), results = r)
 ```
 
 ![](make-plots_files/figure-html/unnamed-chunk-2-1.png)
 
 ``` r
-makePlots(space1 = Bikes$space1, settings = list(plotType = "WC", x = "hum", y = "temp", WCa = 0.5, showalpha = TRUE), cov = cov(Bikes$space1), space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"), results = r)
+makePlots(cluster = Bikes$space1, settings = list(plotType = "WC", x = "hum", y = "temp", WCa = 0.5, showalpha = TRUE), cov = cov(Bikes$space1), linked = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"), results = r)
 ```
 
 ![](make-plots_files/figure-html/unnamed-chunk-2-2.png)

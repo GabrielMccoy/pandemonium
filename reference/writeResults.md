@@ -7,14 +7,14 @@ linkage, k
 
 ``` r
 writeResults(
-  space1,
+  cluster,
   cov = NULL,
   covInv = NULL,
   exp = NULL,
-  space2,
-  space2.cov = NULL,
-  space2.covInv = NULL,
-  space2.exp = NULL,
+  linked,
+  linked.cov = NULL,
+  linked.covInv = NULL,
+  linked.exp = NULL,
   settings,
   filename,
   user_dist = NULL,
@@ -25,7 +25,7 @@ writeResults(
 
 ## Arguments
 
-- space1:
+- cluster:
 
   cluster space matrix
 
@@ -41,19 +41,19 @@ writeResults(
 
   observable reference value (e.g. experimental measurement)
 
-- space2:
+- linked:
 
-  space2 matrix
+  linked space matrix
 
-- space2.cov:
+- linked.cov:
 
   covariance matrix
 
-- space2.covInv:
+- linked.covInv:
 
   inverse covariance matrix
 
-- space2.exp:
+- linked.exp:
 
   observable reference value (e.g. experimental measurement)
 
@@ -86,7 +86,7 @@ No return value, called for writing file
 ``` r
 file <- tempfile()
 writeResults(
-  space1 = Bikes$space1, space2 = Bikes$space2,
+  cluster = Bikes$space1, linked = Bikes$space2,
   settings = list(metric = "euclidean", linkage = "ward.D2", k = 4), filename = file
 )
 file.remove(file)
