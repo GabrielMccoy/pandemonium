@@ -315,6 +315,8 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         }
         shiny::updateSelectInput(session, "px", choices = input$space2)
         shiny::updateSelectInput(session, "py", choices = input$space2, selected = input$space2[2])
+        shiny::updateSelectInput(session, "cx", choices = input$space2)
+        shiny::updateSelectInput(session, "cy", choices = input$space2, selected = input$space2[2])
         shiny::updateSelectInput(session, "pxA", choices = input$space2)
         shiny::updateSelectInput(session, "pyA", choices = input$space2, selected = input$space2[2])
         shiny::updateSelectInput(session, "pxB", choices = input$space2)
@@ -438,7 +440,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         dplyr::mutate(observable = factor(.data$observable,
           levels = rv$space1names
         )) %>%
-        ggplot2::ggplot(ggplot2::aes(.data[[input$px]], .data[[input$py]], color = .data[["value"]])) +
+        ggplot2::ggplot(ggplot2::aes(.data[[input$cx]], .data[[input$cy]], color = .data[["value"]])) +
         ggplot2::geom_point() +
         ggplot2::facet_wrap(~observable,
           scales = "free",

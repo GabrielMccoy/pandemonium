@@ -144,19 +144,16 @@ UI <- function() {
             )
           ),
           shiny::tabPanel(
-            "Distance breakdown",
-            shiny::fluidPage(
-              shiny::h3(),
-              shiny::textOutput("distText"),
-              shiny::plotOutput("hist", width = "100%", height = "600px")
-            )
-          ),
-          shiny::tabPanel(
             "Coordinates",
             shiny::fluidPage(
-              shiny::h3(),
-              shiny::plotOutput("scalar"),
-              shiny::hr(),
+              shiny::splitLayout(
+                shiny::column(12,
+                              shiny::selectInput("cx", "x", choices = c()),
+                              shiny::selectInput("cy", "y", choices = c())
+                              ),
+                shiny::plotOutput("scalar"),
+                cellWidths = c("30%","70%"),
+                ),
               shiny::plotOutput("pc"),
               shiny::splitLayout(
                 shiny::checkboxInput("pc.centre", "centre", value = TRUE),
@@ -166,6 +163,14 @@ UI <- function() {
                   shiny::selectizeInput("pc.filt", "grouping selection", 1:4, 1:4, multiple = TRUE)
                 )
               )
+            )
+          ),
+          shiny::tabPanel(
+            "Distance breakdown",
+            shiny::fluidPage(
+              shiny::h3(),
+              shiny::textOutput("distText"),
+              shiny::plotOutput("hist", width = "100%", height = "600px")
             )
           ),
           shiny::tabPanel(
@@ -197,7 +202,7 @@ UI <- function() {
             )
           ),
           shiny::tabPanel(
-            "Tour display",
+            "Tour Display",
             shiny::fluidPage(
               shiny::h3(),
               # page with tour displays in observable and parameter space
