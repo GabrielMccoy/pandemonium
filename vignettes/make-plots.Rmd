@@ -92,7 +92,7 @@ A dimension reduction view of the high dimensional space.
 The results parameter allows for faster computation times using the `makeResults()` function.
 
 This function creates a list of results used by `makePlots` that are normally computed if not provided through the results parameter.
-`makeResults` takes all of the same parameters as `makePlots`, the settings that need to be provided are `k`, `linkage` and `metric`. The output is then passed to `makePlots` and the previous settings are no longer need to be provided. 
+`makeResults` takes all of the same parameters as `makePlots`, the settings that need to be provided are `k`, `linkage` and `metric`. The output is then passed to `makePlots` and the previous settings no longer need to be provided. 
 
 A typical use is as below.
 
