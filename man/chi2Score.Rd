@@ -4,10 +4,10 @@
 \alias{chi2Score}
 \title{Chi-squared scores function}
 \usage{
-chi2Score(space1, covinv, exp, ...)
+chi2Score(cluster, covinv, exp, ...)
 }
 \arguments{
-\item{space1}{dataframe with variables in space1}
+\item{cluster}{dataframe with variables in space1}
 
 \item{covinv}{inverse covariance matrix from space1}
 

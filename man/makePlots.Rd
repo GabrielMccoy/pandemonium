@@ -5,15 +5,15 @@
 \title{Generate a specified plot outside the GUI}
 \usage{
 makePlots(
-  space1,
+  cluster,
   settings,
   cov = NULL,
   covInv = NULL,
   exp = NULL,
-  space2 = NULL,
-  space2.cov = NULL,
-  space2.covInv,
-  space2.exp = NULL,
+  linked = NULL,
+  linked.cov = NULL,
+  linked.covInv,
+  linked.exp = NULL,
   user_dist = NULL,
   getCoordsSpace1 = normCoords,
   getCoordsSpace2 = normCoords,
@@ -22,7 +22,7 @@ makePlots(
 )
 }
 \arguments{
-\item{space1}{dataframe of variables in cluster space}
+\item{cluster}{dataframe of variables in cluster space}
 
 \item{settings}{list specifying parameters usually selected in the app}
 
@@ -32,19 +32,19 @@ makePlots(
 
 \item{exp}{reference point in space 1}
 
-\item{space2}{dataframe of variables in linked space}
+\item{linked}{dataframe of variables in linked space}
 
-\item{space2.cov}{covariance matrix for space 2}
+\item{linked.cov}{covariance matrix for space 2}
 
-\item{space2.covInv}{inverse covariance matrix for space 2}
+\item{linked.covInv}{inverse covariance matrix for space 2}
 
-\item{space2.exp}{reference point in space 2}
+\item{linked.exp}{reference point in space 2}
 
 \item{user_dist}{user defined distances}
 
-\item{getCoordsSpace1}{function to calculate coordinates in space 1}
+\item{getCoordsSpace1}{function to calculate coordinates in cluster space}
 
-\item{getCoordsSpace2}{function to calculate coordinates in space 2}
+\item{getCoordsSpace2}{function to calculate coordinates in linked space}
 
 \item{getScore}{function to calculate scores and bins}
 
@@ -60,22 +60,22 @@ see the vignette on using this function.
 }
 \examples{
 makePlots(
-  space1 = Bikes$space1,
+  cluster = Bikes$space1,
   settings = list(
     plotType = "WC", x = "hum", y = "temp", k = 4, metric = "euclidean",
     linkage = "ward.D2", WCa = 0.5, showalpha = TRUE
   ), cov = cov(Bikes$space1),
-  space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual")
+  linked = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual")
 )
 
 makePlots(
-  space1 = Bikes$space1,
+  cluster = Bikes$space1,
   settings = list(
     plotType = "tour", k = 4, metric = "euclidean", linkage = "ward.D2",
     tourspace = "space1", colouring = "clustering", out_dim = 2, tour_path = "grand",
     display = "scatter", radial_start = NULL, radial_var = NULL, slice_width = NULL, seed = 2025
   ),
-  cov = cov(Bikes$space1), space2 = Bikes$space2,
+  cov = cov(Bikes$space1), linked = Bikes$space2,
   getScore = outsideScore(Bikes$other$res, "Residual")
 )
 

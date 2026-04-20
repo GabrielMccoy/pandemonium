@@ -3,7 +3,7 @@
 #' Can be used as getScores input in pandemonium.
 #' Returns chi-squared values as the score and sigma bins as the bins.
 #'
-#' @param space1 dataframe with variables in space1
+#' @param cluster dataframe with variables in space1
 #' @param covinv inverse covariance matrix from space1
 #' @param exp reference point from space 1
 #' @param ... other expected values of getScore
@@ -18,11 +18,11 @@
 #'   data.frame(value = colMeans(Bikes$space1))
 #' )
 #'
-chi2Score <- function(space1, covinv, exp, ...) {
+chi2Score <- function(cluster, covinv, exp, ...) {
   ret <- list()
-  n <- nrow(space1)
-  ndf <- ncol(space1)
-  ret$score <- computeChi2(space1, covinv, exp)
+  n <- nrow(cluster)
+  ndf <- ncol(cluster)
+  ret$score <- computeChi2(cluster, covinv, exp)
   sig <- floor(computeSigma(ret$score, ndf)) + 1
   ret$bins <- factor(sig, labels = c("1", "2", "3", "4", "5", "5+")[sort(unique(sig))])
 
@@ -51,14 +51,14 @@ chi2Score <- function(space1, covinv, exp, ...) {
 #'
 #' @examplesIf interactive()
 #' pandemonium(
-#'   df = Bikes$space1, space2 = Bikes$space2,
+#'   df = Bikes$space1, linked = Bikes$space2,
 #'   getScore = outsidescore(Bikes$other$res, "Residual")
 #' )
 #'
 outsideScore <- function(scores, scoreName = NULL) {
-  function(space1, ...) {
+  function(cluster, ...) {
     ret <- list()
-    n <- nrow(space1)
+    n <- nrow(cluster)
     ret$score <- scores
     ret$bins <- cut(scores, stats::quantile(scores, c(0, 0.25, 0.75, 1)) - c(1, 0, 0, 0), labels = c("lower", "inner", "upper"))
     ret$interest <- rep("", n)

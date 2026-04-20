@@ -1,6 +1,6 @@
 #' Shiny app for exploring clustering solutions
 #'
-#' Opening the GUI to cluster the data points based on values in space2.
+#' Opening the GUI to cluster the data points based on values in linked.
 #' Coordinates and distances are computed on the fly, or can be entered
 #' in the function call.
 #'
@@ -8,9 +8,9 @@
 #' @param cov  covariance matrix (optional)
 #' @param is.inv is the covariance matrix an inverse default FALSE
 #' @param exp observable reference value (e.g. experimental measurement)
-#' @param space2 data frame assumed to be in space 2 but variables can be re-assigned in the app
-#' @param space2.cov  covariance matrix (optional)
-#' @param space2.exp observable reference value (e.g. experimental measurement)
+#' @param linked data frame assumed to be in space 2 but variables can be re-assigned in the app
+#' @param linked.cov  covariance matrix (optional)
+#' @param linked.exp observable reference value (e.g. experimental measurement)
 #' @param group grouping assignments
 #' @param label point labels
 #' @param user_dist input distance matrix (optional)
@@ -23,7 +23,7 @@
 #' @importFrom rlang .data
 #' @export
 #'
-pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NULL, space2.cov = NULL, space2.exp = NULL, group = NULL, label = NULL, user_dist = NULL, dimReduction = list(tSNE = tSNE, umap = umap), getCoords = list(normal = normCoords), getScore = NULL) {
+pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NULL, linked.cov = NULL, linked.exp = NULL, group = NULL, label = NULL, user_dist = NULL, dimReduction = list(tSNE = tSNE, umap = umap), getCoords = list(normal = normCoords), getScore = NULL) {
   if (!is.list(dimReduction)){
     stop("dimReduction needs to be a named list of functions")
   }
@@ -32,15 +32,15 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
   }
 
   stopifnot(
-    is.null(space2) || nrow(df) == nrow(space2),
+    is.null(linked) || nrow(df) == nrow(linked),
     is.null(cov) || (ncol(df) == nrow(cov) && ncol(df) == ncol(cov)),
     is.null(exp) || ncol(df) == length(exp) || (ncol(df) == nrow(exp) && ncol(exp) == 1),
     is.null(label) || nrow(df) == length(label) || (nrow(df) == nrow(label) && ncol(label) == 1),
     is.null(group) || nrow(df) == length(group) || nrow(df) == nrow(group),
-    is.null(space2.cov) || (ncol(space2) == nrow(space2.cov) && ncol(space2) == ncol(space2.cov)),
-    is.null(space2.exp) || ncol(space2) == length(space2.exp) || (ncol(space2) == nrow(space2.exp) && ncol(space2.exp) == 1)
+    is.null(linked.cov) || (ncol(linked) == nrow(linked.cov) && ncol(linked) == ncol(linked.cov)),
+    is.null(linked.exp) || ncol(linked) == length(linked.exp) || (ncol(linked) == nrow(linked.exp) && ncol(linked.exp) == 1)
   )
-  if (any(colnames(df) %in% colnames(space2)) || any(colnames(space2) %in% colnames(df))) {
+  if (any(colnames(df) %in% colnames(linked)) || any(colnames(linked) %in% colnames(df))) {
     stop("column names need to be unique across both spaces")
   }
   numeric.colnames <- c()
@@ -57,35 +57,35 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
       nonnumeric.colnames <- append(nonnumeric.colnames, var)
     }
   }
-  for (var in colnames(space2)) {
-    if (is.numeric(space2[[var]])) {
+  for (var in colnames(linked)) {
+    if (is.numeric(linked[[var]])) {
       numeric.colnames <- append(numeric.colnames, var)
     } else {
-      warning(paste(var, "in space2 is non numeric and has been removed"))
+      warning(paste(var, "in linked is non numeric and has been removed"))
       nonnumeric.colnames <- append(nonnumeric.colnames, var)
     }
   }
 
   df.colnames <- colnames(df)
-  space2.colnames <- colnames(space2)
-  full.colnames <- c(df.colnames, space2.colnames)
+  linked.colnames <- colnames(linked)
+  full.colnames <- c(df.colnames, linked.colnames)
   group.colnames <- colnames(group)
 
-  if (any(is.na(df), is.na(space2))) {
-    filt <- rowSums(is.na(cbind(df, space2)))
+  if (any(is.na(df), is.na(linked))) {
+    filt <- rowSums(is.na(cbind(df, linked)))
     if (requireNamespace("VIM", quietly = TRUE)) {
       warning(paste(sum(filt), "NA entries observed, kNN imputation has been used to replace these"))
       if (any(is.na(df))) {
         df <- VIM::kNN(df[df.colnames %in% numeric.colnames])
       }
-      if (any(is.na(space2))) {
-        space2 <- VIM::kNN(space2[space2.colnames %in% numeric.colnames])
+      if (any(is.na(linked))) {
+        linked <- VIM::kNN(linked[linked.colnames %in% numeric.colnames])
       }
     } else {
       warning(paste(sum(filt), "NA entries observed, rows have been removed for containing na values, install VIM for automatic imputation"))
       df <- df[filt == 0, ]
-      if (!is.null(space2)) {
-        space2 <- space2[filt == 0, ]
+      if (!is.null(linked)) {
+        linked <- linked[filt == 0, ]
       }
       if (!is.null(group)) {
         group <- group[filt == 0, ]
@@ -140,9 +140,9 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         )
       )
     }
-    if (!is.null(space2)) {
+    if (!is.null(linked)) {
       shiny::updateSelectizeInput(session, "space1", choices = numeric.colnames, selected = df.colnames)
-      shiny::updateSelectizeInput(session, "space2", choices = numeric.colnames, selected = space2.colnames)
+      shiny::updateSelectizeInput(session, "space2", choices = numeric.colnames, selected = linked.colnames)
     } else {
       shiny::updateSelectizeInput(session, "space1", choices = numeric.colnames)
       shiny::updateSelectizeInput(session, "space2", choices = numeric.colnames)
@@ -202,8 +202,8 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
           group.df <-
             dplyr::bind_cols(
               dplyr::select(df, tidyselect::any_of(input$group)),
-              if (!is.null(space2)) {
-                dplyr::select(space2, tidyselect::any_of(input$group))
+              if (!is.null(linked)) {
+                dplyr::select(linked, tidyselect::any_of(input$group))
               },
               if (!is.null(group)) {
                 dplyr::select(group, tidyselect::any_of(input$group))
@@ -231,8 +231,8 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         rv$space1 <-
           dplyr::bind_cols(
             dplyr::select(df, tidyselect::any_of(input$space1)),
-            if (!is.null(space2)) {
-              dplyr::select(space2, tidyselect::any_of(input$space1))
+            if (!is.null(linked)) {
+              dplyr::select(linked, tidyselect::any_of(input$space1))
             }
           ) %>%
           dplyr::select(tidyselect::all_of(input$space1))
@@ -240,8 +240,8 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         rv$space2 <-
           dplyr::bind_cols(
             dplyr::select(df, tidyselect::any_of(input$space2)),
-            if (!is.null(space2)) {
-              dplyr::select(space2, tidyselect::any_of(input$space2))
+            if (!is.null(linked)) {
+              dplyr::select(linked, tidyselect::any_of(input$space2))
             }
           ) %>%
           dplyr::select(tidyselect::all_of(input$space2))
@@ -253,8 +253,8 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
             rv$label <-
               dplyr::bind_cols(
                 dplyr::select(df, tidyselect::any_of(input$label)),
-                if (!is.null(space2)) {
-                  dplyr::select(space2, tidyselect::any_of(input$label))
+                if (!is.null(linked)) {
+                  dplyr::select(linked, tidyselect::any_of(input$label))
                 }
               )
           }
@@ -276,7 +276,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         }
 
         if (all(input$space2 %in% df.colnames)) {
-          space2.filt <- which(space2.colnames %in% input$space2)
+          space2.filt <- which(linked.colnames %in% input$space2)
           rv$cov2 <- cov[space2.filt, space2.filt]
         } else {
           rv$cov2 <- cov(rv$space2)
@@ -301,10 +301,10 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         } else {
           rv$exp <- data.frame(value = colMeans(rv$space1))
         }
-        if (setequal(space2.colnames, input$space2) & !is.null(space2.exp)) {
-          rv$exp2 <- data.frame(value = space2.exp)
-        } else if (all(input$space1 %in% df.colnames) & !is.null(space2.exp)) {
-          rv$exp2 <- data.frame(value = space2.exp[space2.filt, ])
+        if (setequal(linked.colnames, input$space2) & !is.null(linked.exp)) {
+          rv$exp2 <- data.frame(value = linked.exp)
+        } else if (all(input$space1 %in% df.colnames) & !is.null(linked.exp)) {
+          rv$exp2 <- data.frame(value = linked.exp[space2.filt, ])
         } else {
           rv$exp2 <- data.frame(value = colMeans(rv$space2))
         }
@@ -342,7 +342,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, space2 = NUL
         shiny::req(rv$load.app)
         rv$kC <- as.numeric(input$kC)
         if (!is.null(getScore)) {
-          rv$value <- getScore(space1 = rv$space1, cov = rv$cov1, covinv = rv$covInv1, exp = rv$exp, space2 = rv$space2, space2.cov = rv$cov2, space2.exp = rv$space2.exp, k = rv$kC)
+          rv$value <- getScore(cluster = rv$space1, cov = rv$cov1, covinv = rv$covInv1, exp = rv$exp, linked = rv$space2, linked.cov = rv$cov2, linked.exp = rv$exp2, k = rv$kC)
           if (!is.null(rv$value$score)) {
             rv$scorecol <- viridis::viridis(n)[rank(rv$value$score)]
             rv$colour.choice <- unique(c(rv$colour.choice, "score"))

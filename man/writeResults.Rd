@@ -5,14 +5,14 @@
 \title{Write coordinates and cluster assignment to a CSV file}
 \usage{
 writeResults(
-  space1,
+  cluster,
   cov = NULL,
   covInv = NULL,
   exp = NULL,
-  space2,
-  space2.cov = NULL,
-  space2.covInv = NULL,
-  space2.exp = NULL,
+  linked,
+  linked.cov = NULL,
+  linked.covInv = NULL,
+  linked.exp = NULL,
   settings,
   filename,
   user_dist = NULL,
@@ -21,7 +21,7 @@ writeResults(
 )
 }
 \arguments{
-\item{space1}{cluster space matrix}
+\item{cluster}{cluster space matrix}
 
 \item{cov}{covariance matrix}
 
@@ -29,13 +29,13 @@ writeResults(
 
 \item{exp}{observable reference value (e.g. experimental measurement)}
 
-\item{space2}{space2 matrix}
+\item{linked}{linked space matrix}
 
-\item{space2.cov}{covariance matrix}
+\item{linked.cov}{covariance matrix}
 
-\item{space2.covInv}{inverse covariance matrix}
+\item{linked.covInv}{inverse covariance matrix}
 
-\item{space2.exp}{observable reference value (e.g. experimental measurement)}
+\item{linked.exp}{observable reference value (e.g. experimental measurement)}
 
 \item{settings}{list specifying parameters usually selected in the app}
 
@@ -57,7 +57,7 @@ Settings used: metric, linkage, k
 \examples{
 file <- tempfile()
 writeResults(
-  space1 = Bikes$space1, space2 = Bikes$space2,
+  cluster = Bikes$space1, linked = Bikes$space2,
   settings = list(metric = "euclidean", linkage = "ward.D2", k = 4), filename = file
 )
 file.remove(file)

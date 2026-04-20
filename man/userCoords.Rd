@@ -26,7 +26,7 @@ Use userCoords where coordinates are necessary to calculate distances but
 interpretation from plots of clustering space is necessary.
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 pandemonium(
   df = Bikes$space1, space2 = Bikes$space2,
   coords = list(normalised = normCoords, space2 = userCoords(Bikes$space2))

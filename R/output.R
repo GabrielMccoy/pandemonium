@@ -3,14 +3,14 @@
 #' For working with the results outside the app.
 #' Settings used: metric, linkage, k
 #'
-#' @param space1 cluster space matrix
+#' @param cluster cluster space matrix
 #' @param cov covariance matrix
 #' @param covInv inverse covariance matrix
 #' @param exp observable reference value (e.g. experimental measurement)
-#' @param space2 space2 matrix
-#' @param space2.cov covariance matrix
-#' @param space2.covInv inverse covariance matrix
-#' @param space2.exp observable reference value (e.g. experimental measurement)
+#' @param linked linked space matrix
+#' @param linked.cov covariance matrix
+#' @param linked.covInv inverse covariance matrix
+#' @param linked.exp observable reference value (e.g. experimental measurement)
 #' @param settings list specifying parameters usually selected in the app
 #' @param filename path to write the results file to
 #' @param user_dist input distance matrix (optional)
@@ -22,19 +22,19 @@
 #' @examples
 #' file <- tempfile()
 #' writeResults(
-#'   space1 = Bikes$space1, space2 = Bikes$space2,
+#'   cluster = Bikes$space1, linked = Bikes$space2,
 #'   settings = list(metric = "euclidean", linkage = "ward.D2", k = 4), filename = file
 #' )
 #' file.remove(file)
 #'
 #' @export
-writeResults <- function(space1, cov = NULL, covInv = NULL, exp = NULL,
-                         space2, space2.cov = NULL, space2.covInv = NULL, space2.exp = NULL,
+writeResults <- function(cluster, cov = NULL, covInv = NULL, exp = NULL,
+                         linked, linked.cov = NULL, linked.covInv = NULL, linked.exp = NULL,
                          settings, filename, user_dist = NULL,
                          getCoords.space1 = normCoords, getCoords.space2 = rawCoords) {
   # coordinate calculations
-  coord <- getCoords.space1(df = space1, cov = cov, covInv = covInv, exp = exp)
-  coord_2 <- getCoords.space2(df = space2, cov = space2.cov, covInv = space2.covInv, exp = space2.exp)
+  coord <- getCoords.space1(df = cluster, cov = cov, covInv = covInv, exp = exp)
+  coord_2 <- getCoords.space2(df = linked, cov = linked.cov, covInv = linked.covInv, exp = linked.exp)
 
   # clustering calculations
   dists <- getDists(coord, settings$metric, user_dist)
@@ -43,7 +43,7 @@ writeResults <- function(space1, cov = NULL, covInv = NULL, exp = NULL,
   lvl <- unique(groups[stats::order.dendrogram(stats::as.dendrogram(fit))])
   cluster <- as.numeric(factor(groups, levels = lvl))
   benchmarks <- getBenchmarkInformation(as.matrix(dists), groups)
-  isBenchmark <- rep(0, nrow(space2))
+  isBenchmark <- rep(0, nrow(linked))
   isBenchmark[benchmarks$id] <- 1
 
   # output building

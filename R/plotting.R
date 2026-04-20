@@ -314,18 +314,18 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
 #' Settings include: metric, linkage, k, plotType, for details
 #' see the vignette on using this function.
 #'
-#' @param space1 dataframe of variables in cluster space
+#' @param cluster dataframe of variables in cluster space
 #' @param cov covariance matrix for space 1
 #' @param covInv inverse covariance matrix for space 1
 #' @param exp reference point in space 1
-#' @param space2 dataframe of variables in linked space
-#' @param space2.cov covariance matrix for space 2
-#' @param space2.covInv inverse covariance matrix for space 2
-#' @param space2.exp reference point in space 2
+#' @param linked dataframe of variables in linked space
+#' @param linked.cov covariance matrix for space 2
+#' @param linked.covInv inverse covariance matrix for space 2
+#' @param linked.exp reference point in space 2
 #' @param settings list specifying parameters usually selected in the app
 #' @param user_dist user defined distances
-#' @param getCoordsSpace1 function to calculate coordinates in space 1
-#' @param getCoordsSpace2 function to calculate coordinates in space 2
+#' @param getCoordsSpace1 function to calculate coordinates in cluster space
+#' @param getCoordsSpace2 function to calculate coordinates in linked space
 #' @param getScore function to calculate scores and bins
 #' @param results an output of `makeResults()`, used to reduce computation when many plots are made.
 #'
@@ -333,37 +333,37 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
 #' @export
 #' @examples
 #' makePlots(
-#'   space1 = Bikes$space1,
+#'   cluster = Bikes$space1,
 #'   settings = list(
 #'     plotType = "WC", x = "hum", y = "temp", k = 4, metric = "euclidean",
 #'     linkage = "ward.D2", WCa = 0.5, showalpha = TRUE
 #'   ), cov = cov(Bikes$space1),
-#'   space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual")
+#'   linked = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual")
 #' )
 #'
 #' makePlots(
-#'   space1 = Bikes$space1,
+#'   cluster = Bikes$space1,
 #'   settings = list(
 #'     plotType = "tour", k = 4, metric = "euclidean", linkage = "ward.D2",
 #'     tourspace = "space1", colouring = "clustering", out_dim = 2, tour_path = "grand",
 #'     display = "scatter", radial_start = NULL, radial_var = NULL, slice_width = NULL, seed = 2025
 #'   ),
-#'   cov = cov(Bikes$space1), space2 = Bikes$space2,
+#'   cov = cov(Bikes$space1), linked = Bikes$space2,
 #'   getScore = outsideScore(Bikes$other$res, "Residual")
 #' )
 #'
-makePlots <- function(space1, settings, cov = NULL, covInv = NULL, exp = NULL, space2 = NULL,
-                      space2.cov = NULL, space2.covInv, space2.exp = NULL, user_dist = NULL,
+makePlots <- function(cluster, settings, cov = NULL, covInv = NULL, exp = NULL, linked = NULL,
+                      linked.cov = NULL, linked.covInv, linked.exp = NULL, user_dist = NULL,
                       getCoordsSpace1 = normCoords, getCoordsSpace2 = normCoords, getScore = NULL, results = NULL) {
-  n <- nrow(space1)
+  n <- nrow(cluster)
   cond <- 1:n
   x <- settings$x
   y <- settings$y
 
   if (is.null(results)) {
     results <- list()
-    results$coord <- getCoordsSpace1(df = space1, cov = cov, covInv = covInv, exp = exp)
-    try(results$coord2 <- getCoordsSpace2(df = space2, cov = space2.cov, covInv = space2.covInv, exp = space2.exp))
+    results$coord <- getCoordsSpace1(df = cluster, cov = cov, covInv = covInv, exp = exp)
+    try(results$coord2 <- getCoordsSpace2(df = linked, cov = linked.cov, covInv = linked.covInv, exp = linked.exp))
     results$dists <- getDists(results$coord, settings$metric, user_dist)
     try(results$dists2 <- getDists(results$coord2, settings$metric, NULL))
     results$fit <- stats::hclust(results$dists, settings$linkage)
@@ -372,7 +372,7 @@ makePlots <- function(space1, settings, cov = NULL, covInv = NULL, exp = NULL, s
     results$groups <- as.numeric(factor(groups, levels = lvl))
     # score function
     if (!is.null(getScore)) {
-      results$value <- try(getScore(space1 = space1, cov = cov, covinv = covInv, exp = exp, space2 = space2, space2.cov = space2.cov, space2.exp = space2.exp, k = settings$k))
+      results$value <- try(getScore(cluster = cluster, cov = cov, covinv = covInv, exp = exp, linked = linked, linked.cov = linked.cov, linked.exp = linked.exp, k = settings$k))
     }
   } else {
     settings$k <- max(results$groups)
@@ -395,23 +395,23 @@ makePlots <- function(space1, settings, cov = NULL, covInv = NULL, exp = NULL, s
   if (settings$plotType == "PC") {
     return(plotPC(results$coord, results$groups, benchmarks$id, settings$filt, c = settings$centre, s = settings$scale))
   } else if (settings$plotType == "WC") {
-    return(plotWC(space2, x, y, results$value$is.interest, benchmarks$id, col, groups = results$groups, pal = pal, a = settings$WCa, showalpha = settings$showalpha))
+    return(plotWC(linked, x, y, results$value$is.interest, benchmarks$id, col, groups = results$groups, pal = pal, a = settings$WCa, showalpha = settings$showalpha))
   } else if (settings$plotType == "chi2") {
-    return(plotChi2(space2, results$value$score, x, y, results$value$scoreName, cond))
+    return(plotChi2(linked, results$value$score, x, y, results$value$scoreName, cond))
   } else if (settings$plotType == "sigBins") {
     return(plotSigBin(
-      space2, results$value$is.interest, benchmarks$id, results$value$bins,
+      linked, results$value$is.interest, benchmarks$id, results$value$bins,
       x, y, results$value$binName, cond, "Set2"
     ))
   } else if (settings$plotType == "heatmap") {
     return(plotHeatmap(as.matrix(results$dists), results$fit, settings$k, pal))
   } else if (settings$plotType %in% names(cstat_names)) {
     return(plotCstat(
-      results$dists, results$fit, computeChi2(space1, covInv, exp),
+      results$dists, results$fit, computeChi2(cluster, covInv, exp),
       settings$plotType
     ))
   } else if (settings$plotType == "Obs") {
-    return(plotObs(results$coord, x, y, space2, settings$obs, cond))
+    return(plotObs(results$coord, x, y, linked, settings$obs, cond))
   } else if (settings$plotType == "dimRed") {
     return(plotDimRed(
       results$coord, results$coord2, as.matrix(results$dists), as.matrix(results$dists2),
@@ -433,38 +433,38 @@ makePlots <- function(space1, settings, cov = NULL, covInv = NULL, exp = NULL, s
 #'
 #' Settings are: metric, linkage, k. for details see the vignette on makePlots
 #'
-#' @param space1 dataframe of variables in cluster space
+#' @param cluster dataframe of variables in cluster space
 #' @param cov covariance matrix for space 1
 #' @param covInv inverse covariance matrix for space 1
 #' @param exp reference point in space 1
-#' @param space2 dataframe of variables in linked space
-#' @param space2.cov covariance matrix for space 2
-#' @param space2.covInv inverse covariance matrix for space 2
-#' @param space2.exp reference point in space 2
+#' @param linked dataframe of variables in linked space
+#' @param linked.cov covariance matrix for space 2
+#' @param linked.covInv inverse covariance matrix for space 2
+#' @param linked.exp reference point in space 2
 #' @param settings list specifying parameters usually selected in the app
 #' @param user_dist user defined distances
-#' @param getCoordsSpace1 function to calculate coordinates in space 1
-#' @param getCoordsSpace2 function to calculate coordinates in space 2
+#' @param getCoordsSpace1 function to calculate coordinates in cluster space
+#' @param getCoordsSpace2 function to calculate coordinates in linked space
 #' @param getScore function to calculate scores and bins
 #'
 #' @returns list of results to be passed to makePlots
 #' @export
 #'
 #' @examples
-#' r <- makeResults(space1 = Bikes$space1, settings = list(k = 4,
+#' r <- makeResults(cluster = Bikes$space1, settings = list(k = 4,
 #'    metric = "euclidean", linkage = "ward.D2"), cov = cov(Bikes$space1),
-#'    space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"))
-#' makePlots(space1 = Bikes$space1, settings = list(plotType = "Obs",
+#'    linked = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"))
+#' makePlots(cluster = Bikes$space1, settings = list(plotType = "Obs",
 #'    x = "hum", y = "temp", obs = "A1"), cov = cov(Bikes$space1),
-#'    space2 = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"),
+#'    linked = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"),
 #'    results = r)
 #'
-makeResults <- function(space1, settings, cov = NULL, covInv = NULL, exp = NULL, space2 = NULL,
-                        space2.cov = NULL, space2.covInv, space2.exp = NULL, user_dist = NULL,
+makeResults <- function(cluster, settings, cov = NULL, covInv = NULL, exp = NULL, linked = NULL,
+                        linked.cov = NULL, linked.covInv, linked.exp = NULL, user_dist = NULL,
                         getCoordsSpace1 = normCoords, getCoordsSpace2 = normCoords, getScore = NULL){
   results <- list()
-  results$coord <- getCoordsSpace1(df = space1, cov = cov, covInv = covInv, exp = exp)
-  try(results$coord2 <- getCoordsSpace2(df = space2, cov = space2.cov, covInv = space2.covInv, exp = space2.exp))
+  results$coord <- getCoordsSpace1(df = cluster, cov = cov, covInv = covInv, exp = exp)
+  try(results$coord2 <- getCoordsSpace2(df = linked, cov = linked.cov, covInv = linked.covInv, exp = linked.exp))
   results$dists <- getDists(results$coord, settings$metric, user_dist)
   try(results$dists2 <- getDists(results$coord2, settings$metric, NULL))
   results$fit <- stats::hclust(results$dists, settings$linkage)
@@ -473,7 +473,7 @@ makeResults <- function(space1, settings, cov = NULL, covInv = NULL, exp = NULL,
   results$groups <- as.numeric(factor(groups, levels = lvl))
   # score function
   if (!is.null(getScore)) {
-    results$value <- try(getScore(space1 = space1, cov = cov, covinv = covInv, exp = exp, space2 = space2, space2.cov = space2.cov, space2.exp = space2.exp, k = settings$k))
+    results$value <- try(getScore(cluster = cluster, cov = cov, covinv = covInv, exp = exp, linked = linked, linked.cov = linked.cov, linked.exp = linked.exp, k = settings$k))
   }
   results
 }

@@ -40,12 +40,12 @@ the GUI with this data, the following can be used.
 
 ``` r
 library(pandemonium)
-pandemonium(df = Bikes$space1, space2 = Bikes$space2, 
+pandemonium(df = Bikes$space1, linked = Bikes$space2, 
                 getScore = outsideScore(Bikes$other$res,"Residual"))
 ```
 
 By loading the app with the clustering space in `df` and the linked
-space in `space2` the data is automatically selected in the data page.
+space in `linked` the data is automatically selected in the data page.
 From here pressing load app will launch the analysis tab.
 
 Within the analysis tab you can explore different visualisations and

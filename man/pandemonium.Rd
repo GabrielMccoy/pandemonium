@@ -9,9 +9,9 @@ pandemonium(
   cov = NULL,
   is.inv = FALSE,
   exp = NULL,
-  space2 = NULL,
-  space2.cov = NULL,
-  space2.exp = NULL,
+  linked = NULL,
+  linked.cov = NULL,
+  linked.exp = NULL,
   group = NULL,
   label = NULL,
   user_dist = NULL,
@@ -29,11 +29,11 @@ pandemonium(
 
 \item{exp}{observable reference value (e.g. experimental measurement)}
 
-\item{space2}{data frame assumed to be in space 2 but variables can be re-assigned in the app}
+\item{linked}{data frame assumed to be in space 2 but variables can be re-assigned in the app}
 
-\item{space2.cov}{covariance matrix (optional)}
+\item{linked.cov}{covariance matrix (optional)}
 
-\item{space2.exp}{observable reference value (e.g. experimental measurement)}
+\item{linked.exp}{observable reference value (e.g. experimental measurement)}
 
 \item{group}{grouping assignments}
 
@@ -51,7 +51,7 @@ pandemonium(
 No return value, called to initiate 'shiny' app
 }
 \description{
-Opening the GUI to cluster the data points based on values in space2.
+Opening the GUI to cluster the data points based on values in linked.
 Coordinates and distances are computed on the fly, or can be entered
 in the function call.
 }

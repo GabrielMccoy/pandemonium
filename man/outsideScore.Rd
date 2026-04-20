@@ -21,9 +21,9 @@ Returns scores values as the score, and bins computed
 as below, between or above the first and third quartile.
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 pandemonium(
-  df = Bikes$space1, space2 = Bikes$space2,
+  df = Bikes$space1, linked = Bikes$space2,
   getScore = outsidescore(Bikes$other$res, "Residual")
 )
 \dontshow{\}) # examplesIf}
