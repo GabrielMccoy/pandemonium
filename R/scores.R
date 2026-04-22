@@ -27,7 +27,7 @@ chi2Score <- function(cluster, covinv, exp, ...) {
   ret$bins <- factor(sig, labels = c("1", "2", "3", "4", "5", "5+")[sort(unique(sig))])
 
   ret$interest <- rep("", n)
-  ret$interest[which.min(ret$bins)] <- "bf"
+  ret$interest[which.min(ret$score)] <- "bf"
   ret$is.interest <- which(ret$interest != "")
   ret$scoreName <- "chi2"
   ret$binName <- "sigma"
