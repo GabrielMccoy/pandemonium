@@ -146,14 +146,19 @@ UI <- function() {
           shiny::tabPanel(
             "Coordinates",
             shiny::fluidPage(
-              shiny::splitLayout(
-                shiny::column(12,
-                              shiny::selectInput("cx", "x", choices = c()),
-                              shiny::selectInput("cy", "y", choices = c())
-                              ),
-                shiny::plotOutput("scalar"),
-                cellWidths = c("30%","70%"),
+              shiny::h6(),
+              shiny::sidebarLayout(
+                shiny::sidebarPanel(
+                  shiny::selectInput("cx", "x", choices = c()),
+                  shiny::selectInput("cy", "y", choices = c()),
+                  width = 3
                 ),
+                shiny::mainPanel(
+                  shiny::plotOutput("scalar"),
+                  width = 9
+                )
+              ),
+              shiny::hr(),
               shiny::plotOutput("pc"),
               shiny::splitLayout(
                 shiny::checkboxInput("pc.centre", "centre", value = TRUE),

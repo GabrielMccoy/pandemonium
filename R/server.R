@@ -444,7 +444,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
         ggplot2::geom_point() +
         ggplot2::facet_wrap(~observable,
           scales = "free",
-          ncol = 7
+          ncol = 5
         ) +
         ggplot2::guides(colour = "none") +
         ggplot2::scale_colour_viridis_c() +
