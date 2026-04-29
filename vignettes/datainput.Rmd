@@ -26,10 +26,6 @@ pandemonium(df = Bikes$df)
 This will automatically sort the variables into numeric and other variables, as well as impute any missing data using `VIM::kNN()` is VIM is installed otherwise entries with misssing data will be removed.
 Numeric variables can be sorted into the *clustering space* (space1) and the *linked space* (space2) once loaded into the app in the data screen. Variables can be added or removed from each space with the drop down selector that appears by clicking on the box.
 
-```{r,echo=FALSE}
-knitr::include_graphics("Images/data_Input_page.png")
-```
-
 Alternatively, the data can be passed in as two separate arrays with the clustering variables in `df = space1` and the linked variables in `linked = space2`. This will select them in space 1 and 2 in the data screen when loading the app. This can be done like this:
 
 ```{r,eval=FALSE}
