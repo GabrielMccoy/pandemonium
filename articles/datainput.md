@@ -18,8 +18,6 @@ space* (space2) once loaded into the app in the data screen. Variables
 can be added or removed from each space with the drop down selector that
 appears by clicking on the box.
 
-![](Images/data_Input_page.png)
-
 Alternatively, the data can be passed in as two separate arrays with the
 clustering variables in `df = space1` and the linked variables in
 `linked = space2`. This will select them in space 1 and 2 in the data

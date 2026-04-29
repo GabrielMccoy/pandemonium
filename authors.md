@@ -3,6 +3,7 @@
 ## Authors
 
 - **Gabriel McCoy**. Author, maintainer.
+  [](https://orcid.org/https://orcid.org/0009-0008-3570-0361)
 
 - **Ursula Laa**. Author.
   [](https://orcid.org/https://orcid.org/0000-0002-0249-6439)
