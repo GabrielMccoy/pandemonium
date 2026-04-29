@@ -446,8 +446,9 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
           scales = "free",
           ncol = 5
         ) +
-        ggplot2::guides(colour = "none") +
-        ggplot2::scale_colour_viridis_c() +
+        ggplot2::scale_colour_viridis_c(guide = ggplot2::guide_colourbar(theme = ggplot2::theme(
+          legend.text = ggplot2::element_blank()
+        ))) +
         ggplot2::theme_bw() +
         ggplot2::labs(title = "Centered coordinate values for all cluster variables") +
         ggplot2::theme(aspect.ratio = 1)
