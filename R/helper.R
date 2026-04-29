@@ -195,7 +195,7 @@ colourHelper <- function(choice, rv) {
     "clustering"  = rv$pal,
     "user"        = rv$user.pal,
     "bins"        = rv$palSig,
-    "score"       = rv$scorecol
+    "score"       = viridis::viridis(length(rv$scorecol))
   )
   ret$label <- switch(choice,
     "clustering"  = paste(rv$groups, rv$label, rv$value$interest),
