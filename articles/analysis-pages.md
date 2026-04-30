@@ -199,11 +199,26 @@ assignments.
 
 Linked brushing is enabled between the tour displays and dimension
 reduction displays. To use this select the box or lasso tools in the
-plotly dimension reduction plots or the box selector tool in the detourr
-tour display plot. Using these tools, make a selection on the plot and
-this selection should show between all other plots. If any plot is
-updated, the selection on this plot will be undone. This will not break
-the linking and the selection can be reset by double clicking on any of
-the plots with a selection tool, by pressing the reset button or by
-making a new selection on a plot. For more information on the other
-tools available in these plots see detourr and plotly respectively.
+`plotly` dimension reduction plots or the box selector tool in the
+`detourr tour` display plot. Using these tools, make a selection on the
+plot and this selection should show between all other plots. If any plot
+is updated, the selection on this plot will be undone. This will not
+break the linking and the selection can be reset by double clicking on
+any of the plots with a selection tool, by pressing the reset button or
+by making a new selection on linked brushing is enabled between the tour
+displays and dimension reduction displays. To use this select the box or
+lasso tools in the `plotly` dimension reduction plots or the box
+selector tool in the detourr tour display plot. Using these tools, make
+a selection on the plot and this selection should show between all other
+plots. If any plot is updated, the selection on this plot will be
+undone. This will not break the linking and the selection can be reset
+by double clicking on any of the plots with a selection tool, by
+pressing the reset button or by making a new selection on a plot. For
+more information on the other tools available in these plots see the
+`detourr` and `plotly` documentation respectively.
+
+> For Linked brushing, both the Dimension Reduction and Tour Display
+> tabs must be loaded before linked brushing is enabled between the
+> tabs. If a selection is made on one tab before the other is loaded is
+> will not be displayed when the second tab is loaded. Performing the
+> selection again will enabel linked brushing between tabs plot.
