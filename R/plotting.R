@@ -239,14 +239,14 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
     set.seed(seed)
   }
   if (is.null(interactive)) {
-    interactive <- !knitr::is_latex_output()
+    interactive <- TRUE
   }
-  colour <- switch(colouring,
+  colour <- as.factor(switch(colouring,
     "clustering"  = group,
     "user"        = user_group,
     "bins"        = score$bins,
     "score"       = rank(score$score)
-  )
+  ))
   pal <- switch(colouring,
     "clustering"  = RColorBrewer::brewer.pal(length(unique(colour)), "Dark2"),
     "user"        = RColorBrewer::brewer.pal(length(unique(colour)), "Set3"),
@@ -266,7 +266,7 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
   if (interactive) {
     p <- plotly::plot_ly(as.data.frame(mat),
                          x = ~dim1, y = ~dim2,
-                         color = as.factor(colour),
+                         color = colour,
                          symbol = pch, symbols = c("circle", "o"),
                          colors = pal, marker = list(showscale = FALSE)
     ) %>%
@@ -286,7 +286,7 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
       ggplot2::aes(
         x = .data[["dim1"]],
         y = .data[["dim2"]],
-        colour = factor(colour),
+        colour = colour,
         shape = factor(pch)
       )
     ) +
@@ -298,10 +298,7 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
         x = paste(dim.axislab, 1),
         y = paste(dim.axislab, 2)
       ) +
-      ggplot2::theme_minimal() +
-      ggplot2::theme(
-        legend.position = "none"
-      )
+      ggplot2::theme_minimal()
   }
 
   p
