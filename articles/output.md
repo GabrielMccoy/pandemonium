@@ -27,11 +27,11 @@ These should be two data frames with the same number of rows in each.
 Settings are options from the GUI. Settings are passed as a named list
 in the form: `settings=list(k= , linkage= , metric= )`
 
-| Settings   | Description                                                            |
-|:-----------|:-----------------------------------------------------------------------|
-| `k=`       | Numeric, number of clusters                                            |
+| Settings | Description |
+|:---|:---|
+| `k=` | Numeric, number of clusters |
 | `linkage=` | Linkage used by [`stats::hclust`](https://rdrr.io/r/stats/hclust.html) |
-| `metric=`  | Metric used by `getDists`                                              |
+| `metric=` | Metric used by `getDists` |
 
 #### File name
 

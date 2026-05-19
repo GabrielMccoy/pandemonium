@@ -73,6 +73,7 @@ and with the same column names as df.
 ### Example
 
 ``` r
+
 pullCoordsNoCov <- function(df, cov, exp, ...) {
   n <- nrow(df)
   df <- as.matrix(df)

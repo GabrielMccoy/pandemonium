@@ -18,6 +18,7 @@ The latest release version of pandemonium can be installed from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
+
 install.packages("pandemonium")
 ```
 
@@ -25,6 +26,7 @@ You can install the development version of pandemonium from
 [GitHub](https://github.com/GabrielMccoy/pandemonium) with:
 
 ``` r
+
 # install.packages("pak")
 pak::pak("GabrielMccoy/pandemonium")
 ```
@@ -35,6 +37,7 @@ We use the `Bikes` data example to show how the app can be used. To load
 the GUI with this data, the following can be used.
 
 ``` r
+
 library(pandemonium)
 pandemonium(df = Bikes$space1, linked = Bikes$space2, 
                 getScore = outsideScore(Bikes$other$res,"Residual"))

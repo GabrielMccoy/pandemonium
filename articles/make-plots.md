@@ -28,11 +28,11 @@ The named list `settings` has some values that must be specified for
 every call to `makePlots` while others are optional or only required for
 certain plots. The required values for every call are as follows:
 
-| Settings   | Description                                                                |
-|------------|----------------------------------------------------------------------------|
-| `k=`       | Numeric, number of clusters                                                |
-| `linkage=` | Linkage used by [`stats::hclust`](https://rdrr.io/r/stats/hclust.html)     |
-| `metric=`  | Metric used by `getDists`                                                  |
+| Settings | Description |
+|----|----|
+| `k=` | Numeric, number of clusters |
+| `linkage=` | Linkage used by [`stats::hclust`](https://rdrr.io/r/stats/hclust.html) |
+| `metric=` | Metric used by `getDists` |
 | `plotType` | Plot to create. Each type and their required settings are described below. |
 
 > `linkage` can be one of the following: “complete”, “single”,
@@ -54,33 +54,33 @@ The following plotTypes are for high dimension views:
 
 A `detourr` tour of the high dimensional space.
 
-| Settings        | Description                                                                                                                     |
-|-----------------|---------------------------------------------------------------------------------------------------------------------------------|
-| `tourspace=`    | One of “space1” or “space2” to show data of in tour                                                                             |
-| `colouring=`    | How to colour points in the plot. One of “clustering”, “user”, “bins”, “score”                                                  |
-| `user_group=`   | User defined grouping for each point used if “user” is passed for `colouring`                                                   |
-| `out_dim=`      | Dimension of output display. Numeric, possible values are 2 or 3                                                                |
-| `tour_path=`    | Tour path and type to use, one of “grand”,“cmass”,“holes”,“lda”,“pda”,“dcor”,“origin”,“spline”,“radial”,“mahalanobis”,“anomaly” |
-| `display=`      | Display type, one of “scatter”,“slice”                                                                                          |
-| `radial_start=` | Projection to use as start of radial tour, one of “random”,“cmass”,“holes”,“lda”,“pda”,“dcor”,“origin”,“spline”,“mahalanobis”   |
-| `radial_var=`   | Variable to remove by radial tour                                                                                               |
-| `slice_width=`  | Relative slice volume. Numeric                                                                                                  |
-| `final_frame`   | if true returns the final frame as a ggplot2 plot of final frame otherwise returns detour object                                |
-| `seed`          | Set the seed for the function                                                                                                   |
+| Settings | Description |
+|----|----|
+| `tourspace=` | One of “space1” or “space2” to show data of in tour |
+| `colouring=` | How to colour points in the plot. One of “clustering”, “user”, “bins”, “score” |
+| `user_group=` | User defined grouping for each point used if “user” is passed for `colouring` |
+| `out_dim=` | Dimension of output display. Numeric, possible values are 2 or 3 |
+| `tour_path=` | Tour path and type to use, one of “grand”,“cmass”,“holes”,“lda”,“pda”,“dcor”,“origin”,“spline”,“radial”,“mahalanobis”,“anomaly” |
+| `display=` | Display type, one of “scatter”,“slice” |
+| `radial_start=` | Projection to use as start of radial tour, one of “random”,“cmass”,“holes”,“lda”,“pda”,“dcor”,“origin”,“spline”,“mahalanobis” |
+| `radial_var=` | Variable to remove by radial tour |
+| `slice_width=` | Relative slice volume. Numeric |
+| `final_frame` | if true returns the final frame as a ggplot2 plot of final frame otherwise returns detour object |
+| `seed` | Set the seed for the function |
 
 ##### “dimRed”
 
 A dimension reduction view of the high dimensional space.
 
-| Settings       | Description                                                                                   |
-|----------------|-----------------------------------------------------------------------------------------------|
-| `dimspace=`    | One of “space1” or “space2” to use                                                            |
-| `colouring=`   | How to colour points in the plot. One of “clustering”, “user”, “bins”, “score”                |
-| `user_group=`  | User defined grouping for each point used if “user” is passed for `colouring`                 |
-| `algorithm=`   | Name of algorithm used for dimension reduction                                                |
+| Settings | Description |
+|----|----|
+| `dimspace=` | One of “space1” or “space2” to use |
+| `colouring=` | How to colour points in the plot. One of “clustering”, “user”, “bins”, “score” |
+| `user_group=` | User defined grouping for each point used if “user” is passed for `colouring` |
+| `algorithm=` | Name of algorithm used for dimension reduction |
 | `dimReduction` | Function for calculating dimension reduction see “using dimension reduction” for more details |
-| `interactive`  | `TRUE` or `FALSE` if true returns plotly plot if false returns ggplot2 plot                   |
-| `seed`         | Set the seed for the function                                                                 |
+| `interactive` | `TRUE` or `FALSE` if true returns plotly plot if false returns ggplot2 plot |
+| `seed` | Set the seed for the function |
 
 ## results
 
@@ -98,6 +98,7 @@ need to be provided.
 A typical use is as below.
 
 ``` r
+
 r <- makeResults(cluster = Bikes$space1, settings = list(k = 4, metric = "euclidean", linkage = "ward.D2"), cov = cov(Bikes$space1), linked = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"))
 
 makePlots(cluster = Bikes$space1, settings = list(plotType = "Obs", x = "hum", y = "temp", obs = "A1"), cov = cov(Bikes$space1), linked = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"), results = r)
@@ -106,6 +107,7 @@ makePlots(cluster = Bikes$space1, settings = list(plotType = "Obs", x = "hum", y
 ![](make-plots_files/figure-html/unnamed-chunk-2-1.png)
 
 ``` r
+
 makePlots(cluster = Bikes$space1, settings = list(plotType = "WC", x = "hum", y = "temp", WCa = 0.5, showalpha = TRUE), cov = cov(Bikes$space1), linked = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual"), results = r)
 ```
 

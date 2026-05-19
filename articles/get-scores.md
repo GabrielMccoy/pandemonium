@@ -30,30 +30,30 @@ be created and passed. The two functions provided are:
 The app will pass the following objects to getScore that may be used in
 calculations:
 
-| Input        | Description                                                     |
-|--------------|-----------------------------------------------------------------|
-| `cluster`    | Data frame of space 1 values                                    |
-| `cov`        | Covariance matrix of space 1                                    |
-| `covinv`     | Inverse covariance matrix of space 1                            |
-| `exp`        | reference point in space 1                                      |
-| `linked`     | Data frame of space 2 values                                    |
-| `linked.cov` | Covariance matrix of space 2                                    |
-| `linked.exp` | reference point in space 2                                      |
-| `k`          | number of clusters being made can be used to set number of bins |
+| Input | Description |
+|----|----|
+| `cluster` | Data frame of space 1 values |
+| `cov` | Covariance matrix of space 1 |
+| `covinv` | Inverse covariance matrix of space 1 |
+| `exp` | reference point in space 1 |
+| `linked` | Data frame of space 2 values |
+| `linked.cov` | Covariance matrix of space 2 |
+| `linked.exp` | reference point in space 2 |
+| `k` | number of clusters being made can be used to set number of bins |
 
 ### Output
 
 The function should return a named list with some of the following
 entries to be used by the app.
 
-| Output        | Description                                                                                 |
-|---------------|---------------------------------------------------------------------------------------------|
-| `score`       | This should be a vector of length = number of rows in space 1, the values should be numeric |
-| `scoreName`   | A name for the title of the score plot                                                      |
-| `bins`        | This should be a factor vector with length = number of rows in space 1                      |
-| `binName`     | A name for the title of the bin plot                                                        |
-| `interest`    | A vector of names of interesting points to display in the hover of `htmlwidgets` plots      |
-| `is.interest` | A logical vector of interesting points to display in `ggplot` plots                         |
+| Output | Description |
+|----|----|
+| `score` | This should be a vector of length = number of rows in space 1, the values should be numeric |
+| `scoreName` | A name for the title of the score plot |
+| `bins` | This should be a factor vector with length = number of rows in space 1 |
+| `binName` | A name for the title of the bin plot |
+| `interest` | A vector of names of interesting points to display in the hover of `htmlwidgets` plots |
+| `is.interest` | A logical vector of interesting points to display in `ggplot` plots |
 
 ### Example
 
@@ -61,6 +61,7 @@ A simple template for what a `getScore` function should look like is as
 follows:
 
 ``` r
+
 myScore <- function(cluster, cov, covinv,
                     exp, linked, linked.cov,
                     linked.exp, k) {
@@ -88,6 +89,7 @@ write it as a closure and pass these values when calling the app. This
 has been done for `outsidescore` as seen below:
 
 ``` r
+
 outsideScore <- function(scores, scoreName = NULL) {
   function(cluster, ...) {
     ret <- list()

@@ -33,6 +33,7 @@ one of them is used it is best to write the function with space for
 additional parameters with `...` as seen in the following example.
 
 ``` r
+
 tSNE_mat <- function(mat, ...) {
   coord_red <- list()
   coord_red$Y <- Rtsne::Rtsne(mat)$Y
@@ -54,6 +55,7 @@ This can be done by converting the distance matrix using
 the implementation of `umap`.
 
 ``` r
+
 umap <- function(dist, ...) {
   ret <- list()
   ret$Y <- uwot::umap(stats::as.dist(dist))

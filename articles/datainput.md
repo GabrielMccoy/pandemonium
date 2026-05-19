@@ -6,6 +6,7 @@ To launch the app, the user needs to provide a data frame with the
 observations.
 
 ``` r
+
 pandemonium(df = Bikes$df)
 ```
 
@@ -24,6 +25,7 @@ clustering variables in `df = space1` and the linked variables in
 screen when loading the app. This can be done like this:
 
 ``` r
+
 pandemonium(df = Bikes$space1, linked = Bikes$space2)
 ```
 
@@ -35,6 +37,7 @@ includes optional data and function inputs. All inputs are shown in the
 following call.
 
 ``` r
+
 pandemonium(df,
   cov = NULL, is.inv = FALSE, exp = NULL, linked = NULL, linked.cov = NULL,
   linked.exp = NULL, group = NULL, label = NULL, user_dist = NULL,
@@ -44,22 +47,22 @@ pandemonium(df,
 
 #### Data Inputs
 
-| Input                | Type                                                                  | Applies to  | Default                                                       | Purpose                                              |
-|----------------------|-----------------------------------------------------------------------|-------------|---------------------------------------------------------------|------------------------------------------------------|
-| `label`              | vector, length = n                                                    | points      | row index                                                     | Shown in tours/dim. reduction hover text             |
-| `group`              | vector / data.frame                                                   | points      | none                                                          | Define user-specified groups; categorical or numeric |
-| `cov`,`linked.cov`\* | matrix                                                                | group/space | computed via [`stats::cov`](https://rdrr.io/r/stats/cor.html) | Used in `getScores`, `getCoords`, anomaly tour       |
-| `exp`,`linked.exp`   | data frame with column `value` length of number of variables in space | variables   | mean vector                                                   | Reference point in space used in getCoords           |
-| `user_dists`         | matrix                                                                | space1      | ignored                                                       | Advanced: overrides `getDists` output                |
+| Input | Type | Applies to | Default | Purpose |
+|----|----|----|----|----|
+| `label` | vector, length = n | points | row index | Shown in tours/dim. reduction hover text |
+| `group` | vector / data.frame | points | none | Define user-specified groups; categorical or numeric |
+| `cov`,`linked.cov`\* | matrix | group/space | computed via [`stats::cov`](https://rdrr.io/r/stats/cor.html) | Used in `getScores`, `getCoords`, anomaly tour |
+| `exp`,`linked.exp` | data frame with column `value` length of number of variables in space | variables | mean vector | Reference point in space used in getCoords |
+| `user_dists` | matrix | space1 | ignored | Advanced: overrides `getDists` output |
 
 \* `cov` can also be the inverse covariance matrix by setting
 `is.Inv=TRUE`
 
 #### Function inputs
 
-| Input       | Type                               | Use                                             |
-|-------------|------------------------------------|-------------------------------------------------|
-| `getCoords` | named list of coordinate functions | computes coordinates for distance calculations  |
+| Input | Type | Use |
+|----|----|----|
+| `getCoords` | named list of coordinate functions | computes coordinates for distance calculations |
 | `getScores` | Function that returns a named list | computes scores and/or bins for use in plotting |
 
 > See

@@ -22,26 +22,26 @@ outputs.
 
 ##### Side bar
 
-| option             | Description                                                                                          |
-|--------------------|------------------------------------------------------------------------------------------------------|
-| Linkage            | This is a setting used by [`stats::hclust`](https://rdrr.io/r/stats/hclust.html) to cluster the data |
-| Distance measure   | This is a metric used by `getDists` to compute distances between points                              |
-| Number of clusters | an integer between 2 and 8 for the number of clusters                                                |
-| x,y                | Plot axis from space 2 used in this tab and Coordinates tab                                          |
-| show alpha hulls   | a check box to show alpha hulls in the clustering plot in this tab                                   |
-| alpha value        | a numerical value for the alpha used by alpha hulls                                                  |
+| option | Description |
+|----|----|
+| Linkage | This is a setting used by [`stats::hclust`](https://rdrr.io/r/stats/hclust.html) to cluster the data |
+| Distance measure | This is a metric used by `getDists` to compute distances between points |
+| Number of clusters | an integer between 2 and 8 for the number of clusters |
+| x,y | Plot axis from space 2 used in this tab and Coordinates tab |
+| show alpha hulls | a check box to show alpha hulls in the clustering plot in this tab |
+| alpha value | a numerical value for the alpha used by alpha hulls |
 
 ##### Outputs
 
 On the right side of the tab 2-4 plots will be shown depending on the
 result of getScores.
 
-|                                                                                                            |                                                                                                                                                |
-|------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Heatmap plot**                                                                                           | **Clustering plot**                                                                                                                            |
-| this is an ordered dendrogram plot of the clustering                                                       | This is a plot of the clustering assignment with axes as selected in the side bar. Alpha hulls for each cluster will also be shown if selected |
-| **Score values**                                                                                           | **Score Bins**                                                                                                                                 |
-| If `getScores` returns scores for each point these will be shown here on the axes selected in the side bar | If `getScores` returns bins for each point these will be shown here on the axes selected in the side bar                                       |
+|  |  |
+|----|----|
+| **Heatmap plot** | **Clustering plot** |
+| this is an ordered dendrogram plot of the clustering | This is a plot of the clustering assignment with axes as selected in the side bar. Alpha hulls for each cluster will also be shown if selected |
+| **Score values** | **Score Bins** |
+| If `getScores` returns scores for each point these will be shown here on the axes selected in the side bar | If `getScores` returns bins for each point these will be shown here on the axes selected in the side bar |
 
 ### Statistics
 
@@ -117,11 +117,11 @@ This tab is used to show dimension reduced plots of both the cluster and
 linked space using the functions given in dimReduction. On this tab two
 plots are shown, each with options below it for user selection.
 
-| Option    | Description                         | Note                                                                                                   |
-|-----------|-------------------------------------|--------------------------------------------------------------------------------------------------------|
-| Algorithm | Method used for dimension reduction | Names of dimReduction list, default: tSNE or UMAP                                                      |
-| Data      | Data used in plot                   | Choice of either space 1 or space 2                                                                    |
-| Colour    | Colouring of points in the plot     | Clustering or scores, bins if calculated by `getScores` or user defined grouping if given in data page |
+| Option | Description | Note |
+|----|----|----|
+| Algorithm | Method used for dimension reduction | Names of dimReduction list, default: tSNE or UMAP |
+| Data | Data used in plot | Choice of either space 1 or space 2 |
+| Colour | Colouring of points in the plot | Clustering or scores, bins if calculated by `getScores` or user defined grouping if given in data page |
 
 The dimension reduction plots use `plotly` for their displays this
 allows for zooming, panning as well as hovering over points. This hover
@@ -150,17 +150,17 @@ selecting the held view as the starting view of the radial tour. If the
 held view was built in the other tour but for the same data semecting
 otherside will use that held view.
 
-| Option          | Description                                                 | Note                                                                                                                                                                  |
-|-----------------|-------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Colour          | Colouring of points in the plot                             | Clustering or scores, bins if calculated by `getScores` or user defined grouping if given in data page                                                                |
-| Data            | Data used in plot                                           | Choice of either space 1 or space 2 or up to 5 principal components from the PCA of each space                                                                        |
-| Display type    | Selection of 2D or 3D projection                            | Some choices will be removed for 3D view                                                                                                                              |
-| Tour type       | Used to define the tour path                                | Grand and Radial will define their respective tours, the other choices are projection pursuit indices. Radial, Spline and Anomaly tours are not defined for 3d views. |
-| Use slice       | Selection to turn view from a regular scatter to slice view | Slice width can be chosen if selected                                                                                                                                 |
-| Radial variable | Choice of variable from data projected to remove from view  | Only shown if radial tour type is selected                                                                                                                            |
-| Starting view   | Projection to start radial tour from                        | Random or a selection of held views.                                                                                                                                  |
-| Slice width     | Relative volume of slice                                    | Only shown if use slice is selected                                                                                                                                   |
-| ellc            | Ellipse scale for anomaly tour                              | Only shown if anomaly tour is selected                                                                                                                                |
+| Option | Description | Note |
+|----|----|----|
+| Colour | Colouring of points in the plot | Clustering or scores, bins if calculated by `getScores` or user defined grouping if given in data page |
+| Data | Data used in plot | Choice of either space 1 or space 2 or up to 5 principal components from the PCA of each space |
+| Display type | Selection of 2D or 3D projection | Some choices will be removed for 3D view |
+| Tour type | Used to define the tour path | Grand and Radial will define their respective tours, the other choices are projection pursuit indices. Radial, Spline and Anomaly tours are not defined for 3d views. |
+| Use slice | Selection to turn view from a regular scatter to slice view | Slice width can be chosen if selected |
+| Radial variable | Choice of variable from data projected to remove from view | Only shown if radial tour type is selected |
+| Starting view | Projection to start radial tour from | Random or a selection of held views. |
+| Slice width | Relative volume of slice | Only shown if use slice is selected |
+| ellc | Ellipse scale for anomaly tour | Only shown if anomaly tour is selected |
 
 ### Comparison
 
@@ -174,15 +174,15 @@ clustering.
 The following options can be selected for clustering `a` and `b` for
 comparison.
 
-| option             | Description                                                                                          |
-|--------------------|------------------------------------------------------------------------------------------------------|
-| Coord              | Coordinate function to use on space 1 from the list in getCoords                                     |
-| Linkage            | This is a setting used by [`stats::hclust`](https://rdrr.io/r/stats/hclust.html) to cluster the data |
-| Distance measure   | This is a metric used by `getDists` to compute distances between points                              |
-| Number of clusters | an integer between 2 and 8 for the number of clusters                                                |
-| x,y                | Plot axis from space 2 used in this tab and Coordinates tab                                          |
-| show alpha hulls   | a check box to show alpha hulls in the clustering plot in this tab                                   |
-| alpha value        | a numerical value for the alpha used by alpha hulls                                                  |
+| option | Description |
+|----|----|
+| Coord | Coordinate function to use on space 1 from the list in getCoords |
+| Linkage | This is a setting used by [`stats::hclust`](https://rdrr.io/r/stats/hclust.html) to cluster the data |
+| Distance measure | This is a metric used by `getDists` to compute distances between points |
+| Number of clusters | an integer between 2 and 8 for the number of clusters |
+| x,y | Plot axis from space 2 used in this tab and Coordinates tab |
+| show alpha hulls | a check box to show alpha hulls in the clustering plot in this tab |
+| alpha value | a numerical value for the alpha used by alpha hulls |
 
 ##### Outputs
 
