@@ -12,8 +12,8 @@ pandemonium(df = Bikes$df)
 
 This will automatically sort the variables into numeric and other
 variables, as well as impute any missing data using
-[`VIM::kNN()`](https://rdrr.io/pkg/VIM/man/kNN.html) is VIM is installed
-otherwise entries with misssing data will be removed. Numeric variables
+[`VIM::kNN()`](https://rdrr.io/pkg/VIM/man/kNN.html) if VIM is installed
+otherwise entries with missing data will be removed. Numeric variables
 can be sorted into the *clustering space* (space1) and the *linked
 space* (space2) once loaded into the app in the data screen. Variables
 can be added or removed from each space with the drop down selector that
@@ -100,3 +100,20 @@ In this input you can select the label passed to pandemonium in the
 `label=` input, as well as the same removed variables from above. This
 input is designed to give a unique label for each point so row numbers
 or unique IDs are recommended.
+
+#### Moving Variables
+
+One of the key features of the data input page is the ability to move
+variables across spaces after loading the application. This feature can
+have some unexpected effects on the covariance matrix and reference
+point if provided. Removing a variable from a space will slice out the
+corresponding entries from the covariance matrix and reference point.
+Adding variables to a space will cause the covariance matrix and
+reference point to be recalculated,
+[`cov()`](https://rdrr.io/r/stats/cor.html) is used for the covariance
+matrix and [`colMeans()`](https://rdrr.io/r/base/colSums.html) for the
+reference point. If the provided covariance matrix is an inverse
+covariance matrix it is first inverted using
+[`solve()`](https://rdrr.io/r/base/solve.html) before slicing. In some
+cases this may behave unexpectedly and altering variables may be better
+done by relaunching pandemonium with the correctly filtered data.
