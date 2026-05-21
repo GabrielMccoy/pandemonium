@@ -23,7 +23,7 @@ To launch the app, the user needs to provide a data frame with the observations.
 pandemonium(df = Bikes$df)
 ```
 
-This will automatically sort the variables into numeric and other variables, as well as impute any missing data using `VIM::kNN()` is VIM is installed otherwise entries with misssing data will be removed.
+This will automatically sort the variables into numeric and other variables, as well as impute any missing data using `VIM::kNN()` if VIM is installed otherwise entries with missing data will be removed.
 Numeric variables can be sorted into the *clustering space* (space1) and the *linked space* (space2) once loaded into the app in the data screen. Variables can be added or removed from each space with the drop down selector that appears by clicking on the box.
 
 Alternatively, the data can be passed in as two separate arrays with the clustering variables in `df = space1` and the linked variables in `linked = space2`. This will select them in space 1 and 2 in the data screen when loading the app. This can be done like this:
@@ -78,3 +78,8 @@ In this input you can select variables passed to pandemonium in the `group=` inp
 #### Label
 
 In this input you can select the label passed to pandemonium in the `label=` input, as well as the same removed variables from above. This input is designed to give a unique label for each point so row numbers or unique IDs are recommended.
+
+#### Moving Variables
+
+One of the key features of the data input page is the ability to move variables across spaces after loading the application.
+This feature can have some unexpected effects on the covariance matrix and reference point if provided. Removing a variable from a space will slice out the corresponding entries from the covariance matrix and reference point. Adding variables to a space will cause the covariance matrix and reference point to be recalculated, `cov()` is used for the covariance matrix and `colMeans()` for the reference point. If the provided covariance matrix is an inverse covariance matrix it is first inverted using `solve()` before slicing. In some cases this may behave unexpectedly and altering variables may be better done by relaunching pandemonium with the correctly filtered data.
