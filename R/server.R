@@ -104,6 +104,8 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
   rv$colour.choice <- c("clustering")
   rv$heldSpace2 <- "none"
   rv$heldSpace1 <- "none"
+  rv$coord_red1 <- list(Y=NA)
+  rv$coord_red2 <- list(Y=NA)
   n <- nrow(df)
   if (is.inv & !is.null(cov)) {
     covInv <- cov
@@ -275,7 +277,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
           rv$covInv1 <- try(solve(rv$cov1))
         }
 
-        if (all(input$space2 %in% df.colnames)) {
+        if (all(input$space2 %in% df.colnames)& !is.null(cov)) {
           space2.filt <- which(linked.colnames %in% input$space2)
           rv$cov2 <- cov[space2.filt, space2.filt]
         } else {
@@ -803,22 +805,22 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
     shiny::observeEvent(c(input$slice_1, input$slw_1, rv$space1_tour, input$ellc_obs, rv$ell_1, rv$tour1), {
       if (input$slice_1) {
         rv$display1 <- function(x) {
-          return(detourr::show_slice(x, palette = rv$tour1$pal, slice_relative_volume = as.numeric(input$slw_1)))
+          return(detourr::show_slice(x, palette = rv$tour1$pal, slice_relative_volume = as.numeric(input$slw_1), loop=FALSE))
         }
       } else {
         rv$display1 <- function(x) {
-          return(detourr::show_scatter(x, palette = rv$tour1$pal, alpha = 0.6)) # pch = rv$space1_tour$pch, ellipse = rv$ell_obs, ellc = as.numeric(input$ellc_obs)
+          return(detourr::show_scatter(x, palette = rv$tour1$pal, alpha = 0.6, loop=FALSE)) # pch = rv$space1_tour$pch, ellipse = rv$ell_obs, ellc = as.numeric(input$ellc_obs)
         }
       }
     })
     shiny::observeEvent(c(input$slice_2, input$slw_2, rv$space1_tour, input$ellc_param, rv$ell_2, rv$tour2), {
       if (input$slice_2) {
         rv$display2 <- function(x) {
-          return(detourr::show_slice(x, palette = rv$tour2$pal, slice_relative_volume = as.numeric(input$slw_2)))
+          return(detourr::show_slice(x, palette = rv$tour2$pal, slice_relative_volume = as.numeric(input$slw_2), loop=FALSE))
         }
       } else {
         rv$display2 <- function(x) {
-          return(detourr::show_scatter(x, palette = rv$tour2$pal, alpha = 0.6)) # pch = rv$space2_tour$pch, ellipse = rv$ell_par, ellc = as.numeric(input$ellc_param)
+          return(detourr::show_scatter(x, palette = rv$tour2$pal, alpha = 0.6, loop=FALSE)) # pch = rv$space2_tour$pch, ellipse = rv$ell_par, ellc = as.numeric(input$ellc_param)
         }
       }
     })
@@ -839,12 +841,18 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
           rv$coord_red1 <- rv$coord_red2
         } else {
           if (input$red1.data == "Cluster Space") {
-            rv$coord_red1 <- try(dimReduction[[input$algorithm1]](mat = rv$coord1, dist = rv$d_mat))
+            rv$coord_red1 <- tryCatch(dimReduction[[input$algorithm1]](mat = rv$coord1, dist = rv$d_mat), error = function(e) {
+              warning("dimension reduction has failed", call. = FALSE)
+              e
+            },finally = list(Y=NA))
           } else {
-            rv$coord_red1 <- try(dimReduction[[input$algorithm1]](mat = rv$coord2, dist = rv$d_mat2))
+            rv$coord_red1 <- tryCatch(dimReduction[[input$algorithm1]](mat = rv$coord2, dist = rv$d_mat2), error = function(e) {
+              warning("dimension reduction has failed", call. = FALSE)
+              e
+            },finally = list(Y=NA))
           }
         }
-
+        shiny::req(!is.na(rv$coord_red1$Y))
         tryCatch(colnames(rv$coord_red1$Y) <- c("dim1A", "dim2A"), error = function(e) {
           warning("dimension reduction has not returned correctly formatted data", call. = FALSE)
         })
@@ -858,12 +866,18 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
           rv$coord_red2 <- rv$coord_red1
         } else {
           if (input$red2.data == "Cluster Space") {
-            rv$coord_red2 <- try(dimReduction[[input$algorithm2]](mat = rv$coord1, dist = rv$d_mat))
+            rv$coord_red2 <- tryCatch(dimReduction[[input$algorithm2]](mat = rv$coord1, dist = rv$d_mat), error = function(e) {
+              warning("dimension reduction has failed", call. = FALSE)
+              e
+            },finally = list(Y=NA))
           } else {
-            rv$coord_red2 <- try(dimReduction[[input$algorithm2]](mat = rv$coord2, dist = rv$d_mat2))
+            rv$coord_red2 <- tryCatch(dimReduction[[input$algorithm2]](mat = rv$coord2, dist = rv$d_mat2), error = function(e) {
+              warning("dimension reduction has failed", call. = FALSE)
+              e
+            },finally = list(Y=NA))
           }
         }
-
+        shiny::req(!is.na(rv$coord_red2$Y))
         tryCatch(colnames(rv$coord_red2$Y) <- c("dim1B", "dim2B"), error = function(e) {
           warning("dimension reduction has not returned correctly formatted data", call. = FALSE)
         })
@@ -896,7 +910,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
       shiny::req(rv$load.app)
       shiny::validate(
         shiny::need(
-          try(!is.null(shared.data$origData()[c("dim1A", "dim2A")])),
+          try(ncol(dplyr::select(shared.data$origData(),tidyselect::any_of(c("dim1A", "dim2A"))))!=0, silent = TRUE),
           "data cannot be plotted select a different dimension reduction algorithm or data"
         )
       )
@@ -924,7 +938,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
       shiny::req(rv$load.app)
       shiny::validate(
         shiny::need(
-          try(!is.null(shared.data$origData()[c("dim1B", "dim2B")])),
+          try(ncol(dplyr::select(shared.data$origData(),tidyselect::any_of(c("dim1B", "dim2B"))))!=0, silent = TRUE),
           "data cannot be plotted select a different dimension reduction algorithm or data"
         )
       )

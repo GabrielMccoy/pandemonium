@@ -209,7 +209,7 @@ plotCstat <- function(dist, fit, chivals, stat, kmax = 8) {
   ggplot2::ggplot(cstats, ggplot2::aes(.data$k, .data[[stat]])) +
     ggplot2::geom_line() +
     ggplot2::labs(x = "# clusters", y = cstat_names[[stat]]) +
-    ggplot2::theme_bw()
+    ggplot2::theme_bw() + ggplot2::theme(axis.title = element_text(size = 18))
 }
 
 #' Plot dimension reduction plot

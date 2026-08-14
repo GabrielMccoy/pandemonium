@@ -32,6 +32,41 @@ pullCoords <- function(df, covInv, exp, ...) {
   return(coord_mat)
 }
 
+#' Chi-Squared Loss Function Coordinates
+#'
+#' Computes coordinate values by comparing observed values
+#' to the reference, using the square root inverse covariance matrix as when
+#' computing the chi-squared loss.
+#'
+#' @param df data frame
+#' @param covInv inverse covariance matrix
+#' @param exp reference values
+#' @param ... other expected values of getCoords
+#' @returns matrix with coordinate representation of all points
+#' @export
+#'
+#' @examples
+#' head(pullCoordsSqrt(
+#'   Bikes$space2, solve(cov(Bikes$space2)),
+#'   data.frame(value = colMeans(Bikes$space2))
+#' ))
+#'
+pullCoordsSqrt <- function(df, covInv, exp, ...) {
+  n <- nrow(df)
+  df <- as.matrix(df)
+  nc <- ncol(df)
+  coord_mat <- matrix(nrow = n, ncol = nc)
+  sqrtCovInv <- expm::sqrtm(covInv)
+
+  for (i in 1:n) {
+    for (j in 1:nc) {
+      coord_mat[i, j] <- sum(sqrtCovInv[j, ] * (df[i, ] - exp$value))
+    }
+  }
+  colnames(coord_mat) <- colnames(df)
+  return(coord_mat)
+}
+
 #' Generic Loss Function Coordinates
 #'
 #' Coordinates are computed as centered by the reference value and
