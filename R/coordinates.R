@@ -116,7 +116,9 @@ pullCoordsNoCov <- function(df, cov, exp, ...) {
 #' head(normCoords(Bikes$space2))
 #'
 normCoords <- function(df, ...) {
-  return(scale(df))
+  scales <- apply(df,2,sd)
+  scales[scales==0]<- 1
+  return(scale(df,scale = scales))
 }
 
 #' Raw coordinates
