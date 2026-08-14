@@ -1,5 +1,5 @@
 pandoc: 3.8.3
-pkgdown: 2.2.0
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   analysis-pages: analysis-pages.html
@@ -9,7 +9,7 @@ articles:
   get-scores: get-scores.html
   make-plots: make-plots.html
   output: output.html
-last_built: 2026-05-21T04:03Z
+last_built: 2026-08-14T03:04Z
 urls:
   reference: https://gabrielmccoy.github.io/pandemonium/reference
   article: https://gabrielmccoy.github.io/pandemonium/articles

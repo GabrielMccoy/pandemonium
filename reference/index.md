@@ -26,6 +26,8 @@
   : Chi-Squared Loss Function Coordinates
 - [`pullCoordsNoCov()`](https://gabrielmccoy.github.io/pandemonium/reference/pullCoordsNoCov.md)
   : Generic Loss Function Coordinates
+- [`pullCoordsSqrt()`](https://gabrielmccoy.github.io/pandemonium/reference/pullCoordsSqrt.md)
+  : Chi-Squared Loss Function Coordinates
 - [`rawCoords()`](https://gabrielmccoy.github.io/pandemonium/reference/rawCoords.md)
   : Raw coordinates
 - [`tSNE()`](https://gabrielmccoy.github.io/pandemonium/reference/tSNE.md)
