@@ -47,8 +47,57 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
   nonnumeric.colnames <- c()
   old_warn <- getOption("warn")
   on.exit(options(warn = old_warn))
-
   options(warn = 1)
+
+  if (!is.data.frame(df)) {
+    tryCatch(df <- as.data.frame(df), , error = function(e) {
+      stop("df must be coercable as a data frame")
+    })
+  }
+
+  if (!is.data.frame(linked) && !is.null(linked)) {
+    tryCatch(linked <- as.data.frame(linked), , error = function(e) {
+      stop("linked must be coercable as a data frame")
+    })
+  }
+
+
+  if (!is.null(cov)){
+    # symmetric
+    if (!isSymmetric(cov)) {
+      warn("the covariance matrix provided in cov should be symmetric")
+    }
+
+    # positive semi-definite
+    if (any(eigen(cov,only.values = TRUE))<0) {
+      warn("the covariance matrix provided in cov should be positive semi-difinite")
+    }
+
+    # invertible
+    precision <-max((cov %*% solve(cov))-diag(x=1,nrow = ncol(cov),ncol = ncol(cov)))
+    if (precision>1e-10){
+      warn("the inverse provided covariance matrix in cov may not invert correctly")
+    }
+  }
+
+  if (!is.null(linked.cov)){
+    # symmetric
+    if (!isSymmetric(linked.cov)) {
+      warn("the covariance matrix provided in linked.cov should be symmetric")
+    }
+
+    # positive semi-definite
+    if (any(eigen(linked.cov,only.values = TRUE))<0) {
+      warn("the covariance matrix provided in linked.cov should be positive semi-difinite")
+    }
+
+    # invertible
+    precision <-max((linked.cov %*% solve(linked.cov))-diag(x=1,nrow = ncol(linked.cov),ncol = ncol(linked.cov)))
+    if (precision>1e-10){
+      warn("the inverse provided covariance matrix in linked.cov may not invert correctly")
+    }
+  }
+
   for (var in colnames(df)) {
     if (is.numeric(df[[var]])) {
       numeric.colnames <- append(numeric.colnames, var)
