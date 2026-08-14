@@ -78,7 +78,6 @@ plotObs <- function(coord, x, y, wc, obs, cond = NULL) {
     cbind(wc[cond, ]) %>%
     ggplot2::ggplot(ggplot2::aes(.data[[x]], .data[[y]], color = .data[[obs]])) +
     ggplot2::geom_point() +
-    ggplot2::guides(color = "none") +
     ggplot2::scale_color_viridis_c() +
     ggplot2::theme_bw() +
     ggplot2::labs(title = paste0("Centered coordinate values for ", obs)) +
