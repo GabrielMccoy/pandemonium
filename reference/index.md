@@ -22,6 +22,8 @@
   : Using externally computed score values
 - [`pandemonium()`](https://gabrielmccoy.github.io/pandemonium/reference/pandemonium.md)
   : Shiny app for exploring clustering solutions
+- [`pca()`](https://gabrielmccoy.github.io/pandemonium/reference/pca.md)
+  : Principal Component Analysis
 - [`pullCoords()`](https://gabrielmccoy.github.io/pandemonium/reference/pullCoords.md)
   : Chi-Squared Loss Function Coordinates
 - [`pullCoordsNoCov()`](https://gabrielmccoy.github.io/pandemonium/reference/pullCoordsNoCov.md)

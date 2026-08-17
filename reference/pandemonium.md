@@ -18,7 +18,7 @@ pandemonium(
   group = NULL,
   label = NULL,
   user_dist = NULL,
-  dimReduction = list(tSNE = tSNE, umap = umap),
+  dimReduction = list(umap = umap, tSNE = tSNE, pca = pca),
   getCoords = list(normal = normCoords),
   getScore = NULL
 )
