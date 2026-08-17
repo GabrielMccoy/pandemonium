@@ -23,7 +23,7 @@
 #' @importFrom rlang .data
 #' @export
 #'
-pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NULL, linked.cov = NULL, linked.exp = NULL, group = NULL, label = NULL, user_dist = NULL, dimReduction = list(tSNE = tSNE, umap = umap), getCoords = list(normal = normCoords), getScore = NULL) {
+pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NULL, linked.cov = NULL, linked.exp = NULL, group = NULL, label = NULL, user_dist = NULL, dimReduction = list(umap = umap,tSNE = tSNE, pca = pca), getCoords = list(normal = normCoords), getScore = NULL) {
   if (!is.list(dimReduction)){
     stop("dimReduction needs to be a named list of functions")
   }
