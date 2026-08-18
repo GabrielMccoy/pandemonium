@@ -38,9 +38,9 @@ tourMaker <- function(coord1, coord2, group, score, user_group,
     "score"       = rank(score$score)
   )
   pal <- switch(colouring,
-    "clustering"  = RColorBrewer::brewer.pal(length(unique(colour)), "Dark2"),
-    "user"        = RColorBrewer::brewer.pal(length(unique(colour)), "Set3"),
-    "bins"        = RColorBrewer::brewer.pal(length(unique(colour)), "Set2"),
+    "clustering"  = RColorBrewer::brewer.pal(8, "Dark2")[1:length(unique(colour))],
+    "user"        = RColorBrewer::brewer.pal(12, "Set3")[1:length(unique(colour))],
+    "bins"        = RColorBrewer::brewer.pal(8, "Set2")[1:length(unique(colour))],
     "score"       = viridis::viridis(length(colour))
   )
   projection <- switch(tourspace,

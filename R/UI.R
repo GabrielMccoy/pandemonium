@@ -340,7 +340,7 @@ UI <- function() {
                         "canberra", "binary"
                       )
                     ),
-                    shiny::selectInput("kA", "Number of clusters A", choices = 2:8),
+                    shiny::selectInput("kA", "Number of clusters A", choices = 2:8, selected = 4),
                     shiny::selectInput("pxA", "x", choices = c()),
                     shiny::selectInput("pyA", "y", choices = c()),
                     shiny::checkboxInput("usemainA", "Use Main Choices")
@@ -364,7 +364,7 @@ UI <- function() {
                         "canberra", "binary"
                       )
                     ),
-                    shiny::selectInput("kB", "Number of clusters B", choices = 2:8),
+                    shiny::selectInput("kB", "Number of clusters B", choices = 2:8, selected = 4),
                     shiny::selectInput("pxB", "x", choices = c()),
                     shiny::selectInput("pyB", "y", choices = c()),
                     shiny::conditionalPanel(

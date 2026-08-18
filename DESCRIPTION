@@ -43,7 +43,8 @@ Imports:
     uwot (>= 0.2.4),
     ggpcp (>= 0.2.0),
     rlang (>= 1.1.7),
-    viridis (>= 0.6.5)
+    viridis (>= 0.6.5),
+    expm (>= 1.0)
 LazyData: true
 Suggests: 
     knitr,

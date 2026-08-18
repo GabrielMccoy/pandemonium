@@ -61,6 +61,43 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
     })
   }
 
+
+  if (!is.null(cov)){
+    # symmetric
+    if (!isSymmetric(cov)) {
+      warning("the covariance matrix provided in cov should be symmetric")
+    }
+
+    # positive semi-definite
+    if (any(eigen(cov,only.values = TRUE)$values<0)) {
+      warning("the covariance matrix provided in cov should be positive semi-difinite")
+    }
+
+    # invertible
+    precision <-max((cov %*% solve(cov))-diag(x=1,nrow = ncol(cov),ncol = ncol(cov)))
+    if (precision>1e-10){
+      warning("the inverse provided covariance matrix in cov may not invert correctly")
+    }
+  }
+
+  if (!is.null(linked.cov)){
+    # symmetric
+    if (!isSymmetric(linked.cov)) {
+      warning("the covariance matrix provided in linked.cov should be symmetric")
+    }
+
+    # positive semi-definite
+    if (any(eigen(linked.cov,only.values = TRUE)$values<0)) {
+      warning("the covariance matrix provided in linked.cov should be positive semi-difinite")
+    }
+
+    # invertible
+    precision <-max((linked.cov %*% solve(linked.cov))-diag(x=1,nrow = ncol(linked.cov),ncol = ncol(linked.cov)))
+    if (precision>1e-10){
+      warning("the inverse provided covariance matrix in linked.cov may not invert correctly")
+    }
+  }
+
   for (var in colnames(df)) {
     if (is.numeric(df[[var]])) {
       numeric.colnames <- append(numeric.colnames, var)
@@ -324,7 +361,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
         }
         rv$user.group <- rv$temp.group
         if (!is.null(rv$user.group)) {
-          rv$user.pal <- RColorBrewer::brewer.pal(nlevels(rv$user.group), "Set3")
+          rv$user.pal <- RColorBrewer::brewer.pal(12, "Set3")[1:nlevels(rv$user.group)]
           rv$pcol <- rv$user.pal[rv$user.group]
         }
         shiny::updateSelectInput(session, "px", choices = input$space2)
@@ -362,7 +399,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
             rv$colour.choice <- unique(c(rv$colour.choice, "score"))
           }
           if (!is.null(rv$value$bins)) {
-            rv$palSig <- RColorBrewer::brewer.pal(length(unique(rv$value$bins)), "Set2")
+            rv$palSig <- RColorBrewer::brewer.pal(8, "Set2")[1:length(unique(rv$value$bins))]
             rv$colSig <- rv$palSig[rv$value$bins]
             rv$colour.choice <- unique(c(rv$colour.choice, "bins"))
           }
@@ -385,7 +422,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
         rv$lvl <- unique(groups[stats::order.dendrogram(stats::as.dendrogram(rv$fit))])
         rv$groups <- as.numeric(factor(groups, levels = rv$lvl))
         shiny::updateSelectizeInput(session, "pc.filt", choices = unique(rv$groups), selected = unique(rv$groups))
-        rv$pal <- RColorBrewer::brewer.pal(rv$kC, "Dark2")
+        rv$pal <- RColorBrewer::brewer.pal(8, "Dark2")[1:rv$kC]
         rv$col <- rv$pal[rv$groups]
         rv$benchmarks <- getBenchmarkInformation(rv$d_mat, rv$groups)
         rv$bpDists <- getClusterDists(rv$d_mat, rv$groups, rv$benchmarks)
@@ -1034,10 +1071,10 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
         fitB <- stats::hclust(distsB, input$linkageB)
         groupsA <- stats::cutree(fitA, kA)
         groupsB <- stats::cutree(fitB, kB)
-        palA <- RColorBrewer::brewer.pal(kA, "Dark2")
+        palA <- RColorBrewer::brewer.pal(8, "Dark2")[1:kA]
         groupsA <- as.numeric(factor(groupsA, levels = unique(groupsA[stats::order.dendrogram(stats::as.dendrogram(fitA))])))
         rv$colA <- palA[groupsA]
-        palB <- RColorBrewer::brewer.pal(kB, "Set2")
+        palB <- RColorBrewer::brewer.pal(8, "Set2")[1:kB]
         groupsB <- as.numeric(factor(groupsB, levels = unique(groupsB[stats::order.dendrogram(stats::as.dendrogram(fitB))])))
         rv$colB <- palB[groupsB]
         output$tableAB <- shiny::renderPlot(
@@ -1056,14 +1093,14 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
               ggplot2::labs(x = "", y = "") +
               ggplot2::theme(
                 legend.position = "none",
-                axis.text.x = ggplot2::element_text(
+                axis.text.x = suppressWarnings(ggplot2::element_text(
                   colour = palA,
                   face = "bold", size = 15
-                ),
-                axis.text.y = ggplot2::element_text(
+                )),
+                axis.text.y = suppressWarnings(ggplot2::element_text(
                   colour = palB,
                   face = "bold", size = 15
-                )
+                ))
               )
           },
           height = 325

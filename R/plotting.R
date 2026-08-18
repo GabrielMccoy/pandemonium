@@ -102,7 +102,7 @@ plotSigBin <- function(wc, interest, bmID, sigmabins, x, y, binName, cond = NULL
   if (is.null(cond)) {
     cond <- 1:nrow(wc)
   }
-  palSig <- RColorBrewer::brewer.pal(length(unique(sigmabins)), colourSet)
+  palSig <- suppressWarnings(RColorBrewer::brewer.pal(length(unique(sigmabins)), colourSet))
   colSig <- palSig[sigmabins]
   ggplot2::ggplot(wc[cond, ], ggplot2::aes(.data[[x]], .data[[y]])) +
     ggplot2::geom_point(color = colSig[cond]) +
@@ -208,7 +208,7 @@ plotCstat <- function(dist, fit, chivals, stat, kmax = 8) {
   ggplot2::ggplot(cstats, ggplot2::aes(.data$k, .data[[stat]])) +
     ggplot2::geom_line() +
     ggplot2::labs(x = "# clusters", y = cstat_names[[stat]]) +
-    ggplot2::theme_bw() + ggplot2::theme(axis.title = element_text(size = 18))
+    ggplot2::theme_bw() + ggplot2::theme(axis.title = ggplot2::element_text(size = 18))
 }
 
 #' Plot dimension reduction plot
@@ -247,9 +247,9 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
     "score"       = rank(score$score)
   ))
   pal <- switch(colouring,
-    "clustering"  = RColorBrewer::brewer.pal(length(unique(colour)), "Dark2"),
-    "user"        = RColorBrewer::brewer.pal(length(unique(colour)), "Set3"),
-    "bins"        = RColorBrewer::brewer.pal(length(unique(colour)), "Set2"),
+    "clustering"  = RColorBrewer::brewer.pal(8, "Dark2")[1:length(unique(colour))],
+    "user"        = RColorBrewer::brewer.pal(12, "Set3")[1:length(unique(colour))],
+    "bins"        = RColorBrewer::brewer.pal(8, "Set2")[1:length(unique(colour))],
     "score"       = viridis::viridis(length(colour))
   )
   dim.title <- paste(algorithm, "embedding")
@@ -379,10 +379,10 @@ makePlots <- function(cluster, settings, cov = NULL, covInv = NULL, exp = NULL, 
     scorecol <- viridis::viridis(n)[rank(results$value$score)]
   }
   if (!is.null(results$value$bins)) {
-    palSig <- RColorBrewer::brewer.pal(length(unique(results$value$bins)), "Set2")
+    palSig <- RColorBrewer::brewer.pal(8, "Set2")[1:length(unique(results$value$bins))]
     colSig <- palSig[results$value$bins]
   }
-  pal <- RColorBrewer::brewer.pal(settings$k, "Dark2")
+  pal <- RColorBrewer::brewer.pal(8, "Dark2")[1:settings$k]
   col <- pal[results$groups]
   benchmarks <- getBenchmarkInformation(as.matrix(results$dists), results$groups)
   pch <- rep(20, n)

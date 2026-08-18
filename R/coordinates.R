@@ -116,7 +116,7 @@ pullCoordsNoCov <- function(df, cov, exp, ...) {
 #' head(normCoords(Bikes$space2))
 #'
 normCoords <- function(df, ...) {
-  scales <- apply(df,2,sd)
+  scales <- apply(df,2,stats::sd)
   scales[scales==0]<- 1
   return(scale(df,scale = scales))
 }
