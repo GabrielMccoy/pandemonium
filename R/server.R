@@ -61,7 +61,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
     })
   }
 
-
+'''
   if (!is.null(cov)){
     # symmetric
     if (!isSymmetric(cov)) {
@@ -97,7 +97,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
       warning("the inverse provided covariance matrix in linked.cov may not invert correctly")
     }
   }
-
+'''
   for (var in colnames(df)) {
     if (is.numeric(df[[var]])) {
       numeric.colnames <- append(numeric.colnames, var)
