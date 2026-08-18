@@ -106,7 +106,8 @@ tourMaker <- function(coord1, coord2, group, score, user_group,
           "text",
           x = d_plot$axes$x2,
           y = d_plot$axes$y2,
-          label = projection
+          label = projection,
+          size = 6
           )+
         ggplot2::xlim(-1,1) + ggplot2::ylim(-1, 1) +
         ggplot2::scale_colour_discrete(name="", palette=pal) +
@@ -115,9 +116,7 @@ tourMaker <- function(coord1, coord2, group, score, user_group,
             axis.text=ggplot2::element_blank(),
             axis.title=ggplot2::element_blank(),
             axis.ticks=ggplot2::element_blank(),
-            panel.grid=ggplot2::element_blank(),
-            legend.position = "none",
-            panel.border=ggplot2::element_blank()))
+            legend.position = "none"))
   }
   d
 }

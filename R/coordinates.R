@@ -58,6 +58,10 @@ pullCoordsSqrt <- function(df, covInv, exp, ...) {
   coord_mat <- matrix(nrow = n, ncol = nc)
   sqrtCovInv <- expm::sqrtm(covInv)
 
+  if (max(abs((sqrtCovInv%*%sqrtCovInv)-covInv))>1e-10){
+    warning("matrix square root has not been calculated precisely another coordinate function may be better suited over pullCoordsSqrt")
+  }
+
   for (i in 1:n) {
     for (j in 1:nc) {
       coord_mat[i, j] <- sum(sqrtCovInv[j, ] * (df[i, ] - exp$value))
