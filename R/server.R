@@ -69,7 +69,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
     }
 
     # positive semi-definite
-    if (any(eigen(cov,only.values = TRUE))<0) {
+    if (any(eigen(cov,only.values = TRUE)<0)) {
       warning("the covariance matrix provided in cov should be positive semi-difinite")
     }
 
@@ -87,7 +87,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
     }
 
     # positive semi-definite
-    if (any(eigen(linked.cov,only.values = TRUE))<0) {
+    if (any(eigen(linked.cov,only.values = TRUE)<0)) {
       warning("the covariance matrix provided in linked.cov should be positive semi-difinite")
     }
 
