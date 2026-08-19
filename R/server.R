@@ -854,22 +854,22 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
     shiny::observeEvent(c(input$slice_1, input$slw_1, rv$space1_tour, input$ellc_obs, rv$ell_1, rv$tour1), {
       if (input$slice_1) {
         rv$display1 <- function(x) {
-          return(detourr::show_slice(x, palette = rv$tour1$pal, slice_relative_volume = as.numeric(input$slw_1)))
+          return(detourr::show_slice(x, palette = rv$tour1$pal, slice_relative_volume = as.numeric(input$slw_1), loop = FALSE))
         }
       } else {
         rv$display1 <- function(x) {
-          return(detourr::show_scatter(x, palette = rv$tour1$pal, alpha = 0.6)) # pch = rv$space1_tour$pch, ellipse = rv$ell_obs, ellc = as.numeric(input$ellc_obs)
+          return(detourr::show_scatter(x, palette = rv$tour1$pal, alpha = 0.6, loop = FALSE)) # pch = rv$space1_tour$pch, ellipse = rv$ell_obs, ellc = as.numeric(input$ellc_obs)
         }
       }
     })
     shiny::observeEvent(c(input$slice_2, input$slw_2, rv$space1_tour, input$ellc_param, rv$ell_2, rv$tour2), {
       if (input$slice_2) {
         rv$display2 <- function(x) {
-          return(detourr::show_slice(x, palette = rv$tour2$pal, slice_relative_volume = as.numeric(input$slw_2)))
+          return(detourr::show_slice(x, palette = rv$tour2$pal, slice_relative_volume = as.numeric(input$slw_2), loop = FALSE))
         }
       } else {
         rv$display2 <- function(x) {
-          return(detourr::show_scatter(x, palette = rv$tour2$pal, alpha = 0.6)) # pch = rv$space2_tour$pch, ellipse = rv$ell_par, ellc = as.numeric(input$ellc_param)
+          return(detourr::show_scatter(x, palette = rv$tour2$pal, alpha = 0.6, loop = FALSE)) # pch = rv$space2_tour$pch, ellipse = rv$ell_par, ellc = as.numeric(input$ellc_param)
         }
       }
     })
