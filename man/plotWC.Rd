@@ -23,21 +23,21 @@ plotWC(
 
 \item{x, y}{variables names (as string) to map to x and y axis}
 
-\item{interest}{index values for the intersting points}
+\item{interest}{index values for the interesting points}
 
 \item{bmID}{index values of benchmarks}
 
-\item{col}{color vector according to cluster assignment}
+\item{col}{colour vector according to cluster assignment}
 
 \item{cond}{row numbers of points used for conditioning}
 
 \item{groups}{grouping assignments used to make alphahull}
 
-\item{pal}{pallete used for group colouring of alphahull}
+\item{pal}{palette used for group colouring of alphahull}
 
 \item{a}{alpha value for alpha hull}
 
-\item{showalpha}{boolean value to calculate and show alpha hulls}
+\item{showalpha}{logical value to calculate and show alpha hulls}
 }
 \value{
 ggplot

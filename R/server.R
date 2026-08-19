@@ -6,7 +6,7 @@
 #'
 #' @param df data frame of data, assumes space 1 but variables can be re-assigned in the app
 #' @param cov  covariance matrix (optional)
-#' @param is.inv is the covariance matrix an inverse default FALSE
+#' @param is.inv logical, is the covariance matrix an inverse default FALSE
 #' @param exp observable reference value (e.g. experimental measurement)
 #' @param linked data frame assumed to be in space 2 but variables can be re-assigned in the app
 #' @param linked.cov  covariance matrix (optional)
@@ -153,8 +153,8 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
   rv$colour.choice <- c("clustering")
   rv$heldSpace2 <- "none"
   rv$heldSpace1 <- "none"
-  rv$coord_red1 <- list(Y=NA)
-  rv$coord_red2 <- list(Y=NA)
+  rv$coord_red1 <- list(Y=tibble::tibble(na1=NA))
+  rv$coord_red2 <- list(Y=tibble::tibble(na2=NA))
   n <- nrow(df)
   if (is.inv & !is.null(cov)) {
     covInv <- cov
@@ -854,22 +854,22 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
     shiny::observeEvent(c(input$slice_1, input$slw_1, rv$space1_tour, input$ellc_obs, rv$ell_1, rv$tour1), {
       if (input$slice_1) {
         rv$display1 <- function(x) {
-          return(detourr::show_slice(x, palette = rv$tour1$pal, slice_relative_volume = as.numeric(input$slw_1), loop=FALSE))
+          return(detourr::show_slice(x, palette = rv$tour1$pal, slice_relative_volume = as.numeric(input$slw_1)))
         }
       } else {
         rv$display1 <- function(x) {
-          return(detourr::show_scatter(x, palette = rv$tour1$pal, alpha = 0.6, loop=FALSE)) # pch = rv$space1_tour$pch, ellipse = rv$ell_obs, ellc = as.numeric(input$ellc_obs)
+          return(detourr::show_scatter(x, palette = rv$tour1$pal, alpha = 0.6)) # pch = rv$space1_tour$pch, ellipse = rv$ell_obs, ellc = as.numeric(input$ellc_obs)
         }
       }
     })
     shiny::observeEvent(c(input$slice_2, input$slw_2, rv$space1_tour, input$ellc_param, rv$ell_2, rv$tour2), {
       if (input$slice_2) {
         rv$display2 <- function(x) {
-          return(detourr::show_slice(x, palette = rv$tour2$pal, slice_relative_volume = as.numeric(input$slw_2), loop=FALSE))
+          return(detourr::show_slice(x, palette = rv$tour2$pal, slice_relative_volume = as.numeric(input$slw_2)))
         }
       } else {
         rv$display2 <- function(x) {
-          return(detourr::show_scatter(x, palette = rv$tour2$pal, alpha = 0.6, loop=FALSE)) # pch = rv$space2_tour$pch, ellipse = rv$ell_par, ellc = as.numeric(input$ellc_param)
+          return(detourr::show_scatter(x, palette = rv$tour2$pal, alpha = 0.6)) # pch = rv$space2_tour$pch, ellipse = rv$ell_par, ellc = as.numeric(input$ellc_param)
         }
       }
     })

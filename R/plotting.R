@@ -3,14 +3,14 @@
 #'
 #' @param wc parameter values as matrix
 #' @param x,y variables names (as string) to map to x and y axis
-#' @param interest index values for the intersting points
+#' @param interest index values for the interesting points
 #' @param bmID index values of benchmarks
-#' @param col color vector according to cluster assignment
+#' @param col colour vector according to cluster assignment
 #' @param cond row numbers of points used for conditioning
 #' @param groups grouping assignments used to make alphahull
-#' @param pal pallete used for group colouring of alphahull
+#' @param pal palette used for group colouring of alphahull
 #' @param a alpha value for alpha hull
-#' @param showalpha boolean value to calculate and show alpha hulls
+#' @param showalpha logical value to calculate and show alpha hulls
 #' @return ggplot
 #' @importFrom rlang .data
 #' @keywords internal
@@ -172,7 +172,9 @@ plotPC <- function(coord, groups, benchmarkIds, filt, c = TRUE, s = TRUE, a = 0.
       axis.title.y = ggplot2::element_blank(),
       axis.title.x = ggplot2::element_blank(),
       axis.text.x = ggplot2::element_text(angle = 45, hjust = 1, vjust = 1),
-      legend.position = "none"
+      legend.position = "none",
+      axis.text.y = ggplot2::element_blank(),
+      axis.ticks.y = ggplot2::element_blank()
     )
 }
 

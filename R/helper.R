@@ -139,7 +139,13 @@ getClusterStats <- function(dist, fit, chivals, kmax = 10) {
     gr <- stats::cutree(fit, k)
     chibins <- chi2Bins(chivals, 2, k)
 
-    x <- fpc::cluster.stats(dist, gr, alt.clustering = chibins)
+    x <- withCallingHandlers(fpc::cluster.stats(dist, gr, alt.clustering = chibins), warning = function(w){
+      if (length(unique(chibins))<k) {
+        warning(paste0("ARI with CI binning statistic may not be correctly computed for ",
+                       k," clusters as binning didnt create the same number of unique bins"),call. = FALSE)
+        invokeRestart("muffleWarning")
+      }
+    })
     bmInfo <- getBenchmarkInformation(as.matrix(dist), gr)
     bmDists <- getClusterDists(as.matrix(dist), gr, bmInfo)
     bmMinDist <- min(bmDists$d1)

@@ -25,7 +25,7 @@ pandemonium(
 
 \item{cov}{covariance matrix (optional)}
 
-\item{is.inv}{is the covariance matrix an inverse default FALSE}
+\item{is.inv}{logical, is the covariance matrix an inverse default FALSE}
 
 \item{exp}{observable reference value (e.g. experimental measurement)}
 
