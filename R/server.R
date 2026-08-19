@@ -667,13 +667,13 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
       {
         if (input$render1 == "2D") {
           rv$tour.dim1 <- 2
-          shiny::updateSelectInput(session, "tour_type_obs",
+          shiny::updateSelectInput(session, "tour_type_1",
             choices =
               c("grand", "cmass", "holes", "lda", "pda", "dcor", "spline", "radial", "anomaly")
           )
         } else {
           rv$tour.dim1 <- 3
-          shiny::updateSelectInput(session, "tour_type_obs",
+          shiny::updateSelectInput(session, "tour_type_1",
             choices =
               c("grand", "cmass", "holes", "lda", "pda", "dcor")
           )
@@ -685,13 +685,13 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
       {
         if (input$render2 == "2D") {
           rv$tour.dim2 <- 2
-          shiny::updateSelectInput(session, "tour_type_param",
+          shiny::updateSelectInput(session, "tour_type_2",
             choices =
               c("grand", "cmass", "holes", "lda", "pda", "dcor", "spline", "radial", "anomaly")
           )
         } else {
           rv$tour.dim2 <- 3
-          shiny::updateSelectInput(session, "tour_type_param",
+          shiny::updateSelectInput(session, "tour_type_2",
             choices =
               c("grand", "cmass", "holes", "lda", "pda", "dcor")
           )
@@ -1015,7 +1015,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
       shiny::validate(
         shiny::need(try(!is.null(shared.data$origData()[rv$tour1projection])), "Data cannot be plotted select different data"),
         shiny::need(rv$hist1!="fail_ellc","ellc is too large to find any anomalies"),
-        shiny::need(((length(rv$tour1projection) == dim(rv$hist1)[1])||(rv$hist1=="fail_ellc")), "Tour not built with this data. Please build below")
+        shiny::need(((length(rv$tour1projection) == dim(rv$hist1)[1])||any(rv$hist1=="fail_ellc")), "Tour not built with this data. Please build below")
       )
 
       detourr::detour(shared.data, detourr::tour_aes(projection = tidyselect::all_of(rv$tour1projection), colour = "colour1", label = I(.data$label1))) %>% # .data may be deprecated in this way
@@ -1026,7 +1026,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
       shiny::validate(
         shiny::need(try(!is.null(shared.data$origData()[rv$tour2projection])), "data cannot be plotted select different data"),
         shiny::need(rv$hist2!="fail_ellc","ellc is too large to find any anomalies"),
-        shiny::need(((length(rv$tour2projection) == dim(rv$hist2)[1])||(rv$hist2=="fail_ellc")), "Tour not built with this data. Please build below")
+        shiny::need(((length(rv$tour2projection) == dim(rv$hist2)[1])||any(rv$hist2=="fail_ellc")), "Tour not built with this data. Please build below")
       )
       rv$detouring <- TRUE
       detourr::detour(shared.data, detourr::tour_aes(projection = tidyselect::all_of(rv$tour2projection), colour = "colour2", label = I(.data$label2))) %>% # .data may be deprecated in this way
