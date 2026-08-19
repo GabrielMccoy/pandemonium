@@ -37,7 +37,7 @@ pandemonium(
 
 - is.inv:
 
-  is the covariance matrix an inverse default FALSE
+  logical, is the covariance matrix an inverse default FALSE
 
 - exp:
 

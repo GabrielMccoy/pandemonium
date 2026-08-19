@@ -32,7 +32,7 @@ plotWC(
 
 - interest:
 
-  index values for the intersting points
+  index values for the interesting points
 
 - bmID:
 
@@ -40,7 +40,7 @@ plotWC(
 
 - col:
 
-  color vector according to cluster assignment
+  colour vector according to cluster assignment
 
 - cond:
 
@@ -52,7 +52,7 @@ plotWC(
 
 - pal:
 
-  pallete used for group colouring of alphahull
+  palette used for group colouring of alphahull
 
 - a:
 
@@ -60,7 +60,7 @@ plotWC(
 
 - showalpha:
 
-  boolean value to calculate and show alpha hulls
+  logical value to calculate and show alpha hulls
 
 ## Value
 
