@@ -15,7 +15,7 @@ makePlots(
   exp = NULL,
   linked = NULL,
   linked.cov = NULL,
-  linked.covInv,
+  linked.covInv = NULL,
   linked.exp = NULL,
   user_dist = NULL,
   getCoordsSpace1 = normCoords,
