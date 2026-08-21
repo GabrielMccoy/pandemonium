@@ -51,6 +51,7 @@ Each `plotType` has got its own required settings. For each plot type these are 
 | "WC" | Plot of clustering on axes from space 2 | `x=`,`y=` column names of space 2 to be drawn <br>`showalpha=` TRUE or FALSE to show alpha hulls <br>`WCa=` alpha value for alpha hulls|
 | "chi2" | Plot of score on axes from space 2 | `x=`,`y=` column names of space 2 to be drawn <br>*Note that a function that returns values must be passed in `getScores`*|
 | "sigBins" | Plot of bins on axes from space 2 | `x=`,`y=` column names of space 2 to be drawn <br>*Note that a function that returns bins must be passed in `getScores`*|
+| "hist" | histograms of the within and between cluster distances | no additional required settings, however the following are optional:<br> `bw.filt=` either `"within"` or `"between"` or a vector of both to filter the columns of the subplots.<br> `gr.filt=` groups to be plotted in the rows of the subplots.|
 | "heatmap" | Ordered dendrogram plot of clustering | no additional parameters |
 | cluster stats | Plot of cluster stat vs number of clusters | One of the following is what is given as `plotType`: "within.cluster.ss", "wb.ratio","pearsongamma", "dunn", "ch", "rmax", "dmax" "dmin", "dchi2rand"|
 | "Obs" | Plot space 1 variable on axes from space 2 | `Obs=` name of variable from space 1 <br>``x=`,`y=` column names of space 2 to be drawn |

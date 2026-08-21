@@ -551,29 +551,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
     )
     output$hist <- shiny::renderPlot({
       shiny::req(rv$load.app)
-      groups <- rv$groups
-      dist_vec <- as.vector(rv$d_mat)
-      gr1 <- rep(groups, each = n)
-      gr2 <- rep(groups, times = n)
-      dist_tib <- tibble::tibble(dist = dist_vec, gr1 = as.factor(gr1), gr2 = as.factor(gr2)) %>%
-        dplyr::mutate(match = dplyr::if_else(gr1 == gr2, "within", "between"))
-      ggplot2::ggplot(
-        dist_tib,
-        ggplot2::aes(x = .data$dist, y = ggplot2::after_stat(.data$density * .data$width))
-      ) +
-        ggplot2::geom_histogram(
-          data = dplyr::select(dist_tib, -gr1, -gr2, -match),
-          fill = NA, color = "grey", position = "identity"
-        ) +
-        ggplot2::geom_histogram(
-          mapping = ggplot2::aes(color = gr1),
-          fill = NA, position = "identity"
-        ) +
-        ggplot2::scale_color_brewer(palette = "Dark2") +
-        ggplot2::facet_grid(gr1 ~ match) +
-        ggplot2::theme_bw() +
-        ggplot2::labs(x = "", y = "", title = "Distribution of distances within and between clusters") +
-        ggplot2::theme(legend.position = "none", strip.text.y = ggplot2::element_blank())
+      plotHist(rv$d_mat, rv$groups, n, bw.filt = NULL, gr.filt = NULL)
     })
     output$benchmarks <- DT::renderDT({
       shiny::req(rv$load.app)

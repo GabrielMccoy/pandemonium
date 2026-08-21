@@ -172,9 +172,7 @@ plotPC <- function(coord, groups, benchmarkIds, filt, c = TRUE, s = TRUE, a = 0.
       axis.title.y = ggplot2::element_blank(),
       axis.title.x = ggplot2::element_blank(),
       axis.text.x = ggplot2::element_text(angle = 45, hjust = 1, vjust = 1),
-      legend.position = "none",
-      axis.text.y = ggplot2::element_blank(),
-      axis.ticks.y = ggplot2::element_blank()
+      legend.position = "none"
     )
 }
 
@@ -210,7 +208,55 @@ plotCstat <- function(dist, fit, chivals, stat, kmax = 8) {
   ggplot2::ggplot(cstats, ggplot2::aes(.data$k, .data[[stat]])) +
     ggplot2::geom_line() +
     ggplot2::labs(x = "# clusters", y = cstat_names[[stat]]) +
-    ggplot2::theme_bw() + ggplot2::theme(axis.title = ggplot2::element_text(size = 18))
+    ggplot2::theme_bw() +
+    ggplot2::theme(axis.title = ggplot2::element_text(size = 18),
+                   axis.text = ggplot2::element_text(size = 12))
+}
+
+#' Plot shadow Histograms
+#'
+#' @param dist distance matrix
+#' @param groups group assignment vector
+#' @param n number of points in distance matrix
+#' @param bw.filt optional filter "within" or "between or vector of both for columns to display.
+#' @param gr.filt optional filter of groups to show
+#' @importFrom rlang .data
+#' @return ggplot
+#' @keywords internal
+plotHist <- function(dist, groups, n, bw.filt = NULL, gr.filt = NULL) {
+  if (is.null(bw.filt)){
+    bw.filt <- c("within", "between")
+  }
+  if (is.null(gr.filt)){
+    gr.filt <- unique(groups)
+  }
+  dist_vec <- as.vector(dist)
+  gr1 <- rep(groups, each = n)
+  gr2 <- rep(groups, times = n)
+  dist_tib <- tibble::tibble(dist = dist_vec, gr1 = as.factor(gr1), gr2 = as.factor(gr2)) %>%
+    dplyr::mutate(match = dplyr::if_else(gr1 == gr2, "within", "between")) %>%
+    dplyr::filter(match %in% bw.filt, gr1 %in% gr.filt)
+
+  ggplot2::ggplot(
+    dist_tib,
+    ggplot2::aes(x = .data$dist, y = ggplot2::after_stat(.data$density * .data$width))
+  ) +
+    ggplot2::geom_histogram(
+      data = tibble::tibble(dist = dist_vec),
+      fill = NA, color = "grey", position = "identity", bins = 30
+    ) +
+    ggplot2::geom_histogram(
+      mapping = ggplot2::aes(color = gr1),
+      fill = NA, position = "identity", bins = 30
+    ) +
+    ggplot2::scale_color_brewer(palette = "Dark2") +
+    ggplot2::facet_grid(gr1 ~ match) +
+    ggplot2::theme_bw() +
+    ggplot2::labs(x = "", y = "", title = "Distribution of distances within and between clusters") +
+    ggplot2::theme(legend.position = "none",
+                   strip.text.y = ggplot2::element_blank(),
+                   axis.ticks.y = ggplot2::element_blank(),
+                   axis.text.y = ggplot2::element_blank())
 }
 
 #' Plot dimension reduction plot
@@ -408,6 +454,8 @@ makePlots <- function(cluster, settings, cov = NULL, covInv = NULL, exp = NULL, 
       results$dists, results$fit, computeChi2(cluster, covInv, exp),
       settings$plotType
     ))
+  } else if (settings$plotType == "hist") {
+    return(plotHist(as.matrix(results$dists), results$groups, n, settings$bw.filt, settings$gr.filt))
   } else if (settings$plotType == "Obs") {
     return(plotObs(results$coord, x, y, linked, settings$obs, cond))
   } else if (settings$plotType == "dimRed") {

@@ -45,3 +45,8 @@ test_that("tour final frame works", {
 test_that("stats",{
   expect_no_condition(makePlots(cluster = Bikes$space1, linked = Bikes$space2, exp = data.frame(value = colMeans(Bikes$space1)), covInv = solve(cov(Bikes$space1)), settings = list(plotType = "ch",  k = 4, metric = "euclidean", linkage = "ward.D2")))
 })
+
+
+test_that("hist works", {
+  expect_no_condition(makePlots(cluster = Bikes$space1, settings = list(plotType = "hist", k = 4, metric = "euclidean", linkage = "ward.D2", bw.filt = "within", gr.filt = c(1,2,3)), cov = cov(Bikes$space1), linked = Bikes$space2, getScore = outsideScore(Bikes$other$res, "Residual")))
+})
