@@ -397,7 +397,7 @@ plotDimRed <- function(coord1, coord2, d_mat1, d_mat2, data, colouring, dimReduc
 #' )
 #'
 makePlots <- function(cluster, settings, cov = NULL, covInv = NULL, exp = NULL, linked = NULL,
-                      linked.cov = NULL, linked.covInv, linked.exp = NULL, user_dist = NULL,
+                      linked.cov = NULL, linked.covInv = NULL, linked.exp = NULL, user_dist = NULL,
                       getCoordsSpace1 = normCoords, getCoordsSpace2 = normCoords, getScore = NULL, results = NULL) {
   n <- nrow(cluster)
   cond <- 1:n
