@@ -189,18 +189,27 @@ plotted.</td>
 </td>
 </tr>
 <tr class="odd">
+<td>“hist”</td>
+<td>histograms of the within and between cluster distances</td>
+<td>no additional required settings, however the following are
+optional:<br><code>bw.filt=</code> either <code>"within"</code> or
+<code>"between"</code> or a vector of both to filter the columns of the
+subplots.<br><code>gr.filt=</code> groups to be plotted in the rows of
+the subplots.</td>
+</tr>
+<tr class="even">
 <td>“heatmap”</td>
 <td>Ordered dendrogram plot of clustering</td>
 <td>no additional parameters</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>cluster stats</td>
 <td>Plot of cluster stat vs number of clusters</td>
 <td>One of the following is what is given as <code>plotType</code>:
 “within.cluster.ss”, “wb.ratio”,“pearsongamma”, “dunn”, “ch”, “rmax”,
 “dmax” “dmin”, “dchi2rand”</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>“Obs”</td>
 <td>Plot space 1 variable on axes from space 2</td>
 <td>
