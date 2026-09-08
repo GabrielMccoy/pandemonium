@@ -210,7 +210,7 @@ plotCstat <- function(dist, fit, chivals, stat, kmax = 8) {
     ggplot2::labs(x = "# clusters", y = cstat_names[[stat]]) +
     ggplot2::theme_bw() +
     ggplot2::theme(axis.title = ggplot2::element_text(size = 18),
-                   axis.text = ggplot2::element_text(size = 12))
+                   axis.text = ggplot2::element_text(size = 14))
 }
 
 #' Plot shadow Histograms
