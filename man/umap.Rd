@@ -15,7 +15,8 @@ umap(dist, ...)
 list containing a 2 x n matrix of reduced dimension data
 }
 \description{
-Computes non-linear dimension reduction with uwot and default parameters.
+A wrapper for non-linear dimension reduction with uwot and default parameters.
+To be passed uncalled as an argument to pandemonium::pandemonium() or pandemonium::makePlots()
 }
 \examples{
 head(umap(getDists(Bikes$space1, "euclidean"))$Y)

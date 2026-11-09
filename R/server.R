@@ -102,7 +102,10 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
     if (is.numeric(df[[var]])) {
       numeric.colnames <- append(numeric.colnames, var)
     } else {
-      warning(paste(var, "in df is non numeric and has been removed"))
+      warning(paste(var, "in df is non numeric and has been removed.
+                    It can still be selected as a flag or label.
+                    Please pass a suitable numeric representation instead to use", var,
+                    "in the clustering or linked space"))
       nonnumeric.colnames <- append(nonnumeric.colnames, var)
     }
   }
@@ -110,7 +113,10 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
     if (is.numeric(linked[[var]])) {
       numeric.colnames <- append(numeric.colnames, var)
     } else {
-      warning(paste(var, "in linked is non numeric and has been removed"))
+      warning(paste(var, "in df is non numeric and has been removed.
+                    It can still be selected as a flag or label.
+                    Please pass a suitable numeric representation instead to use", var,
+                    "in the clustering or linked space"))
       nonnumeric.colnames <- append(nonnumeric.colnames, var)
     }
   }
@@ -168,7 +174,6 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
   }
   group.choice <- c(group.colnames, full.colnames)
 
-  tmp <- tempdir()
 
   server <- function(input, output, session) {
     if (!is.null(user_dist)) {
@@ -247,7 +252,7 @@ pandemonium <- function(df, cov = NULL, is.inv = FALSE, exp = NULL, linked = NUL
     shiny::observeEvent(input$group,
       {
         if (is.null(input$group)) {
-          rv$tmp.group <- NULL
+          rv$temp.group <- NULL
           shinyFeedback::hideFeedback("group", session)
         } else {
           group.df <-

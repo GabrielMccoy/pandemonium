@@ -15,7 +15,8 @@ tSNE(dist, ...)
 list containing a n x 2 matrix of reduced dimension data in Y
 }
 \description{
-Computes non-linear dimension reduction with Rtsne and default parameters.
+A wrapper for non-linear dimension reduction with Rtsne and default parameters.
+To be passed uncalled as an argument to pandemonium::pandemonium() or pandemonium::makePlots()
 }
 \examples{
 head(tSNE(getDists(Bikes$space1, "euclidean"))$Y)
