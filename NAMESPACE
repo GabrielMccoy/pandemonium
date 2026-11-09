@@ -2,6 +2,8 @@
 
 export("%>%")
 export(chi2Score)
+export(gap_pp)
+export(gap_start)
 export(getBenchmarkInformation)
 export(getClusterDists)
 export(getDists)

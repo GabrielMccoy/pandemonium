@@ -83,18 +83,20 @@ tourMaker <- function(coord1, coord2, group, score, user_group,
     "dcor" = tourr::guided_tour(tourr::dcor2d(), out_dim),
     "spline" = tourr::guided_tour(tourr::splines2d(), out_dim),
     "radial" = tourr::radial_tour(radial_view, radial_var),
-    "anomaly" = tourr::guided_anomaly_tour(tourr::anomaly_index())
+    "anomaly" = tourr::guided_anomaly_tour(tourr::anomaly_index()),
+    "gap" = tourr::guided_tour(gap_pp(), out_dim)
   )
   angles <- if (tour_path == "radial") 1 / 2 else 1
-  tour_bases <- if (tour_path %in% c("cmass", "holes", "lda", "pda", "dcor", "spline", "anomaly")) 1000 else 20
+  tour_bases <- if (tour_path %in% c("cmass", "holes", "lda", "pda", "dcor", "spline", "anomaly","gap")) 1000 else 20
+  start_proj <- if (tour_path == "gap") gap_start(data[projection]) else NULL
 
   if (display == "slice") {
     d <- detourr::detour(data, detourr::tour_aes(projection = tidyselect::all_of(projection), colour = "colour")) %>%
-      detourr::tour_path(tourPath, fps = 60, aps = angles, max_bases = tour_bases) %>%
+      detourr::tour_path(tourPath, start= start_proj, fps = 60, aps = angles, max_bases = tour_bases) %>%
       detourr::show_slice(palette = pal, slice_relative_volume = as.numeric(slice_width))
   } else {
     d <- detourr::detour(data, detourr::tour_aes(projection = tidyselect::all_of(projection), colour = "colour")) %>%
-      detourr::tour_path(tourPath, fps = 60, aps = angles, max_bases = tour_bases) %>%
+      detourr::tour_path(tourPath, start= start_proj, fps = 60, aps = angles, max_bases = tour_bases) %>%
       detourr::show_scatter(palette = pal)
   }
   if (final_frame) {
