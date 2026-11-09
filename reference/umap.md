@@ -1,7 +1,8 @@
 # Uniform Manifold Approximation and Projection Embedding
 
-Computes non-linear dimension reduction with uwot and default
-parameters.
+A wrapper for non-linear dimension reduction with uwot and default
+parameters. To be passed uncalled as an argument to
+pandemonium::pandemonium() or pandemonium::makePlots()
 
 ## Usage
 

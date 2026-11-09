@@ -1,7 +1,8 @@
 # t-Distributed Stochastic Neighbor Embedding
 
-Computes non-linear dimension reduction with Rtsne and default
-parameters.
+A wrapper for non-linear dimension reduction with Rtsne and default
+parameters. To be passed uncalled as an argument to
+pandemonium::pandemonium() or pandemonium::makePlots()
 
 ## Usage
 

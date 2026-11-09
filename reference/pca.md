@@ -1,7 +1,9 @@
 # Principal Component Analysis
 
-Computes and returns first two principal components of a given matrix
-using stats::prcomp
+A wrapper for principal component dimension reduction using
+stats::prcomp Computes and returns first two principal components of a
+given matrix To be passed uncalled as an argument to
+pandemonium::pandemonium() or pandemonium::makePlots()
 
 ## Usage
 

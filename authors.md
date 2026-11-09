@@ -14,13 +14,13 @@
 ## Citation
 
 McCoy G, Laa U, Valencia G (2026). *pandemonium: High Dimensional
-Analysis in Linked Spaces*. R package version 1.0.2,
+Analysis in Linked Spaces*. R package version 1.0.2.9000,
 <https://gabrielmccoy.github.io/pandemonium/>.
 
     @Manual{,
       title = {pandemonium: High Dimensional Analysis in Linked Spaces},
       author = {Gabriel McCoy and Ursula Laa and German Valencia},
       year = {2026},
-      note = {R package version 1.0.2},
+      note = {R package version 1.0.2.9000},
       url = {https://gabrielmccoy.github.io/pandemonium/},
     }
